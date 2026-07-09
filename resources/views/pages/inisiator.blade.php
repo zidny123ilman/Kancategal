@@ -35,10 +35,10 @@
             <!-- Members List -->
             <div class="inisiator-list">
 
-                <!-- Member 1: Ahmad Rifai -->
+                <!-- Member 1: Irfan Maulana -->
                 <div class="inisiator-row">
                     <div class="inisiator-img-wrapper">
-                        <img src="{{ asset('public/storage/irpan.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
+                        <img src="{{ asset('storage/irpan.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
                     </div>
                     <div class="inisiator-info">
                         <span class="inisiator-role">INISIATOR</span>
@@ -65,29 +65,33 @@
                     </div>
                 </div>
 
-                <!-- Member 2: Siti Nurhaliza -->
+                <!-- Member 2: Moh. Zidny Ilman-->
                 <div class="inisiator-row reverse">
                     <div class="inisiator-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600"
                             alt="Siti Nurhaliza" class="inisiator-img">
                     </div>
                     <div class="inisiator-info">
-                        <span class="inisiator-role">DIREKTUR KREATIF</span>
-                        <h2 class="inisiator-name">Siti Nurhaliza</h2>
-                        <span class="inisiator-edu">Lulusan Desain Komunikasi Visual</span>
+                        <span class="inisiator-role">INISIATOR</span>
+                        <h2 class="inisiator-name">Moh. Zidny Ilman</h2>
+                        <span class="inisiator-edu">Mahasiswa Teknik Komputer, UHN</span>
 
                         <div class="inisiator-quote-box">
                             <blockquote class="inisiator-quote">
-                                "Membangun ruang bagi anak muda Tegal untuk berekspresi secara artistik."
+                                "Membangun ruang bebas berekspresi dan bertukar karya pikir maupun fisik di Kota Tegal."
                             </blockquote>
                         </div>
 
                         <div class="inisiator-bio">
-                            <p>Siti percaya bahwa estetika adalah bahasa universal. Sebagai direktur kreatif, ia
-                                mengubah data sejarah yang kaku menjadi visual yang memikat dan relevan bagi generasi
-                                muda, memastikan Kanca Tegal tetap berdenyut di ranah digital.</p>
-                            <p>Ia mengarahkan identitas visual komunitas dengan memadukan elemen tradisional dan
-                                minimalisme kontemporer.</p>
+                            <p>Berangkat dari keyakinan bahwa perubahan lahir dari ruang yang terbuka, ia menginisiasi
+                                Kanca Tegal sebagai wadah bagi anak muda dan masyarakat umum untuk bertemu, berdiskusi,
+                                berkarya, dan saling menguatkan. Baginya, setiap gagasan harus diberi ruang untuk tumbuh
+                                agar tidak jadi ide semata yang beku dalam rutinitas palsu.</p>
+                            <p>Kanca Tegal dibangun sebagai ruang bersama yang menghubungkan literasi, kreativitas, dan
+                                gerakan kolektif. Teknologi digunakan bukan sekadar alat, melainkan sarana memperluas
+                                akses pengetahuan, mempertemukan gagasan, dan mendorong setiap individu untuk bertumbuh
+                                serta memberi manfaat bagi lingkungan sekitarnya.
+                            </p>
                         </div>
                     </div>
                 </div>
