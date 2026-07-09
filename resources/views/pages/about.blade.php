@@ -62,14 +62,14 @@
                 <div class="profile-stats-grid">
                     <!-- Stat Card 1 -->
                     <div class="stat-card white-card">
-                        <span class="stat-card-number">500+</span>
+                        <span class="stat-card-number">{{ number_format($totalAnggotaAktif, 0, ',', '.') }}</span>
                         <span class="stat-card-label">{{ __('Anggota Aktif') }}</span>
                     </div>
                     
                     <!-- Stat Card 2 -->
                     <div class="stat-card red-card">
-                        <span class="stat-card-number">12</span>
-                        <span class="stat-card-label">{{ __('Program') }}</span>
+                        <span class="stat-card-number">{{ number_format($totalBuku, 0, ',', '.') }}</span>
+                        <span class="stat-card-label">{{ __('Koleksi Buku') }}</span>
                     </div>
                 </div>
                 
@@ -189,15 +189,13 @@
                     KANCA TEGAL
                 </div>
                 <ul class="footer-links">
-                    <li><a href="#" class="footer-link">{{ __('WHATSAPP') }}</a></li>
-                    <li><a href="#" class="footer-link">{{ __('INSTAGRAM') }}</a></li>
-                    <li><a href="#" class="footer-link">{{ __('COMMUNITY GUIDELINES') }}</a></li>
-                    <li><a href="#" class="footer-link">{{ __('SUPPORT') }}</a></li>
+                    <li><a href="https://wa.me/62895324606014" class="footer-link">WHATSAPP</a></li>
+                    <li><a href="https://instagram.com/kanca.tegal" class="footer-link">INSTAGRAM</a></li>
                 </ul>
             </div>
             <div class="footer-bottom">
                 <div class="copyright">
-                    &copy; 2026 {{ __('THE MODERN ARCHIVIST. ALL RIGHTS RESERVED.') }}
+                    &copy; 2026 THE MODERN ARCHIVIST. HAK CIPTA DILINDUNGI. Support by @tegal.itsolutions
                 </div>
             </div>
         </div>

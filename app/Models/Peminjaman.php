@@ -43,6 +43,10 @@ class Peminjaman extends Model
      */
     public function getDendaAttribute()
     {
+        if ($this->denda_dibayar !== null) {
+            return $this->denda_dibayar;
+        }
+
         if (in_array($this->status, ['pending_pinjam', 'ditolak', 'ditolak_pinjam'])) {
             return 0;
         }

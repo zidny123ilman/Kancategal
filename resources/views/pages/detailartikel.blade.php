@@ -130,15 +130,13 @@
                     KANCA TEGAL
                 </div>
                 <ul class="footer-links">
-                    <li><a href="#" class="footer-link">WHATSAPP</a></li>
-                    <li><a href="#" class="footer-link">INSTAGRAM</a></li>
-                    <li><a href="#" class="footer-link">COMMUNITY GUIDELINES</a></li>
-                    <li><a href="#" class="footer-link">SUPPORT</a></li>
+                    <li><a href="https://wa.me/62895324606014" class="footer-link">WHATSAPP</a></li>
+                    <li><a href="https://instagram.com/kanca.tegal" class="footer-link">INSTAGRAM</a></li>
                 </ul>
             </div>
             <div class="footer-bottom">
                 <div class="copyright">
-                    &copy; 2026 THE MODERN ARCHIVIST. ALL RIGHTS RESERVED.
+                    &copy; 2026 THE MODERN ARCHIVIST. HAK CIPTA DILINDUNGI. Support by @tegal.itsolutions
                 </div>
             </div>
         </div>

@@ -22,7 +22,11 @@ class BukuController extends Controller
             ->take(3)
             ->get();
         $reviews = Review::orderBy('created_at', 'desc')->get();
-        return view('pages.home', compact('weeklyBooks', 'articles', 'reviews'));
+        
+        $totalBuku = Buku::where('status_publish', 'publish')->count();
+        $totalAnggota = \App\Models\User::count();
+        
+        return view('pages.home', compact('weeklyBooks', 'articles', 'reviews', 'totalBuku', 'totalAnggota'));
     }
 
     /**

@@ -22,7 +22,7 @@ class PeminjamanController extends Controller
         $menungguKonfirmasi = Peminjaman::whereIn('status', ['pending_pinjam', 'pending_kembali'])->count();
         
         $today = Carbon::today()->toDateString();
-        $terlambatKembali = Peminjaman::where('status', 'aktif')
+        $terlambatKembali = Peminjaman::whereIn('status', ['aktif', 'pending_kembali'])
             ->where('tanggal_kembali', '<', $today)
             ->count();
 
@@ -186,6 +186,7 @@ class PeminjamanController extends Controller
         // Update loan status to selesai
         $peminjaman->status = 'selesai';
         $peminjaman->tanggal_dikembalikan = Carbon::today()->toDateString();
+        $peminjaman->denda_dibayar = $peminjaman->denda;
         $peminjaman->save();
 
         // Update book status to ready

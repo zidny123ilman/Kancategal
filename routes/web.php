@@ -22,7 +22,9 @@ Route::get('/detailbuku', function () {
 });
 
 Route::get('/about', function () {
-    return view('pages.about');
+    $totalAnggotaAktif = \App\Models\User::where('status', 'active')->count();
+    $totalBuku = \App\Models\Buku::count();
+    return view('pages.about', compact('totalAnggotaAktif', 'totalBuku'));
 });
 
 Route::get('/artikel', [ArtikelController::class, 'publicIndex']);

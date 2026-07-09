@@ -22,7 +22,7 @@ class AdminController extends Controller
         $totalPeminjamanAktif = Peminjaman::where('status', 'aktif')->count();
         
         $today = Carbon::today()->toDateString();
-        $terlambatKembali = Peminjaman::where('status', 'aktif')
+        $terlambatKembali = Peminjaman::whereIn('status', ['aktif', 'pending_kembali'])
             ->where('tanggal_kembali', '<', $today)
             ->count();
 
