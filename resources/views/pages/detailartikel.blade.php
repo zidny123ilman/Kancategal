@@ -56,9 +56,9 @@
 
             <!-- Content Area -->
             <div class="article-content">
-                <p>
-                    {!! nl2br(e($artikel->isi)) !!}
-                </p>
+                <div class="article-formatted-content">
+                    {!! $artikel->isi !!}
+                </div>
 
                 @if($artikel->foto_pendukung)
                 <div class="article-inline-images">
