@@ -34,10 +34,9 @@ Route::post('/review', [ReviewController::class, 'store'])->middleware('auth');
 Route::post('/peminjaman/pinjam/{bukuId}', [PeminjamanController::class, 'pinjam'])->middleware('auth');
 Route::post('/peminjaman/kembalikan/{bukuId}', [PeminjamanController::class, 'kembalikan'])->middleware('auth');
 Route::post('/buku/{id}/favorite', [BukuController::class, 'toggleFavorite'])->middleware('auth');
+Route::post('/artikel/{id}/favorite', [ArtikelController::class, 'toggleFavorite'])->middleware('auth');
 
-Route::get('/detailartikel', function () {
-    return view('pages.detailartikel');
-});
+Route::get('/detailartikel/{id}', [ArtikelController::class, 'publicDetail']);
 
 Route::get('/kontak', function () {
     return view('pages.kontak');

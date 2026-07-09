@@ -284,22 +284,12 @@
                                         class="article-badge {{ strtolower($art->kategori) === 'essay' ? 'badge-essay' : (strtolower($art->kategori) === 'news' ? 'badge-news' : 'badge-review') }}">READ</span>
                                 </div>
                                 <h3 class="article-title">
-                                    <a href="#" class="dynamic-art-link" data-title="{{ $art->judul }}"
-                                        data-uploader="{{ $art->nama_uploader }}"
-                                        data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                                        data-content="{{ $art->isi }}"
-                                        data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                        data-category="{{ $art->kategori }}">
+                                    <a href="{{ url('/detailartikel/' . $art->id) }}">
                                         {{ $art->judul }}
                                     </a>
                                 </h3>
                                 <p class="article-description">{{ Str::limit($art->isi, 120) }}</p>
-                                <a href="#" class="article-link dynamic-art-link" data-title="{{ $art->judul }}"
-                                    data-uploader="{{ $art->nama_uploader }}"
-                                    data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                                    data-content="{{ $art->isi }}"
-                                    data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                    data-category="{{ $art->kategori }}">
+                                <a href="{{ url('/detailartikel/' . $art->id) }}" class="article-link">
                                     {{ __('Read More') }} <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
@@ -476,33 +466,6 @@
                     }
                 });
             }
-
-            const articleLinks = document.querySelectorAll('.dynamic-art-link');
-
-            articleLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-
-                    // Retrieve metadata
-                    let target = link;
-                    if (!link.getAttribute('data-title')) {
-                        // If it's a wrapper, search closest element or children
-                        target = link.closest('.article-card').querySelector('[data-title]');
-                    }
-
-                    if (target) {
-                        const title = target.getAttribute('data-title');
-                        const author = target.getAttribute('data-uploader');
-                        const date = target.getAttribute('data-date');
-                        const content = target.getAttribute('data-content');
-                        const image = target.getAttribute('data-image');
-                        const category = target.getAttribute('data-category');
-
-                        // Redirect with URL parameters
-                        window.location.href = `{{ url('/detailartikel') }}?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&date=${encodeURIComponent(date)}&content=${encodeURIComponent(content)}&image=${encodeURIComponent(image)}&category=${encodeURIComponent(category)}`;
-                    }
-                });
-            });
 
             // Slider/Carousel scroll logic
             function setupSlider(containerId, prevBtnId, nextBtnId) {

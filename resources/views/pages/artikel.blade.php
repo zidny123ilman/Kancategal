@@ -16,6 +16,68 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <style>
+        .slider-outer-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .slider-inner-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 1rem 0.5rem 2rem 0.5rem;
+            margin: 0 -0.5rem;
+            scrollbar-width: none;
+        }
+
+        .slider-inner-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-inner-container .most-read-card,
+        .slider-inner-container .latest-article-card {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 768px) {
+            .slider-inner-container .most-read-card,
+            .slider-inner-container .latest-article-card {
+                flex: 0 0 calc(50% - 1rem);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .slider-inner-container .most-read-card,
+            .slider-inner-container .latest-article-card {
+                flex: 0 0 calc(33.333% - 1.333rem);
+            }
+        }
+
+        .nav-arrow-btn {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: var(--text-dark);
+        }
+
+        .nav-arrow-btn:hover {
+            background: var(--primary-red);
+            color: var(--text-light);
+            border-color: var(--primary-red);
+        }
+    </style>
 </head>
 
 <body>
@@ -67,55 +129,97 @@
                     <span class="section-tagline">TRENDING TOPICS THIS MONTH</span>
                 </div>
 
-                <div class="slider-navigation">
-                    <button class="nav-arrow-btn"><i class="fas fa-arrow-left"></i></button>
-                    <button class="nav-arrow-btn"><i class="fas fa-arrow-right"></i></button>
+                @if(count($mostRead) > 3)
+                <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
+                    <button class="nav-arrow-btn" id="mr-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button class="nav-arrow-btn" id="mr-next"><i class="fas fa-arrow-right"></i></button>
                 </div>
+                @endif
             </div>
 
-            <!-- Most Read Grid -->
-            <div class="articles-grid">
-                @forelse($mostRead as $index => $art)
-                    <!-- Card -->
-                    <article class="most-read-card">
-                        <div class="img-wrapper-relative">
-                            <span class="number-badge">0{{ $index + 1 }}</span>
-                            <img src="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                alt="{{ $art->judul }}" class="most-read-img"
-                                style="height: 250px; object-fit: cover; width: 100%;">
-                        </div>
-                        <h4 class="article-title">
-                            <a href="#" class="dynamic-art-link" data-title="{{ $art->judul }}"
-                                data-uploader="{{ $art->nama_uploader }}"
-                                data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                                data-content="{{ $art->isi }}"
-                                data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                data-category="{{ $art->kategori }}">
-                                {{ $art->judul }}
+            <div class="slider-outer-wrapper">
+                <div class="slider-inner-container" id="mr-slider">
+                    @forelse($mostRead as $index => $art)
+                        <!-- Card -->
+                        <article class="most-read-card">
+                            <div class="img-wrapper-relative">
+                                <span class="number-badge">0{{ $index + 1 }}</span>
+                                <img src="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
+                                    alt="{{ $art->judul }}" class="most-read-img"
+                                    style="height: 250px; object-fit: cover; width: 100%;">
+                            </div>
+                            <h4 class="article-title">
+                                <a href="{{ url('/detailartikel/' . $art->id) }}">
+                                    {{ $art->judul }}
+                                </a>
+                            </h4>
+                            <span class="article-author-blue">BY {{ strtoupper($art->nama_uploader) }}</span>
+                            <p class="article-desc-preview">
+                                {{ Str::limit($art->isi, 120) }}
+                            </p>
+                            <a href="{{ url('/detailartikel/' . $art->id) }}" class="btn-read-more-link">
+                                Read More <i class="fas fa-arrow-right"></i>
                             </a>
-                        </h4>
-                        <span class="article-author-blue">BY {{ strtoupper($art->nama_uploader) }}</span>
-                        <p class="article-desc-preview">
-                            {{ Str::limit($art->isi, 120) }}
-                        </p>
-                        <a href="#" class="btn-read-more-link dynamic-art-link" data-title="{{ $art->judul }}"
-                            data-uploader="{{ $art->nama_uploader }}"
-                            data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                            data-content="{{ $art->isi }}"
-                            data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                            data-category="{{ $art->kategori }}">
-                            Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </article>
-                @empty
-                    <div style="grid-column: span 3; text-align: center; padding: 4rem 0; color: var(--text-muted);">
-                        <i class="far fa-file-alt"
-                            style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
-                        Belum ada artikel populer saat ini.
-                    </div>
-                @endforelse
+                        </article>
+                    @empty
+                        <div style="width: 100%; text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                            <i class="far fa-file-alt"
+                                style="font-size: 3rem; margin-bottom: 1rem; display: block; opacity: 0.5;"></i>
+                            Belum ada artikel populer saat ini.
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </section>
+
+        @auth
+        @if(isset($favorites) && count($favorites) > 0)
+        <!-- Favorite Section -->
+        <section style="margin-top: 4rem;">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <h3 class="section-title">Artikel Favorit Anda</h3>
+                    <span class="section-tagline">DISIMPAN UNTUK DIBACA KEMBALI</span>
+                </div>
+
+                @if(count($favorites) > 3)
+                <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
+                    <button class="nav-arrow-btn" id="fav-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button class="nav-arrow-btn" id="fav-next"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                @endif
+            </div>
+
+            <div class="slider-outer-wrapper">
+                <div class="slider-inner-container" id="fav-slider">
+                    @foreach($favorites as $index => $art)
+                        <!-- Card -->
+                        <article class="most-read-card">
+                            <div class="img-wrapper-relative">
+                                <span class="number-badge"><i class="fas fa-bookmark" style="font-size: 0.8rem;"></i></span>
+                                <img src="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
+                                    alt="{{ $art->judul }}" class="most-read-img"
+                                    style="height: 250px; object-fit: cover; width: 100%;">
+                            </div>
+                            <h4 class="article-title">
+                                <a href="{{ url('/detailartikel/' . $art->id) }}">
+                                    {{ $art->judul }}
+                                </a>
+                            </h4>
+                            <span class="article-author-blue">BY {{ strtoupper($art->nama_uploader) }}</span>
+                            <p class="article-desc-preview">
+                                {{ Str::limit($art->isi, 120) }}
+                            </p>
+                            <a href="{{ url('/detailartikel/' . $art->id) }}" class="btn-read-more-link">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+        @endauth
 
     </main>
 
@@ -129,60 +233,53 @@
                     <span class="section-tagline">FRESH PERSPECTIVES FROM OUR EDITORS</span>
                 </div>
 
-                <div class="slider-navigation">
-                    <button class="nav-arrow-btn"><i class="fas fa-arrow-left"></i></button>
-                    <button class="nav-arrow-btn"><i class="fas fa-arrow-right"></i></button>
+                @if(count($latest) > 3)
+                <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
+                    <button class="nav-arrow-btn" id="la-prev"><i class="fas fa-arrow-left"></i></button>
+                    <button class="nav-arrow-btn" id="la-next"><i class="fas fa-arrow-right"></i></button>
                 </div>
+                @endif
             </div>
 
-            <!-- Latest Articles Grid -->
-            <div class="articles-grid" style="margin-bottom: 0;">
-                @forelse($latest as $art)
-                    <!-- Latest Card -->
-                    <article class="latest-article-card">
-                        <div class="latest-card-img-container">
-                            <img src="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                alt="{{ $art->judul }}" class="latest-card-img"
-                                style="height: 200px; object-fit: cover; width: 100%;">
-                        </div>
-                        <div class="badge-row">
-                            <span class="pill-badge cat-badge">{{ strtoupper($art->kategori) }}</span>
-                            <span class="pill-badge time-badge">5 MIN READ</span>
-                        </div>
-                        <h4 class="latest-card-title">
-                            <a href="#" class="dynamic-art-link" data-title="{{ $art->judul }}"
-                                data-uploader="{{ $art->nama_uploader }}"
-                                data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                                data-content="{{ $art->isi }}"
-                                data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                data-category="{{ $art->kategori }}">
-                                {{ $art->judul }}
-                            </a>
-                        </h4>
-                        <p class="latest-card-desc">
-                            {{ Str::limit($art->isi, 120) }}
-                        </p>
-                        <div class="latest-card-footer">
-                            <span class="latest-author-name">{{ strtoupper($art->nama_uploader) }}</span>
-                            <button class="btn-action-arrow dynamic-art-link" data-title="{{ $art->judul }}"
-                                data-uploader="{{ $art->nama_uploader }}"
-                                data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}"
-                                data-content="{{ $art->isi }}"
-                                data-image="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
-                                data-category="{{ $art->kategori }}">
-                                <i class="fas fa-arrow-up-right-from-square"></i>
-                            </button>
-                        </div>
-                    </article>
-                @empty
-                    @if($mostRead->isEmpty())
-                        <!-- Already handled above -->
-                    @else
-                        <div style="grid-column: span 3; text-align: center; padding: 4rem 0; color: var(--text-muted);">
-                            Semua artikel sudah ditampilkan di atas.
-                        </div>
-                    @endif
-                @endforelse
+            <div class="slider-outer-wrapper">
+                <div class="slider-inner-container" id="la-slider" style="margin-bottom: 0;">
+                    @forelse($latest as $art)
+                        <!-- Latest Card -->
+                        <article class="latest-article-card">
+                            <div class="latest-card-img-container">
+                                <img src="{{ filter_var($art->foto_utama, FILTER_VALIDATE_URL) ? $art->foto_utama : asset($art->foto_utama) }}"
+                                    alt="{{ $art->judul }}" class="latest-card-img"
+                                    style="height: 200px; object-fit: cover; width: 100%;">
+                            </div>
+                            <div class="badge-row">
+                                <span class="pill-badge cat-badge">{{ strtoupper($art->kategori) }}</span>
+                                <span class="pill-badge time-badge">5 MIN READ</span>
+                            </div>
+                            <h4 class="latest-card-title">
+                                <a href="{{ url('/detailartikel/' . $art->id) }}">
+                                    {{ $art->judul }}
+                                </a>
+                            </h4>
+                            <p class="latest-card-desc">
+                                {{ Str::limit($art->isi, 120) }}
+                            </p>
+                            <div class="latest-card-footer">
+                                <span class="latest-author-name">{{ strtoupper($art->nama_uploader) }}</span>
+                                <a href="{{ url('/detailartikel/' . $art->id) }}" class="btn-action-arrow" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </article>
+                    @empty
+                        @if($mostRead->isEmpty())
+                            <!-- Already handled above -->
+                        @else
+                            <div style="width: 100%; text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                                Semua artikel sudah ditampilkan di atas.
+                            </div>
+                        @endif
+                    @endforelse
+                </div>
             </div>
 
         </div>
@@ -208,35 +305,35 @@
         </div>
     </footer>
 
-    <!-- Script to handle article clicks and pass full data to detail page -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const articleLinks = document.querySelectorAll('.dynamic-art-link');
+            function setupSlider(containerId, prevBtnId, nextBtnId) {
+                const container = document.getElementById(containerId);
+                const prevBtn = document.getElementById(prevBtnId);
+                const nextBtn = document.getElementById(nextBtnId);
 
-            articleLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
+                if (container && prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        const firstCard = container.querySelector('article');
+                        if (firstCard) {
+                            const cardWidth = firstCard.offsetWidth;
+                            container.scrollBy({ left: -cardWidth - 32, behavior: 'smooth' }); // card width + gap
+                        }
+                    });
 
-                    // Retrieve metadata
-                    let target = link;
-                    if (!link.getAttribute('data-title')) {
-                        // If it's a wrapper, search closest element or children
-                        target = link.closest('.most-read-card, .latest-article-card').querySelector('[data-title]');
-                    }
+                    nextBtn.addEventListener('click', () => {
+                        const firstCard = container.querySelector('article');
+                        if (firstCard) {
+                            const cardWidth = firstCard.offsetWidth;
+                            container.scrollBy({ left: cardWidth + 32, behavior: 'smooth' }); // card width + gap
+                        }
+                    });
+                }
+            }
 
-                    if (target) {
-                        const title = target.getAttribute('data-title');
-                        const author = target.getAttribute('data-uploader');
-                        const date = target.getAttribute('data-date');
-                        const content = target.getAttribute('data-content');
-                        const image = target.getAttribute('data-image');
-                        const category = target.getAttribute('data-category');
-
-                        // Redirect with URL parameters
-                        window.location.href = `{{ url('/detailartikel') }}?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&date=${encodeURIComponent(date)}&content=${encodeURIComponent(content)}&image=${encodeURIComponent(image)}&category=${encodeURIComponent(category)}`;
-                    }
-                });
-            });
+            setupSlider('mr-slider', 'mr-prev', 'mr-next');
+            setupSlider('la-slider', 'la-prev', 'la-next');
+            setupSlider('fav-slider', 'fav-prev', 'fav-next');
         });
     </script>
 </body>

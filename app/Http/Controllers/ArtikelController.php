@@ -26,13 +26,32 @@ class ArtikelController extends Controller
             });
         }
 
-        $articles = $query->orderBy('created_at', 'desc')->get();
-            
-        // We can split articles: first 3 for "Most Read" (or any curation) and the rest for "Latest"
-        $mostRead = $articles->take(3);
-        $latest = $articles->skip(3);
+        $mostRead = (clone $query)->orderBy('views', 'desc')->take(10)->get();
+        $latest = (clone $query)->orderBy('tanggal_upload', 'desc')->orderBy('created_at', 'desc')->take(10)->get();
 
-        return view('pages.artikel', compact('articles', 'mostRead', 'latest'));
+        $favorites = collect();
+        if (Auth::check()) {
+            $favorites = Artikel::where('status', 'approved')
+                ->whereHas('favoritedBy', function($q) {
+                    $q->where('user_id', Auth::id());
+                })->get();
+        }
+
+        return view('pages.artikel', compact('mostRead', 'latest', 'favorites'));
+    }
+
+    public function publicDetail($id)
+    {
+        $artikel = Artikel::where('status', 'approved')->findOrFail($id);
+        $artikel->increment('views');
+
+        $otherArticles = Artikel::where('status', 'approved')
+            ->where('id', '!=', $id)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('pages.detailartikel', compact('artikel', 'otherArticles'));
     }
 
     public function showUploadForm()
@@ -88,6 +107,7 @@ class ArtikelController extends Controller
             'tanggal_upload' => 'required|date',
             'isi' => $isDraft ? 'nullable|string' : 'required|string',
             'kategori' => 'required|string|max:100',
+            'keywords' => $isDraft ? 'nullable|string|max:255' : 'required|string|max:255',
             'foto_pendukung' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ];
 
@@ -124,6 +144,7 @@ class ArtikelController extends Controller
             'tanggal_upload' => $request->tanggal_upload,
             'isi' => $isi,
             'kategori' => strtoupper($kategori),
+            'keywords' => $request->keywords,
             'status' => $isDraft ? 'draft' : 'pending',
         ];
 
@@ -257,5 +278,19 @@ class ArtikelController extends Controller
         $article->delete();
 
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil dihapus dari arsip.');
+    }
+
+    public function toggleFavorite($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        $user = Auth::user();
+
+        if ($artikel->favoritedBy()->where('user_id', $user->id)->exists()) {
+            $artikel->favoritedBy()->detach($user->id);
+            return back()->with('success', 'Artikel dihapus dari favorit.');
+        } else {
+            $artikel->favoritedBy()->attach($user->id);
+            return back()->with('success', 'Artikel ditambahkan ke favorit.');
+        }
     }
 }

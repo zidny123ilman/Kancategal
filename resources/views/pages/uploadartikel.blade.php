@@ -410,6 +410,15 @@
                             <input type="text" id="kategori_baru" name="kategori_baru" class="form-input" placeholder="Masukkan nama kategori baru..." value="{{ old('kategori_baru', $isCustomCategory ? $draftCategory : '') }}">
                         </div>
                     </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- Keywords -->
+                    <div class="form-group">
+                        <label for="keywords" class="form-label">Kata Kunci (Keywords)</label>
+                        <input type="text" id="keywords" name="keywords" class="form-input" placeholder="Pisahkan dengan koma (misal: literasi, budaya, tegal)" value="{{ old('keywords', $draft->keywords ?? '') }}" required>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 5px;">Minimal 1 kata kunci.</span>
+                    </div>
 
                     <!-- Foto Pendukung -->
                     <div class="form-group">

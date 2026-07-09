@@ -21,10 +21,16 @@ class Artikel extends Model
         'foto_pendukung',
         'kategori',
         'status',
+        'keywords',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'artikel_favorites', 'artikel_id', 'user_id')->withTimestamps();
     }
 }
