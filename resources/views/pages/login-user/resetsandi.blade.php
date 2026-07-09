@@ -52,6 +52,7 @@
                     <h2 class="reset-right-title">Atur Ulang Kata Sandi</h2>
                     <p class="reset-right-desc">Buat kata sandi baru yang kuat untuk akun Anda.</p>
 
+                    {{-- 
                     @if (session()->has('formatted_otp_message'))
                         <div class="otp-simulation-box" style="background: rgba(30, 46, 37, 0.6); border: 1px solid rgba(46, 92, 61, 0.4); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.5rem; backdrop-filter: blur(10px);">
                             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem;">
@@ -65,6 +66,7 @@
                             <p style="font-size: 0.75rem; color: rgba(244,246,244,0.5); margin-top: 8px; line-height: 1.4;"><i class="fas fa-info-circle"></i> Ini adalah simulasi pengiriman pesan WhatsApp. Masukkan kode OTP di atas untuk melanjutkan reset kata sandi.</p>
                         </div>
                     @endif
+                    --}}
 
                     @if ($errors->any())
                         <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
