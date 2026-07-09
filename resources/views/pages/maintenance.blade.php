@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pemeliharaan Sistem - Kanca Tegal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary-red: #8B1E0F;
@@ -157,10 +160,13 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 opacity: 1;
             }
+
             50% {
                 transform: scale(1.1);
                 opacity: 0.8;
@@ -168,6 +174,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="glow-circle glow-1"></div>
@@ -182,18 +189,20 @@
         </div>
 
         <h1>Under Maintenance</h1>
-        <p>Kami sedang melakukan pemeliharaan rutin pada platform Kanca Tegal untuk meningkatkan kinerja dan menambahkan beberapa fitur baru. Kami akan segera kembali dalam beberapa saat.</p>
+        <p>Kami sedang melakukan pemeliharaan rutin pada platform Kanca Tegal untuk meningkatkan kinerja dan menambahkan
+            beberapa fitur baru. Kami akan segera kembali dalam beberapa saat.</p>
 
         <div class="time-badge">
             <i class="far fa-clock"></i> ESTIMATED TIME: 09.00 - 18.00 WIB
         </div>
 
         <div class="social-links">
-            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="far fa-envelope"></i></a>
+            <a href="https://wa.me/+62895324606014" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/kanca.tegal" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:kancategal10@gmail.com" class=" social-link"><i class="far fa-envelope"></i></a>
         </div>
     </div>
 
 </body>
+
 </html>

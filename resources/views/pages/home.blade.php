@@ -43,7 +43,8 @@
         }
 
         .slider-inner-container .article-card,
-        .slider-inner-container .review-card {
+        .slider-inner-container .review-card,
+        .slider-inner-container .book-card {
             flex: 0 0 100%;
             scroll-snap-align: start;
             box-sizing: border-box;
@@ -57,6 +58,10 @@
             .slider-inner-container .review-card {
                 flex: 0 0 calc(50% - 1rem);
             }
+
+            .slider-inner-container .book-card {
+                flex: 0 0 calc(50% - 1rem);
+            }
         }
 
         @media (min-width: 1024px) {
@@ -66,6 +71,10 @@
 
             .slider-inner-container .review-card {
                 flex: 0 0 calc(50% - 1rem);
+            }
+
+            .slider-inner-container .book-card {
+                flex: 0 0 calc(25% - 1.5rem);
             }
         }
 
@@ -159,13 +168,22 @@
                         <span class="section-tag">{{ __('WHAT WE READ THIS WEEK') }}</span>
                         <h2 class="section-title">{{ __('Weekly Books') }}</h2>
                     </div>
-                    <a href="{{ url('/buku') }}" class="section-link">
-                        {{ __('View Full Archive') }} <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 1rem;">
+                        <a href="{{ url('/buku') }}" class="section-link">
+                            {{ __('View Full Archive') }} <i class="fas fa-arrow-right"></i>
+                        </a>
+                        @if(count($weeklyBooks) > 0)
+                            <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
+                                <button class="nav-arrow-btn" id="books-prev"><i class="fas fa-arrow-left"></i></button>
+                                <button class="nav-arrow-btn" id="books-next"><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
-                <div class="books-grid">
-                    @forelse ($weeklyBooks as $buku)
+                <div class="slider-outer-wrapper">
+                    <div class="slider-inner-container" id="books-slider">
+                        @forelse ($weeklyBooks as $buku)
                         <!-- Book -->
                         <article class="book-card" onclick="window.location.href = '{{ url('/detailbuku/' . $buku->id) }}';"
                             style="cursor: pointer;">
@@ -182,12 +200,13 @@
                         </article>
                     @empty
                         <div
-                            style="grid-column: span 4; text-align: center; color: var(--text-muted); padding: 3rem; background: var(--bg-white); border-radius: 12px; border: 1px solid var(--border-color);">
+                            style="text-align: center; color: var(--text-muted); padding: 3rem; background: var(--bg-white); border-radius: 12px; border: 1px solid var(--border-color); width: 100%; flex: 0 0 100%;">
                             <i class="fas fa-book" style="font-size: 2rem; color: #C8D4CE; margin-bottom: 0.5rem;"></i>
                             <p style="font-size: 0.9rem; font-weight: 600;">{{ __('Belum ada buku tersedia minggu ini.') }}
                             </p>
                         </div>
                     @endforelse
+                    </div>
                 </div>
             </div>
         </section>
@@ -510,6 +529,7 @@
                 }
             }
 
+            setupSlider('books-slider', 'books-prev', 'books-next');
             setupSlider('articles-slider', 'art-prev', 'art-next');
             setupSlider('reviews-slider', 'rev-prev', 'rev-next');
 
