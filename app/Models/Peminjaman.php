@@ -60,7 +60,7 @@ class Peminjaman extends Model
         }
 
         if ($tanggalSelesai->greaterThan($tanggalKembali)) {
-            $lateDays = $tanggalSelesai->diffInDays($tanggalKembali);
+            $lateDays = (int) $tanggalSelesai->diffInDays($tanggalKembali, true);
             $gracePeriod = (int) Setting::get('grace_period', 0);
             $lateFineRate = (int) Setting::get('late_fine_rate', 1000);
 
