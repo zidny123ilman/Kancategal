@@ -433,4 +433,80 @@ class PeminjamanController extends Controller
 
         return redirect()->back()->with('success', 'Permintaan pengembalian berhasil diajukan. Silakan kembalikan buku ke perpustakaan untuk diverifikasi admin.');
     }
+
+    /**
+     * Cetak laporan peminjaman dalam format PDF.
+     */
+    public function cetak(Request $request)
+    {
+        $today = Carbon::today()->toDateString();
+        
+        $query = Peminjaman::with(['user', 'buku']);
+
+        if ($request->filled('type')) {
+            if ($request->type === 'peminjaman') {
+                $query->whereIn('status', ['pending_pinjam', 'aktif']);
+            } elseif ($request->type === 'pengembalian') {
+                $query->whereIn('status', ['pending_kembali', 'selesai']);
+            }
+        }
+
+        if ($request->filled('status')) {
+            if ($request->status === 'terlambat') {
+                $query->where('status', 'aktif')
+                      ->where('tanggal_kembali', '<', $today);
+            } else {
+                $query->where('status', $request->status);
+            }
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('tanggal_pinjam', $request->date);
+        }
+
+        $search = $request->query('q');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->whereHas('user', function($userQuery) use ($search) {
+                    $userQuery->where('name', 'like', '%' . $search . '%')
+                              ->orWhere('whatsapp', 'like', '%' . $search . '%');
+                })->orWhereHas('buku', function($bukuQuery) use ($search) {
+                    $bukuQuery->where('judul', 'like', '%' . $search . '%')
+                              ->orWhere('kategori', 'like', '%' . $search . '%');
+                });
+            });
+        }
+
+        $loans = $query->orderBy('created_at', 'desc')->get();
+
+        // Base64 Logo
+        $logoPath = public_path('images/logo_kanca_tegal.jpg');
+        $logoBase64 = '';
+        if (file_exists($logoPath)) {
+            $logoBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($logoPath));
+        }
+
+        $adminName = session('admin_fullname', \App\Models\Setting::get('admin_fullname', 'Admin'));
+        
+        $periode = 'Semua';
+        $filterParts = [];
+        if ($request->filled('type')) {
+            $filterParts[] = 'Tipe: ' . ucfirst($request->type);
+        }
+        if ($request->filled('status')) {
+            $filterParts[] = 'Status: ' . str_replace('_', ' ', ucfirst($request->status));
+        }
+        if ($request->filled('date')) {
+            $filterParts[] = 'Tanggal: ' . Carbon::parse($request->date)->translatedFormat('d F Y');
+        }
+        if ($search) {
+            $filterParts[] = 'Pencarian: "' . $search . '"';
+        }
+        if (!empty($filterParts)) {
+            $periode = implode(', ', $filterParts);
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pages.admin.peminjaman.cetak', compact('loans', 'logoBase64', 'adminName', 'periode'));
+        return $pdf->stream('laporan_peminjaman_' . date('Ymd_His') . '.pdf');
+    }
 }

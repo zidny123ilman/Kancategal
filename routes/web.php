@@ -85,6 +85,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/search', [AdminController::class, 'globalSearch']);
         
         Route::get('/buku', [BukuController::class, 'index']);
+        Route::get('/buku/cetak', [BukuController::class, 'cetak']);
         Route::get('/buku/tambah', [BukuController::class, 'tambah']);
         Route::post('/buku/store', [BukuController::class, 'store']);
         Route::get('/buku/edit/{id}', [BukuController::class, 'edit']);
@@ -92,6 +93,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/buku/delete/{id}', [BukuController::class, 'destroy']);
         
         Route::get('/peminjaman', [PeminjamanController::class, 'adminIndex']);
+        Route::get('/peminjaman/cetak', [PeminjamanController::class, 'cetak']);
         Route::get('/peminjaman/detail/{id}', [PeminjamanController::class, 'adminDetail']);
         Route::post('/peminjaman/{id}/setujui-pinjam', [PeminjamanController::class, 'setujuiPinjam']);
         Route::post('/peminjaman/{id}/tolak-pinjam', [PeminjamanController::class, 'tolakPinjam']);
@@ -107,6 +109,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/artikel/{id}/delete', [ArtikelController::class, 'destroy']);
         
         Route::get('/member', [AdminController::class, 'memberIndex']);
+        Route::get('/member/cetak', [AdminController::class, 'cetak']);
         Route::get('/member/tambah', [AdminController::class, 'memberTambah']);
         Route::post('/member/store', [AdminController::class, 'memberStore']);
         Route::get('/member/detail/{id}', [AdminController::class, 'memberDetail']);

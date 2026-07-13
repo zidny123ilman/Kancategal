@@ -25,8 +25,8 @@
                     <h1 class="page-title">Manajemen<br>Buku</h1>
                 </div>
                 <div class="page-actions">
-                    <a href="{{ url('/admin/peminjaman/export-excel') }}" class="btn-admin-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-download"></i> EKSPOR LAPORAN PEMINJAMAN
+                    <a href="{{ url('/admin/buku/cetak') }}?{{ http_build_query(request()->query()) }}" target="_blank" class="btn-admin-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-print"></i> CETAK LAPORAN BUKU
                     </a>
                     <a href="{{ url('/admin/buku/tambah') }}" class="btn-admin-primary">
                         <i class="fas fa-plus"></i> UPLOAD BUKU BARU

@@ -57,8 +57,8 @@
                     <span class="page-subtitle" style="text-transform: none; font-size: 0.95rem; color: var(--text-dark); letter-spacing: 0; margin-top: 0.5rem; font-weight: 500;">Daftar sirkulasi buku terbaru dalam ekosistem Kanca Tegal.</span>
                 </div>
                 <div class="page-actions">
-                    <a href="{{ url('/admin/peminjaman/export-excel') }}?{{ http_build_query(request()->query()) }}" class="btn-admin-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                        <i class="fas fa-download"></i> Ekspor Data
+                    <a href="{{ url('/admin/peminjaman/cetak') }}?{{ http_build_query(request()->query()) }}" target="_blank" class="btn-admin-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-print"></i> Cetak Laporan
                     </a>
                 </div>
             </div>

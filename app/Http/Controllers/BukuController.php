@@ -474,5 +474,71 @@ class BukuController extends Controller
             return response()->json(['status' => 'added', 'message' => 'Buku ditambahkan ke favorit.']);
         }
     }
+
+    /**
+     * Cetak laporan daftar buku dalam format PDF.
+     */
+    public function cetak(Request $request)
+    {
+        $genre = $request->query('genre');
+        $availability = $request->query('availability');
+        $search = $request->query('q');
+
+        $query = Buku::query();
+
+        if ($genre && strtolower($genre) !== 'all') {
+            $query->where('kategori', 'like', $genre);
+        }
+
+        if ($availability && strtolower($availability) !== 'all') {
+            if (strtolower($availability) === 'publish') {
+                $query->where('status_publish', 'publish');
+            } elseif (strtolower($availability) === 'draft') {
+                $query->where('status_publish', 'draft');
+            } else {
+                $statusVal = strtolower($availability) === 'borrowed' ? 'dipinjam' : strtolower($availability);
+                $query->where('status', $statusVal);
+            }
+        }
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                  ->orWhere('penulis', 'like', '%' . $search . '%')
+                  ->orWhere('sinopsis', 'like', '%' . $search . '%')
+                  ->orWhere('kategori', 'like', '%' . $search . '%')
+                  ->orWhere('isbn', 'like', '%' . $search . '%');
+            });
+        }
+
+        $books = $query->orderBy('created_at', 'desc')->get();
+        
+        // Base64 Logo
+        $logoPath = public_path('images/logo_kanca_tegal.jpg');
+        $logoBase64 = '';
+        if (file_exists($logoPath)) {
+            $logoBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($logoPath));
+        }
+
+        $adminName = session('admin_fullname', \App\Models\Setting::get('admin_fullname', 'Admin'));
+        
+        $periode = 'Semua';
+        $filterParts = [];
+        if ($genre && strtolower($genre) !== 'all') {
+            $filterParts[] = 'Genre: ' . strtoupper($genre);
+        }
+        if ($availability && strtolower($availability) !== 'all') {
+            $filterParts[] = 'Status: ' . strtoupper($availability);
+        }
+        if ($search) {
+            $filterParts[] = 'Pencarian: "' . $search . '"';
+        }
+        if (!empty($filterParts)) {
+            $periode = implode(', ', $filterParts);
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pages.admin.buku.cetak', compact('books', 'logoBase64', 'adminName', 'periode'));
+        return $pdf->stream('laporan_buku_' . date('Ymd_His') . '.pdf');
+    }
 }
 

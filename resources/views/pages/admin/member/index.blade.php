@@ -86,8 +86,8 @@
                     <a href="{{ url('/admin/member/tambah') }}" class="btn-admin-primary" style="text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
                         <i class="fas fa-plus"></i> ADD NEW MEMBER
                     </a>
-                    <a href="{{ url('/admin/member/export-csv') }}" class="btn-admin-secondary" style="text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-download"></i> EXPORT CSV
+                    <a href="{{ url('/admin/member/cetak') }}?{{ http_build_query(request()->query()) }}" target="_blank" class="btn-admin-secondary" style="text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-print"></i> CETAK LAPORAN
                     </a>
                 </div>
                 <div class="member-toolbar-right">

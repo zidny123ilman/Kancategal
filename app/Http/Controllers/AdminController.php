@@ -351,4 +351,38 @@ class AdminController extends Controller
 
         return view('pages.admin.search.index', compact('search', 'books', 'peminjamans', 'members', 'articles'));
     }
+
+    /**
+     * Cetak laporan daftar member dalam format PDF.
+     */
+    public function cetak(Request $request)
+    {
+        $search = $request->query('q');
+        $query = User::query();
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('whatsapp', 'like', '%' . $search . '%')
+                  ->orWhere('alamat', 'like', '%' . $search . '%');
+            });
+        }
+        $members = $query->orderBy('created_at', 'desc')->get();
+
+        // Base64 Logo
+        $logoPath = public_path('images/logo_kanca_tegal.jpg');
+        $logoBase64 = '';
+        if (file_exists($logoPath)) {
+            $logoBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($logoPath));
+        }
+
+        $adminName = session('admin_fullname', \App\Models\Setting::get('admin_fullname', 'Admin'));
+        
+        $periode = 'Semua';
+        if ($search) {
+            $periode = 'Pencarian: "' . $search . '"';
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pages.admin.member.cetak', compact('members', 'logoBase64', 'adminName', 'periode'));
+        return $pdf->stream('laporan_member_' . date('Ymd_His') . '.pdf');
+    }
 }
