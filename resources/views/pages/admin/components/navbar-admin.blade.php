@@ -24,6 +24,11 @@
                 <i class="fas fa-book"></i> Books
             </a>
         </li>
+        <li class="nav-item {{ Request::is('admin/ebook*') ? 'active' : '' }}">
+            <a href="{{ url('/admin/ebook') }}" class="nav-link">
+                <i class="fas fa-file-pdf"></i> E-Book
+            </a>
+        </li>
         <li class="nav-item {{ Request::is('admin/peminjaman') ? 'active' : '' }}">
             <a href="{{ url('/admin/peminjaman') }}" class="nav-link">
                 <i class="fas fa-bookmark"></i> Peminjaman
@@ -72,6 +77,8 @@
         $currentAdminPath = request()->path();
         if (str_contains($currentAdminPath, 'admin/buku')) {
             $adminSearchAction = url('/admin/buku');
+        } elseif (str_contains($currentAdminPath, 'admin/ebook')) {
+            $adminSearchAction = url('/admin/ebook');
         } elseif (str_contains($currentAdminPath, 'admin/peminjaman')) {
             $adminSearchAction = url('/admin/peminjaman');
         } elseif (str_contains($currentAdminPath, 'admin/member')) {

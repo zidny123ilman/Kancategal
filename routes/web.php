@@ -9,6 +9,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminKontenController;
 use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\EbookController;
+use App\Http\Controllers\AdminEbookController;
 
 Route::get('/', [BukuController::class, 'landingPage']);
 Route::get('/buku', [BukuController::class, 'userIndex']);
@@ -124,5 +126,27 @@ Route::prefix('admin')->group(function () {
         Route::post('/setting/update', [AdminSettingController::class, 'update']);
         Route::post('/setting/clear-cache', [AdminSettingController::class, 'clearCache']);
         Route::get('/setting/backup', [AdminSettingController::class, 'downloadBackup']);
+
+        // E-Book Admin Routes
+        Route::get('/ebook', [AdminEbookController::class, 'index']);
+        Route::get('/ebook/tambah', [AdminEbookController::class, 'create']);
+        Route::post('/ebook/store', [AdminEbookController::class, 'store']);
+        Route::get('/ebook/detail/{id}', [AdminEbookController::class, 'show']);
+        Route::get('/ebook/edit/{id}', [AdminEbookController::class, 'edit']);
+        Route::post('/ebook/update/{id}', [AdminEbookController::class, 'update']);
+        Route::post('/ebook/delete/{id}', [AdminEbookController::class, 'destroy']);
     });
 });
+
+// E-Book Public Routes
+Route::get('/ebook', [EbookController::class, 'index'])->name('ebook.index');
+Route::get('/ebook/detail/{id}', [EbookController::class, 'show'])->name('ebook.show');
+Route::middleware('auth')->group(function () {
+    Route::post('/ebook/{id}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
+    Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');
+    Route::get('/ebook/{id}/pdf', [EbookController::class, 'streamPdf'])->name('ebook.pdf');
+    Route::post('/ebook/{id}/update-progress', [EbookController::class, 'updateProgress'])->name('ebook.update-progress');
+    Route::get('/ebook/riwayat', [EbookController::class, 'riwayat'])->name('ebook.riwayat');
+    Route::post('/ebook/peminjaman/{id}/review', [EbookController::class, 'review'])->name('ebook.review');
+});
+

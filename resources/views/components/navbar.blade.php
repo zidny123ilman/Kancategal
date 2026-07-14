@@ -35,6 +35,7 @@
             </li>
             <li><a href="{{ url('/') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">{{ __('Home') }}</a></li>
             <li><a href="{{ url('/buku') }}" class="nav-link {{ Request::is('buku') ? 'active' : '' }}">{{ __('Books') }}</a></li>
+            <li><a href="{{ url('/ebook') }}" class="nav-link {{ Request::is('ebook') || Request::is('ebook/*') ? 'active' : '' }}">{{ __('E-Book') }}</a></li>
             <li><a href="{{ url('/about') }}" class="nav-link {{ Request::is('about') ? 'active' : '' }}">{{ __('About') }}</a></li>
             <li><a href="{{ url('/artikel') }}" class="nav-link {{ Request::is('artikel') ? 'active' : '' }}">{{ __('Article') }}</a></li>
             <li><a href="{{ url('/kontak') }}" class="nav-link {{ Request::is('kontak') ? 'active' : '' }}">{{ __('Contact') }}</a></li>
@@ -51,10 +52,11 @@
                     <button class="btn-signin" style="background-color: var(--accent-blue); padding: 0.6rem 1.2rem; display: flex; align-items: center; gap: 8px;" onclick="document.getElementById('user-dropdown').classList.toggle('show')">
                         <i class="fas fa-user-circle"></i> {{ Auth::user()->name }} <i class="fas fa-chevron-down" style="font-size: 0.75rem;"></i>
                     </button>
-                    <div id="user-dropdown" class="user-dropdown-content" style="display: none; position: absolute; right: 0; top: 110%; background-color: var(--bg-white); min-width: 160px; box-shadow: var(--shadow-lg); border-radius: 8px; overflow: hidden; z-index: 10; border: 1px solid var(--border-color);">
+                    <div id="user-dropdown" class="user-dropdown-content" style="display: none; position: absolute; right: 0; top: 110%; background-color: var(--bg-white); min-width: 180px; box-shadow: var(--shadow-lg); border-radius: 8px; overflow: hidden; z-index: 10; border: 1px solid var(--border-color);">
                         @if (Auth::user()->can_upload_artikel)
-                            <a href="{{ url('/upload-artikel') }}" style="display: block; padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--text-dark); border-bottom: 1px solid rgba(0,0,0,0.05);"><i class="fas fa-plus-circle" style="margin-right: 8px; color: var(--primary-red);"></i> {{ __('Buat Artikel') }}</a>
+                            <a href="{{ url('/upload-artikel') }}" style="display: block; padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--text-dark); border-bottom: 1px solid rgba(0,0,0,0.05); text-decoration: none;"><i class="fas fa-plus-circle" style="margin-right: 8px; color: var(--primary-red);"></i> {{ __('Buat Artikel') }}</a>
                         @endif
+                        <a href="{{ url('/ebook/riwayat') }}" style="display: block; padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--text-dark); border-bottom: 1px solid rgba(0,0,0,0.05); text-decoration: none;"><i class="fas fa-history" style="margin-right: 8px; color: #1a56db;"></i> {{ __('Riwayat E-Book') }}</a>
                         <form action="{{ url('/logout') }}" method="POST" style="margin: 0;">
                             @csrf
                             <button type="submit" style="width: 100%; text-align: left; background: none; border: none; padding: 0.8rem 1rem; font-size: 0.85rem; color: var(--primary-red); cursor: pointer; display: block; font-family: inherit;"><i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> {{ __('Keluar') }}</button>

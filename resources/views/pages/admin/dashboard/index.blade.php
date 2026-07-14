@@ -60,6 +60,57 @@
                 </div>
             </div>
 
+            <!-- E-Book Stats Title -->
+            <div style="margin-top: 2.5rem; margin-bottom: 1rem;">
+                <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-file-pdf" style="color: #1A56DB;"></i> E-Book Statistics
+                </h2>
+            </div>
+            
+            <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                <div class="stat-card-light" style="border-left: 4px solid #1A56DB;">
+                    <span class="stat-title">TOTAL E-BOOK</span>
+                    <span class="stat-value">{{ number_format($totalEbooks) }} <span style="font-size: 1rem; font-weight: 500;">Buku</span></span>
+                    <i class="fas fa-file-pdf stat-icon" style="color: rgba(26, 86, 219, 0.05);"></i>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #10B981;">
+                    <span class="stat-title">SEDANG DIPINJAM</span>
+                    <span class="stat-value">{{ number_format($ebookSedangDipinjam) }}</span>
+                    <i class="fas fa-book-reader stat-icon" style="color: rgba(16, 185, 129, 0.05);"></i>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #EF4444;">
+                    <span class="stat-title">KADALUARSA</span>
+                    <span class="stat-value">{{ number_format($ebookKadaluarsa) }}</span>
+                    <i class="fas fa-history stat-icon" style="color: rgba(239, 68, 68, 0.05);"></i>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #F59E0B;">
+                    <span class="stat-title">JUMLAH PEMBACA</span>
+                    <span class="stat-value">{{ number_format($totalEbookReaders) }}</span>
+                    <i class="fas fa-users stat-icon" style="color: rgba(245, 158, 11, 0.05);"></i>
+                </div>
+            </div>
+
+            <div class="stats-grid" style="margin-bottom: 2rem;">
+                <div class="stat-card-light" style="border-left: 4px solid #8B5CF6;">
+                    <span class="stat-title">TOTAL REVIEW</span>
+                    <span class="stat-value">{{ number_format($totalEbookReviews) }}</span>
+                    <i class="fas fa-comments stat-icon" style="color: rgba(139, 92, 246, 0.05);"></i>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #EC4899;">
+                    <span class="stat-title">PROGRESS RATA-RATA</span>
+                    <span class="stat-value">{{ number_format($avgEbookProgress, 1) }}%</span>
+                    <i class="fas fa-spinner stat-icon" style="color: rgba(236, 72, 153, 0.05);"></i>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #06B6D4;">
+                    <span class="stat-title">PALING BANYAK DIPINJAM</span>
+                    <span class="stat-value" style="font-size: 0.95rem; font-weight: 700; white-space: normal; line-height: 1.4; display: block; margin-top: 5px;">{{ $mostBorrowedEbookText }}</span>
+                </div>
+                <div class="stat-card-light" style="border-left: 4px solid #F59E0B;">
+                    <span class="stat-title">RATING TERTINGGI</span>
+                    <span class="stat-value" style="font-size: 0.95rem; font-weight: 700; white-space: normal; line-height: 1.4; display: block; margin-top: 5px;">{{ $highestRatedEbookText }}</span>
+                </div>
+            </div>
+
             <!-- Charts Section -->
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem; margin-top: 1rem;">
                 <!-- Line Chart: Monthly loan trends -->

@@ -7,6 +7,8 @@ use App\Models\Buku;
 use App\Models\Peminjaman;
 use App\Models\AdminLog;
 use App\Models\Artikel;
+use App\Models\Ebook;
+use App\Models\EbookPeminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -79,6 +81,33 @@ class AdminController extends Controller
             return $loan->denda;
         });
 
+        // E-Book Stats
+        EbookPeminjaman::checkAndUpdateExpired();
+        $totalEbooks = Ebook::count();
+        $ebookSedangDipinjam = EbookPeminjaman::where('status', 'Dipinjam')->count();
+        $ebookKadaluarsa = EbookPeminjaman::where('status', 'Kadaluarsa')->count();
+        
+        $mostBorrowedEbook = Ebook::withCount('peminjamans')
+            ->orderBy('peminjamans_count', 'desc')
+            ->first();
+        $mostBorrowedEbookText = $mostBorrowedEbook && $mostBorrowedEbook->peminjamans_count > 0 
+            ? $mostBorrowedEbook->judul . ' (' . $mostBorrowedEbook->peminjamans_count . 'x)' 
+            : '-';
+
+        $highestRatedEbook = Ebook::select('ebooks.*')
+            ->join('ebook_peminjaman', 'ebooks.id', '=', 'ebook_peminjaman.ebook_id')
+            ->selectRaw('AVG(ebook_peminjaman.rating) as avg_rating')
+            ->groupBy('ebooks.id', 'ebooks.judul', 'ebooks.slug', 'ebooks.penulis', 'ebooks.penerbit', 'ebooks.tahun_terbit', 'ebooks.kategori', 'ebooks.isbn', 'ebooks.sinopsis', 'ebooks.jumlah_halaman', 'ebooks.cover', 'ebooks.file_pdf', 'ebooks.status', 'ebooks.created_at', 'ebooks.updated_at')
+            ->orderBy('avg_rating', 'desc')
+            ->first();
+        $highestRatedEbookText = $highestRatedEbook && $highestRatedEbook->avg_rating > 0 
+            ? $highestRatedEbook->judul . ' (' . number_format($highestRatedEbook->avg_rating, 1) . ' ★)' 
+            : '-';
+
+        $totalEbookReaders = EbookPeminjaman::distinct('user_id')->count('user_id');
+        $totalEbookReviews = EbookPeminjaman::whereNotNull('rating')->count();
+        $avgEbookProgress = EbookPeminjaman::avg('progress_persen') ?? 0;
+
         return view('pages.admin.dashboard.index', compact(
             'totalCollection',
             'totalPeminjamanAktif',
@@ -87,7 +116,15 @@ class AdminController extends Controller
             'totalDendaBelumTerbayar',
             'chartLabels',
             'chartData',
-            'readingInterest'
+            'readingInterest',
+            'totalEbooks',
+            'ebookSedangDipinjam',
+            'ebookKadaluarsa',
+            'mostBorrowedEbookText',
+            'highestRatedEbookText',
+            'totalEbookReaders',
+            'totalEbookReviews',
+            'avgEbookProgress'
         ));
     }
 
