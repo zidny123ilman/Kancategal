@@ -19,7 +19,7 @@ class BukuController extends Controller
         $weeklyBooks = Buku::where('status_publish', 'publish')->orderBy('created_at', 'desc')->take(4)->get();
         $articles = Artikel::where('status', 'approved')
             ->orderBy('created_at', 'desc')
-            ->take(3)
+            ->take(5)
             ->get();
         $reviews = Review::orderBy('created_at', 'desc')->get();
         

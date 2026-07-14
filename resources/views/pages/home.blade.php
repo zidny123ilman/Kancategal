@@ -170,7 +170,7 @@
                     </div>
                     <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 1rem;">
                         <a href="{{ url('/buku') }}" class="section-link">
-                            {{ __('View Full Archive') }} <i class="fas fa-arrow-right"></i>
+                            {{ __('View All Books') }} <i class="fas fa-arrow-right"></i>
                         </a>
                         @if(count($weeklyBooks) > 0)
                             <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
@@ -250,18 +250,22 @@
         <!-- Article Notes Section -->
         <section class="section">
             <div class="section-container">
-                <div class="section-header"
-                    style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div class="section-header">
                     <div class="section-title-wrapper">
                         <span class="section-tag">{{ __('THE JOURNAL') }}</span>
                         <h2 class="section-title">{{ __('Article Notes') }}</h2>
                     </div>
-                    @if($articles->count() > 0)
-                        <div class="slider-navigation" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-                            <button class="nav-arrow-btn" id="art-prev"><i class="fas fa-arrow-left"></i></button>
-                            <button class="nav-arrow-btn" id="art-next"><i class="fas fa-arrow-right"></i></button>
-                        </div>
-                    @endif
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 1rem;">
+                        <a href="{{ url('/artikel') }}" class="section-link">
+                            {{ __('Lihat Artikel lainnya') }} <i class="fas fa-arrow-right"></i>
+                        </a>
+                        @if($articles->count() > 0)
+                            <div class="slider-navigation" style="display: flex; gap: 0.5rem;">
+                                <button class="nav-arrow-btn" id="art-prev"><i class="fas fa-arrow-left"></i></button>
+                                <button class="nav-arrow-btn" id="art-next"><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="slider-outer-wrapper">

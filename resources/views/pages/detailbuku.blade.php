@@ -34,6 +34,39 @@
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
+
+        /* Resensi card responsive layout */
+        .resensi-card {
+            flex: 0 0 calc((100% - 4.5rem) / 4); /* 4 cards on PC, with 3 gaps of 1.5rem */
+            background-color: var(--bg-theme);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 140px;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+        
+        @media (max-width: 1024px) {
+            .resensi-card {
+                flex: 0 0 calc((100% - 3rem) / 3); /* 3 cards on tablet */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .resensi-card {
+                flex: 0 0 calc((100% - 1.5rem) / 2); /* 2 cards on small tablet */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .resensi-card {
+                flex: 0 0 100%; /* 1 card on mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -182,17 +215,11 @@
                 <div class="resensi-section" style="margin-top: 3rem; grid-column: span 2;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                         <h3 class="curator-title" style="margin: 0; font-size: 1rem; letter-spacing: 1px;">RESENSI ANGGOTA</h3>
-                        @if($resensis->count() > 1)
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button class="resensi-nav-btn" onclick="slideResensi('left')" style="background: none; border: 1px solid var(--border-color); color: var(--text-dark); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-smooth);"><i class="fas fa-chevron-left"></i></button>
-                                <button class="resensi-nav-btn" onclick="slideResensi('right')" style="background: none; border: 1px solid var(--border-color); color: var(--text-dark); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-smooth);"><i class="fas fa-chevron-right"></i></button>
-                            </div>
-                        @endif
                     </div>
                     
                     <div id="resensi-slider-container" style="overflow-x: auto; display: flex; gap: 1.5rem; scroll-behavior: smooth; padding-bottom: 1rem; scrollbar-width: none;">
                         @forelse($resensis as $resensi)
-                            <div class="resensi-card" style="flex: 0 0 320px; background-color: var(--bg-theme); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px; transition: var(--transition-smooth);">
+                            <div class="resensi-card">
                                 <div>
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
                                         <div style="color: #ffc107;">

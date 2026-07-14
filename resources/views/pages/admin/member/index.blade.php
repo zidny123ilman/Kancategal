@@ -177,7 +177,49 @@
                 </table>
                 
                 <div class="table-footer">
-                    <span class="table-info" style="text-transform: uppercase;">SHOWING {{ $members->count() }} OF {{ $totalMembers }} MEMBERS</span>
+                    <span class="table-info" style="text-transform: uppercase;">SHOWING {{ $members->firstItem() ?? 0 }} - {{ $members->lastItem() ?? 0 }} OF {{ $members->total() }} MEMBERS</span>
+                    @if($members->hasPages())
+                    <div class="pagination">
+                        @if ($members->onFirstPage())
+                            <button class="page-btn" disabled style="opacity: 0.5; cursor: not-allowed;"><i class="fas fa-chevron-left"></i></button>
+                        @else
+                            <a href="{{ $members->previousPageUrl() }}" class="page-btn"><i class="fas fa-chevron-left"></i></a>
+                        @endif
+
+                        @php
+                            $start = max(1, $members->currentPage() - 2);
+                            $end = min($members->lastPage(), $members->currentPage() + 2);
+                        @endphp
+
+                        @if($start > 1)
+                            <a href="{{ $members->url(1) }}" class="page-btn">1</a>
+                            @if($start > 2)
+                                <span class="page-btn" style="border: none; cursor: default; background: transparent; display: flex; align-items: center; justify-content: center;">...</span>
+                            @endif
+                        @endif
+
+                        @for($i = $start; $i <= $end; $i++)
+                            @if($i == $members->currentPage())
+                                <button class="page-btn active">{{ $i }}</button>
+                            @else
+                                <a href="{{ $members->url($i) }}" class="page-btn">{{ $i }}</a>
+                            @endif
+                        @endfor
+
+                        @if($end < $members->lastPage())
+                            @if($end < $members->lastPage() - 1)
+                                <span class="page-btn" style="border: none; cursor: default; background: transparent; display: flex; align-items: center; justify-content: center;">...</span>
+                            @endif
+                            <a href="{{ $members->url($members->lastPage()) }}" class="page-btn">{{ $members->lastPage() }}</a>
+                        @endif
+
+                        @if ($members->hasMorePages())
+                            <a href="{{ $members->nextPageUrl() }}" class="page-btn"><i class="fas fa-chevron-right"></i></a>
+                        @else
+                            <button class="page-btn" disabled style="opacity: 0.5; cursor: not-allowed;"><i class="fas fa-chevron-right"></i></button>
+                        @endif
+                    </div>
+                    @endif
                 </div>
             </div>
 

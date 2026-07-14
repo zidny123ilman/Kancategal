@@ -2465,6 +2465,10 @@ button, input {
         gap: 3rem 0;
     }
 
+    .collection-section .book-image-wrapper {
+        padding: 0.75rem;
+    }
+
     /* About Page */
     .about-section .about-header {
         flex-direction: column;
@@ -4547,11 +4551,11 @@ button, input {
     }
     
     .collection-section .book-image {
-        max-height: 65px !important;
-        width: auto !important;
-        height: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: none !important;
         max-width: 100% !important;
-        object-fit: contain !important;
+        object-fit: cover !important;
     }
     
     .collection-section .book-info {

@@ -105,7 +105,7 @@ class AdminController extends Controller
                   ->orWhere('alamat', 'like', '%' . $search . '%');
             });
         }
-        $members = $query->orderBy('created_at', 'desc')->get();
+        $members = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
         $totalMembers = User::count();
         $activeMembers = User::where('status', 'active')->count();
         
