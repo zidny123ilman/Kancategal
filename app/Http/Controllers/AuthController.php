@@ -11,10 +11,46 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     /**
+     * Normalize WhatsApp number to canonical format: 08xxxxxxxxx
+     * Handles: +628xxx, 628xxx, 8xxx  → all become 08xxx
+     */
+    private function normalizeWhatsapp(string $number): string
+    {
+        // Remove all spaces, dashes, dots, parentheses
+        $number = preg_replace('/[\s\-\.\(\)]/', '', $number);
+
+        // Remove leading +
+        if (str_starts_with($number, '+')) {
+            $number = ltrim($number, '+');
+        }
+
+        // 628xxxxxxx -> 08xxxxxxx
+        if (str_starts_with($number, '628')) {
+            $number = '0' . substr($number, 2);
+        }
+        // 62xxxxxxx (non-8 prefix, e.g. 621xxx) -> 0xxxxxxx
+        elseif (str_starts_with($number, '62')) {
+            $number = '0' . substr($number, 2);
+        }
+        // 8xxxxxxx -> 08xxxxxxx
+        elseif (str_starts_with($number, '8')) {
+            $number = '0' . $number;
+        }
+        // 08xxxxxxx -> already correct
+
+        return $number;
+    }
+
+    /**
      * Handle user registration request.
      */
     public function register(Request $request)
     {
+        // Normalize before validation
+        $request->merge([
+            'no_whatsapp' => $this->normalizeWhatsapp($request->input('no_whatsapp', '')),
+        ]);
+
         $validator = Validator::make($request->all(), [
             'nama_lengkap' => 'required|string|max:255',
             'no_whatsapp' => 'required|string|max:20|unique:users,whatsapp',
@@ -22,7 +58,7 @@ class AuthController extends Controller
             'kata_sandi' => 'required|string|min:6',
             'konfirmasi_sandi' => 'required|same:kata_sandi',
         ], [
-            'no_whatsapp.unique' => 'Nomor WhatsApp sudah terdaftar.',
+            'no_whatsapp.unique' => 'Nomor WhatsApp ini sudah terdaftar. Gunakan nomor lain atau masuk ke akun Anda.',
             'konfirmasi_sandi.same' => 'Konfirmasi kata sandi tidak cocok.',
             'kata_sandi.min' => 'Kata sandi minimal 6 karakter.',
         ]);
@@ -59,17 +95,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'whatsapp' => 'required|string',
+            'whatsapp'   => 'required|string',
             'kata_sandi' => 'required|string',
         ]);
 
+        // Normalize number so 08xxx / +62xxx / 62xxx all work the same
+        $normalizedWa = $this->normalizeWhatsapp($request->input('whatsapp'));
+
         $credentials = [
-            'whatsapp' => $request->whatsapp,
+            'whatsapp' => $normalizedWa,
             'password' => $request->kata_sandi,
         ];
 
-        // Retrieve user to check status
-        $user = User::where('whatsapp', $request->whatsapp)->first();
+        // Retrieve user to check status before attempting auth
+        $user = User::where('whatsapp', $normalizedWa)->first();
 
         if ($user && $user->status === 'suspended') {
             return redirect()->back()->withErrors([
@@ -116,8 +155,9 @@ class AuthController extends Controller
             'no_whatsapp' => 'required|string',
         ]);
 
-        $noWhatsapp = $request->input('no_whatsapp');
-        
+        // Normalize so users can enter any format
+        $noWhatsapp = $this->normalizeWhatsapp($request->input('no_whatsapp'));
+
         $user = User::where('whatsapp', $noWhatsapp)->first();
         if (!$user) {
             return redirect()->back()->withErrors([

@@ -7,12 +7,115 @@ use App\Models\EbookPeminjaman;
 use App\Http\Requests\StoreEbookRequest;
 use App\Http\Requests\UpdateEbookRequest;
 use App\Models\AdminLog;
+use App\Models\Setting;
+use App\Services\WhatsAppService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminEbookController extends Controller
 {
+    /**
+     * Manage ebook loan requests (Menunggu, Dipinjam, etc.)
+     */
+    public function peminjamanIndex(Request $request)
+    {
+        $status = $request->query('status', 'Menunggu');
+        $search = $request->query('q');
+
+        $query = EbookPeminjaman::with(['user', 'ebook'])
+            ->orderBy('created_at', 'desc');
+
+        if ($status !== 'semua') {
+            $query->where('status', $status);
+        }
+
+        if ($search) {
+            $query->whereHas('user', function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })->orWhereHas('ebook', function($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%');
+            });
+        }
+
+        $peminjamans  = $query->paginate(15)->withQueryString();
+        $totalMenunggu = EbookPeminjaman::where('status', 'Menunggu')->count();
+
+        return view('pages.admin.ebook.peminjaman', compact('peminjamans', 'status', 'totalMenunggu'));
+    }
+
+    /**
+     * Approve an ebook loan request.
+     */
+    public function setujuiPinjam(Request $request, $id)
+    {
+        $peminjaman = EbookPeminjaman::with(['user', 'ebook'])->findOrFail($id);
+
+        if ($peminjaman->status !== 'Menunggu') {
+            return redirect()->back()->with('error', 'Permintaan ini sudah diproses sebelumnya.');
+        }
+
+        // Recalculate due date from today (admin approved today)
+        $loanDuration = (int) Setting::get('ebook_loan_duration', 7);
+        $tanggalPinjam = Carbon::today();
+        $tanggalJatuhTempo = Carbon::today()->addDays($loanDuration);
+
+        $peminjaman->status              = 'Dipinjam';
+        $peminjaman->tanggal_pinjam      = $tanggalPinjam->toDateString();
+        $peminjaman->tanggal_jatuh_tempo = $tanggalJatuhTempo->toDateString();
+        $peminjaman->catatan_admin       = $request->input('catatan_admin');
+        $peminjaman->save();
+
+        // Notify user via WhatsApp
+        $user  = $peminjaman->user;
+        $ebook = $peminjaman->ebook;
+        $dueDateFormatted = $tanggalJatuhTempo->format('d-m-Y');
+        $message = "Halo {$user->name}\nPeminjaman E-Book Anda telah DISETUJUI.\nJudul:\n{$ebook->judul}\nMasa akses:\n{$loanDuration} Hari\nBerlaku hingga:\n{$dueDateFormatted}\nSelamat membaca!";
+        WhatsAppService::send($user->whatsapp, $message);
+
+        // Log the action
+        $adminName = session('admin_fullname', 'Admin');
+        AdminLog::create([
+            'action'  => 'EBOOK LOAN APPROVED',
+            'details' => 'Admin (' . $adminName . ') menyetujui peminjaman E-Book "' . $ebook->judul . '" oleh ' . $user->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Peminjaman E-Book berhasil disetujui. Notifikasi dikirim ke member.');
+    }
+
+    /**
+     * Reject an ebook loan request.
+     */
+    public function tolakPinjam(Request $request, $id)
+    {
+        $peminjaman = EbookPeminjaman::with(['user', 'ebook'])->findOrFail($id);
+
+        if ($peminjaman->status !== 'Menunggu') {
+            return redirect()->back()->with('error', 'Permintaan ini sudah diproses sebelumnya.');
+        }
+
+        $peminjaman->status        = 'Ditolak';
+        $peminjaman->catatan_admin = $request->input('catatan_admin', 'Ditolak oleh admin.');
+        $peminjaman->save();
+
+        // Notify user via WhatsApp
+        $user  = $peminjaman->user;
+        $ebook = $peminjaman->ebook;
+        $catatan = $peminjaman->catatan_admin;
+        $message = "Halo {$user->name}\nMaaf, peminjaman E-Book Anda DITOLAK.\nJudul:\n{$ebook->judul}\nAlasan:\n{$catatan}\nSilakan hubungi admin untuk informasi lebih lanjut.";
+        WhatsAppService::send($user->whatsapp, $message);
+
+        // Log the action
+        $adminName = session('admin_fullname', 'Admin');
+        AdminLog::create([
+            'action'  => 'EBOOK LOAN REJECTED',
+            'details' => 'Admin (' . $adminName . ') menolak peminjaman E-Book "' . $ebook->judul . '" oleh ' . $user->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Permintaan peminjaman E-Book berhasil ditolak.');
+    }
+
     /**
      * Display a listing of Ebooks for admin.
      */

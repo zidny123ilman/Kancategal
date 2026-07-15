@@ -24,7 +24,14 @@
                 <span class="page-subtitle">E-BOOK ARCHIVE</span>
                 <h1 class="page-title">Manajemen<br>E-Book</h1>
             </div>
-            <div class="page-actions">
+            <div class="page-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                @php $totalMenunggu = \App\Models\EbookPeminjaman::where('status','Menunggu')->count(); @endphp
+                <a href="{{ url('/admin/ebook/peminjaman') }}" class="btn-cancel" style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.2rem; border-radius:8px; position:relative;">
+                    <i class="fas fa-clock"></i> PEMINJAMAN E-BOOK
+                    @if($totalMenunggu > 0)
+                        <span style="background:#D97706;color:#fff;font-size:0.68rem;font-weight:800;padding:2px 7px;border-radius:9999px;margin-left:4px;">{{ $totalMenunggu }}</span>
+                    @endif
+                </a>
                 <a href="{{ url('/admin/ebook/tambah') }}" class="btn-admin-primary">
                     <i class="fas fa-plus"></i> UPLOAD E-BOOK BARU
                 </a>

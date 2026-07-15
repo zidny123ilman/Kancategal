@@ -576,10 +576,20 @@
                         <div class="stg-form-row">
                             <div class="stg-label">
                                 Durasi Peminjaman (Hari)
-                                <p class="stg-label-desc">Jangka waktu standard peminjaman buku sebelum jatuh tempo.</p>
+                                <p class="stg-label-desc">Jangka waktu standard peminjaman buku fisik sebelum jatuh tempo.</p>
                             </div>
                             <div>
                                 <input type="number" class="stg-input" name="loan_duration" value="{{ $settings['loan_duration'] }}" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="stg-form-row">
+                            <div class="stg-label">
+                                Durasi Peminjaman E-Book (Hari)
+                                <p class="stg-label-desc">Jangka waktu akses E-Book digital setelah permintaan peminjaman disetujui admin.</p>
+                            </div>
+                            <div>
+                                <input type="number" class="stg-input" name="ebook_loan_duration" value="{{ $settings['ebook_loan_duration'] }}" min="1" required>
                             </div>
                         </div>
 

@@ -386,27 +386,48 @@
         const loaderOverlay = document.getElementById('loaderOverlay');
         const viewerContainer = document.getElementById('viewerContainer');
 
-        // Load PDF document
-        pdfjsLib.getDocument({
-            url: pdfUrl,
-            withCredentials: true // send session cookies
-        }).promise.then(pdfDoc_ => {
-            pdfDoc = pdfDoc_;
-            totalPagesVal.textContent = pdfDoc.numPages;
-            pageNumberInput.max = pdfDoc.numPages;
+        // Fetch PDF via fetch() first to catch HTTP errors before PDF.js tries to parse
+        fetch(pdfUrl, { credentials: 'same-origin' })
+            .then(response => {
+                if (!response.ok) {
+                    // Server returned error (403, 404, etc.) — try to parse JSON body
+                    return response.json().then(err => {
+                        throw new Error(err.error || 'Akses ke file PDF gagal (HTTP ' + response.status + ')');
+                    }).catch(() => {
+                        throw new Error('Akses ke file PDF gagal (HTTP ' + response.status + '). Pastikan Anda memiliki pinjaman aktif.');
+                    });
+                }
+                return response.arrayBuffer();
+            })
+            .then(pdfData => {
+                return pdfjsLib.getDocument({ data: pdfData }).promise;
+            })
+            .then(pdfDoc_ => {
+                pdfDoc = pdfDoc_;
+                totalPagesVal.textContent = pdfDoc.numPages;
+                pageNumberInput.max = pdfDoc.numPages;
 
-            // Hide loader
-            loaderOverlay.style.opacity = '0';
-            setTimeout(() => {
-                loaderOverlay.style.display = 'none';
-            }, 400);
+                // Hide loader
+                loaderOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loaderOverlay.style.display = 'none';
+                }, 400);
 
-            // Set dynamic scale based on screen size on first load
-            fitToWidth();
-        }).catch(err => {
-            alert('Gagal memuat dokumen digital: ' + err.message);
-            window.location.href = "{{ route('ebook.show', $ebook->id) }}";
-        });
+                // Set dynamic scale based on screen size on first load
+                fitToWidth();
+            })
+            .catch(err => {
+                loaderOverlay.innerHTML = `
+                    <div style="text-align:center; padding: 2rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">Gagal Memuat Dokumen</h3>
+                        <p style="color: #aaa; max-width: 400px; line-height: 1.5;">${err.message}</p>
+                        <a href="{{ route('ebook.show', $ebook->id) }}" style="display: inline-block; margin-top: 1.5rem; background-color: #1a56db; color: white; padding: 0.6rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 700;">Kembali ke Detail</a>
+                    </div>
+                `;
+                loaderOverlay.style.display = 'flex';
+                loaderOverlay.style.opacity = '1';
+            });
 
         // Render Page function
         function renderPage(num) {

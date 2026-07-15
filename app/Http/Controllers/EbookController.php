@@ -82,11 +82,18 @@ class EbookController extends Controller
 
         // Check active loan status for logged in user
         $activeLoan = null;
+        $pendingLoan = null;
         if (Auth::check()) {
             $activeLoan = EbookPeminjaman::where('user_id', Auth::id())
                 ->where('ebook_id', $id)
                 ->where('status', 'Dipinjam')
                 ->first();
+            if (!$activeLoan) {
+                $pendingLoan = EbookPeminjaman::where('user_id', Auth::id())
+                    ->where('ebook_id', $id)
+                    ->where('status', 'Menunggu')
+                    ->first();
+            }
         }
 
         return view('pages.ebook.detail', compact(
@@ -97,7 +104,8 @@ class EbookController extends Controller
             'totalReviews',
             'averageProgress',
             'reviews',
-            'activeLoan'
+            'activeLoan',
+            'pendingLoan'
         ));
     }
 
@@ -119,37 +127,42 @@ class EbookController extends Controller
 
         $ebook = Ebook::where('status', 'aktif')->findOrFail($id);
 
-        // Check if there is already an active loan for the same ebook
+        // Check if there is already an active or pending loan for the same ebook
         $existingActive = EbookPeminjaman::where('user_id', $user->id)
             ->where('ebook_id', $ebook->id)
-            ->where('status', 'Dipinjam')
+            ->whereIn('status', ['Dipinjam', 'Menunggu'])
             ->first();
 
         if ($existingActive) {
+            if ($existingActive->status === 'Menunggu') {
+                return redirect()->back()->with('error', 'Permintaan peminjaman E-Book ini sedang menunggu konfirmasi admin.');
+            }
             return redirect()->back()->with('error', 'Anda sudah meminjam E-Book ini dan masa aktifnya masih berlaku.');
         }
 
-        // Create transaction
+        // Get loan duration from settings (default 7 days)
+        $loanDuration = (int) \App\Models\Setting::get('ebook_loan_duration', 7);
+
+        // Create transaction with Menunggu status (waiting for admin approval)
         $tanggalPinjam = Carbon::today();
-        $tanggalJatuhTempo = Carbon::today()->addDays(7);
+        $tanggalJatuhTempo = Carbon::today()->addDays($loanDuration);
 
         $peminjaman = EbookPeminjaman::create([
-            'user_id' => $user->id,
-            'ebook_id' => $ebook->id,
-            'tanggal_pinjam' => $tanggalPinjam->toDateString(),
+            'user_id'             => $user->id,
+            'ebook_id'            => $ebook->id,
+            'tanggal_pinjam'      => $tanggalPinjam->toDateString(),
             'tanggal_jatuh_tempo' => $tanggalJatuhTempo->toDateString(),
-            'status' => 'Dipinjam',
-            'last_page' => 1,
-            'progress_persen' => 0,
+            'status'              => 'Menunggu',
+            'last_page'           => 1,
+            'progress_persen'     => 0,
         ]);
 
-        // Send WhatsApp notification using existing WhatsAppService
+        // Send WhatsApp notification to user
         $dueDateFormatted = $tanggalJatuhTempo->format('d-m-Y');
-        $message = "Halo {$user->name}\nPeminjaman E-Book berhasil.\nJudul:\n{$ebook->judul}\nMasa akses:\n7 Hari\nTanggal berakhir:\n{$dueDateFormatted}\nSelamat membaca.";
-        
+        $message = "Halo {$user->name}\nPermintaan peminjaman E-Book diterima.\nJudul:\n{$ebook->judul}\nDurasi pinjam:\n{$loanDuration} Hari\nEstimasi berakhir:\n{$dueDateFormatted}\nMohon tunggu konfirmasi dari admin.";
         WhatsAppService::send($user->whatsapp, $message);
 
-        return redirect()->route('ebook.read', $ebook->id)->with('success', 'E-Book berhasil dipinjam. Selamat membaca!');
+        return redirect()->back()->with('success', 'Permintaan peminjaman E-Book berhasil dikirim. Silakan tunggu konfirmasi dari admin.');
     }
 
     /**
@@ -193,7 +206,7 @@ class EbookController extends Controller
     public function streamPdf($id)
     {
         if (!Auth::check()) {
-            abort(403, 'Akses ditolak.');
+            return response()->json(['error' => 'Unauthenticated'], 401);
         }
 
         $user = Auth::user();
@@ -206,25 +219,36 @@ class EbookController extends Controller
             ->first();
 
         if (!$peminjaman) {
-            abort(403, 'Anda tidak memiliki hak akses untuk membaca E-Book ini.');
+            return response()->json(['error' => 'Anda tidak memiliki hak akses untuk membaca E-Book ini.'], 403);
         }
 
         if (Carbon::today()->greaterThan(Carbon::parse($peminjaman->tanggal_jatuh_tempo))) {
             $peminjaman->status = 'Kadaluarsa';
             $peminjaman->save();
-            abort(403, 'Masa akses E-Book Anda telah berakhir.');
+            return response()->json(['error' => 'Masa akses E-Book Anda telah berakhir.'], 403);
         }
 
-        $filePath = 'public/' . $ebook->file_pdf;
-        if (!Storage::exists($filePath)) {
-            abort(404, 'File E-Book tidak ditemukan di server.');
+        // Resolve file path using the 'public' disk
+        $storedPath = $ebook->file_pdf;
+        $disk = Storage::disk('public');
+
+        // Try stored path as-is, then fallback to just the basename inside ebooks/
+        if ($disk->exists($storedPath)) {
+            $resolvedPath = $storedPath;
+        } elseif ($disk->exists('ebooks/' . basename($storedPath))) {
+            $resolvedPath = 'ebooks/' . basename($storedPath);
+        } else {
+            return response()->json([
+                'error' => 'File E-Book tidak ditemukan di server. Silakan hubungi admin.'
+            ], 404);
         }
 
-        $fileContent = Storage::get($filePath);
+        $fileContent = $disk->get($resolvedPath);
         return response($fileContent, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . basename($ebook->file_pdf) . '"',
+            'Content-Disposition' => 'inline; filename="' . basename($storedPath) . '"',
             'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'X-Content-Type-Options' => 'nosniff',
         ]);
     }
 

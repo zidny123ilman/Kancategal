@@ -99,20 +99,11 @@
             text-transform: uppercase;
         }
 
-        .status-active {
-            background-color: #E6F4EA;
-            color: #137333;
-        }
-
-        .status-expired {
-            background-color: #FCE8E6;
-            color: #C5221F;
-        }
-
-        .status-completed {
-            background-color: #E8F0FE;
-            color: #1A73E8;
-        }
+        .status-active    { background-color: #E6F4EA; color: #137333; }
+        .status-expired   { background-color: #FCE8E6; color: #C5221F; }
+        .status-completed { background-color: #E8F0FE; color: #1A73E8; }
+        .status-pending   { background-color: #FEF3C7; color: #92400E; }
+        .status-rejected  { background-color: #FEE2E2; color: #991B1B; }
 
         /* Action buttons */
         .btn-action {
@@ -243,6 +234,13 @@
                             <td>
                                 @if($item->status === 'Dipinjam')
                                     <span class="status-pill status-active"><i class="fas fa-book-open"></i> Aktif</span>
+                                @elseif($item->status === 'Menunggu')
+                                    <span class="status-pill status-pending"><i class="fas fa-clock"></i> Menunggu Konfirmasi</span>
+                                @elseif($item->status === 'Ditolak')
+                                    <span class="status-pill status-rejected"><i class="fas fa-times-circle"></i> Ditolak</span>
+                                    @if($item->catatan_admin)
+                                        <small style="display: block; margin-top: 4px; font-size: 0.7rem; color: var(--text-muted);">Alasan: {{ Str::limit($item->catatan_admin, 50) }}</small>
+                                    @endif
                                 @elseif($item->status === 'Kadaluarsa')
                                     <span class="status-pill status-expired"><i class="fas fa-times-circle"></i> Kadaluarsa</span>
                                 @else
@@ -255,25 +253,33 @@
                                         <a href="{{ route('ebook.read', $item->ebook->id) }}" class="btn-action">
                                             <i class="fas fa-book-open"></i> BACA BUKU
                                         </a>
+                                    @elseif($item->status === 'Menunggu')
+                                        <span style="font-size: 0.75rem; font-weight: 700; color: #92400E; background: #FEF3C7; padding: 0.4rem 0.75rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 5px;">
+                                            <i class="fas fa-hourglass-half"></i> Menunggu admin
+                                        </span>
                                     @endif
 
-                                    @if($item->rating === null)
+                                    @if($item->status === 'Dipinjam' && $item->rating === null)
                                         <button type="button" class="btn-action btn-review" onclick="openReviewModal({{ $item->id }}, '{{ addslashes($item->ebook->judul) }}')">
                                             <i class="far fa-star"></i> ULASAN
                                         </button>
-                                    @else
+                                    @elseif($item->status !== 'Dipinjam' && $item->status !== 'Menunggu' && $item->rating !== null)
                                         <div style="font-size: 0.75rem; color: #f59e0b; font-weight: 700;">
                                             @for($i = 1; $i <= 5; $i++)
                                                 <i class="{{ $i <= $item->rating ? 'fas' : 'far' }} fa-star"></i>
                                             @endfor
                                         </div>
+                                    @elseif($item->status !== 'Dipinjam' && $item->status !== 'Menunggu' && $item->rating === null)
+                                        <button type="button" class="btn-action btn-review" onclick="openReviewModal({{ $item->id }}, '{{ addslashes($item->ebook->judul) }}')">
+                                            <i class="far fa-star"></i> ULASAN
+                                        </button>
                                     @endif
 
-                                    @if($item->status === 'Kadaluarsa')
+                                    @if(in_array($item->status, ['Kadaluarsa', 'Selesai', 'Ditolak']))
                                         <form action="{{ route('ebook.pinjam', $item->ebook->id) }}" method="POST" style="display: inline;">
                                             @csrf
                                             <button type="submit" class="btn-action" style="background-color: var(--text-dark);">
-                                                <i class="fas fa-redo"></i> PINJAM LAGI
+                                                <i class="fas fa-redo"></i> AJUKAN LAGI
                                             </button>
                                         </form>
                                     @endif
@@ -298,6 +304,24 @@
         </div>
         
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">KANCA TEGAL</div>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/62895324606014" class="footer-link">WHATSAPP</a></li>
+                    <li><a href="https://instagram.com/kanca.tegal" class="footer-link">INSTAGRAM</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2026 THE MODERN ARCHIVIST. HAK CIPTA DILINDUNGI. Support by @tegal.itsolutions
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Review / Rating Modal -->
     <div id="reviewEbookModal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; backdrop-filter: blur(5px);">

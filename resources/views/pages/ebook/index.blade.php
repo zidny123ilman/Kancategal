@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     
     <style>
-        /* Premium custom enhancements for Ebook list */
         .ebook-card {
             background-color: var(--bg-white);
             border: 2px solid var(--border-color);
@@ -28,13 +27,11 @@
             transition: var(--transition-smooth);
             position: relative;
         }
-
         .ebook-card:hover {
             transform: translateY(-8px);
             border-color: #1a56db;
             box-shadow: 0 10px 20px rgba(26, 86, 219, 0.08);
         }
-
         .ebook-image-wrapper {
             position: relative;
             width: 100%;
@@ -42,106 +39,74 @@
             overflow: hidden;
             background-color: #f4f8f5;
         }
-
         .ebook-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition-smooth);
         }
-
-        .ebook-card:hover .ebook-image-wrapper img {
-            transform: scale(1.05);
-        }
-
+        .ebook-card:hover .ebook-image-wrapper img { transform: scale(1.05); }
         .badge-digital {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1rem; right: 1rem;
             background-color: #1a56db;
             color: #ffffff;
-            font-size: 0.65rem;
-            font-weight: 800;
+            font-size: 0.65rem; font-weight: 800;
             padding: 0.4rem 0.8rem;
             border-radius: 9999px;
-            letter-spacing: 1px;
-            z-index: 2;
+            letter-spacing: 1px; z-index: 2;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .ebook-details {
             padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+            display: flex; flex-direction: column; flex-grow: 1;
         }
-
         .ebook-category {
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: #1a56db;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            font-size: 0.65rem; font-weight: 800;
+            color: #1a56db; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 0.5rem;
         }
-
         .ebook-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-            text-decoration: none;
+            font-size: 1.1rem; font-weight: 800;
+            color: var(--text-dark); line-height: 1.4;
+            margin-bottom: 0.5rem; text-decoration: none;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 3rem;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; height: 3rem;
         }
-
         .ebook-author {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-size: 0.8rem; color: var(--text-muted);
+            margin-bottom: 1rem; font-weight: 600;
         }
-
         .ebook-rating {
             margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.8rem;
-            color: #f59e0b;
-            font-weight: 700;
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.75rem;
+            display: flex; align-items: center; gap: 4px;
+            font-size: 0.8rem; color: #f59e0b; font-weight: 700;
+            border-top: 1px solid var(--border-color); padding-top: 0.75rem;
         }
+        .ebook-rating span { color: var(--text-muted); font-weight: 600; font-size: 0.75rem; }
 
-        .ebook-rating span {
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
-
-        /* Mobile Adjustments for catalog covers */
         @media (max-width: 576px) {
-            .books-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1rem !important;
-            }
-            .ebook-details {
-                padding: 1rem;
-            }
-            .ebook-title {
-                font-size: 0.9rem;
-                height: 2.6rem;
-            }
-            .ebook-author {
-                font-size: 0.75rem;
-                margin-bottom: 0.5rem;
-            }
+            .books-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+            .ebook-details { padding: 1rem; }
+            .ebook-title { font-size: 0.9rem; height: 2.6rem; }
+            .ebook-author { font-size: 0.75rem; margin-bottom: 0.5rem; }
         }
+
+        /* Pagination override */
+        .pagination nav { display: flex; justify-content: center; }
+        .pagination .pagination { display: flex; list-style: none; padding: 0; margin: 0; gap: 6px; }
+        .pagination li { margin: 0; }
+        .pagination li a, .pagination li span {
+            display: flex; align-items: center; justify-content: center;
+            min-width: 40px; height: 40px; padding: 0 10px; border-radius: 8px;
+            border: 2px solid var(--border-color); background-color: var(--bg-white);
+            color: var(--text-dark); font-weight: 700; text-decoration: none;
+            font-size: 0.85rem; transition: var(--transition-smooth);
+        }
+        .pagination li.active span { background-color: #1a56db; border-color: #1a56db; color: white; }
+        .pagination li a:hover { border-color: #1a56db; color: #1a56db; }
+        .pagination li.disabled span { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -220,51 +185,23 @@
 
     </main>
 
-    <!-- Custom styling to override standard simple laravel pagination look -->
-    <style>
-        .pagination nav {
-            display: flex;
-            justify-content: center;
-        }
-        .pagination .pagination {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            gap: 6px;
-        }
-        .pagination li {
-            margin: 0;
-        }
-        .pagination li a, .pagination li span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 40px;
-            height: 40px;
-            padding: 0 10px;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-            background-color: var(--bg-white);
-            color: var(--text-dark);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: var(--transition-smooth);
-        }
-        .pagination li.active span {
-            background-color: #1a56db;
-            border-color: #1a56db;
-            color: white;
-        }
-        .pagination li a:hover {
-            border-color: #1a56db;
-            color: #1a56db;
-        }
-        .pagination li.disabled span {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">KANCA TEGAL</div>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/62895324606014" class="footer-link">WHATSAPP</a></li>
+                    <li><a href="https://instagram.com/kanca.tegal" class="footer-link">INSTAGRAM</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2026 THE MODERN ARCHIVIST. HAK CIPTA DILINDUNGI. Support by @tegal.itsolutions
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

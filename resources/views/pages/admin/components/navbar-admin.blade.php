@@ -24,9 +24,21 @@
                 <i class="fas fa-book"></i> Books
             </a>
         </li>
+        @php
+            $totalEbookMenunggu = \App\Models\EbookPeminjaman::where('status', 'Menunggu')->count();
+        @endphp
         <li class="nav-item {{ Request::is('admin/ebook*') ? 'active' : '' }}">
             <a href="{{ url('/admin/ebook') }}" class="nav-link">
                 <i class="fas fa-file-pdf"></i> E-Book
+            </a>
+        </li>
+        <li class="nav-item {{ Request::is('admin/ebook/peminjaman*') ? 'active' : '' }}" style="padding-left: 0.5rem;">
+            <a href="{{ url('/admin/ebook/peminjaman') }}" class="nav-link" style="font-size: 0.82rem; padding: 0.6rem 1rem 0.6rem 1.75rem;">
+                <i class="fas fa-clock" style="font-size: 0.85rem;"></i>
+                Peminjaman E-Book
+                @if($totalEbookMenunggu > 0)
+                    <span style="margin-left: auto; background-color: #D97706; color: #fff; font-size: 0.68rem; font-weight: 800; padding: 2px 7px; border-radius: 9999px; min-width: 20px; text-align: center;">{{ $totalEbookMenunggu }}</span>
+                @endif
             </a>
         </li>
         <li class="nav-item {{ Request::is('admin/peminjaman') ? 'active' : '' }}">

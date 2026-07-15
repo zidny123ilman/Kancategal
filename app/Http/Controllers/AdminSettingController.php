@@ -28,10 +28,11 @@ class AdminSettingController extends Controller
             'admin2_fullname' => Setting::get('admin2_fullname', 'Admin 2'),
             'admin2_username' => Setting::get('admin2_username', 'admin2'),
             
-            'loan_limit' => Setting::get('loan_limit', '2'),
-            'loan_duration' => Setting::get('loan_duration', '7'),
-            'late_fine_rate' => Setting::get('late_fine_rate', '1000'),
-            'grace_period' => Setting::get('grace_period', '0'),
+            'loan_limit'        => Setting::get('loan_limit', '2'),
+            'loan_duration'     => Setting::get('loan_duration', '7'),
+            'ebook_loan_duration'=> Setting::get('ebook_loan_duration', '7'),
+            'late_fine_rate'    => Setting::get('late_fine_rate', '1000'),
+            'grace_period'      => Setting::get('grace_period', '0'),
             
             'wa_api_token' => Setting::get('wa_api_token', ''),
             'wa_template_register' => Setting::get('wa_template_register', 'Halo {name}, pendaftaran Anda di Kanca Tegal berhasil!'),
@@ -66,10 +67,11 @@ class AdminSettingController extends Controller
             'admin2_username' => 'required|string|max:255',
             'admin2_password' => 'nullable|string|min:6',
             
-            'loan_limit' => 'required|integer|min:1',
-            'loan_duration' => 'required|integer|min:1',
-            'late_fine_rate' => 'required|integer|min:0',
-            'grace_period' => 'required|integer|min:0',
+            'loan_limit'         => 'required|integer|min:1',
+            'loan_duration'      => 'required|integer|min:1',
+            'ebook_loan_duration'=> 'required|integer|min:1',
+            'late_fine_rate'     => 'required|integer|min:0',
+            'grace_period'       => 'required|integer|min:0',
             
             'wa_api_token' => 'nullable|string',
             'wa_template_register' => 'required|string',
@@ -140,7 +142,7 @@ class AdminSettingController extends Controller
         if ($credentialsChanged) $changedSections[] = 'Admin Credentials';
 
         // 3. Loan Rules Settings
-        $loanFields = ['loan_limit', 'loan_duration', 'late_fine_rate', 'grace_period'];
+        $loanFields = ['loan_limit', 'loan_duration', 'ebook_loan_duration', 'late_fine_rate', 'grace_period'];
         $loanChanged = false;
         foreach ($loanFields as $field) {
             $old = Setting::get($field);

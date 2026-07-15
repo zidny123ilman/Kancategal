@@ -17,12 +17,13 @@ class EbookPeminjaman extends Model
         'tanggal_pinjam',
         'tanggal_jatuh_tempo',
         'tanggal_selesai',
-        'status', // Dipinjam, Selesai, Kadaluarsa
+        'status', // Menunggu, Dipinjam, Ditolak, Selesai, Kadaluarsa
         'last_page',
         'progress_persen',
         'rating',
         'review',
         'review_at',
+        'catatan_admin',
     ];
 
     protected $casts = [
@@ -56,5 +57,16 @@ class EbookPeminjaman extends Model
         self::where('status', 'Dipinjam')
             ->where('tanggal_jatuh_tempo', '<', \Carbon\Carbon::today()->toDateString())
             ->update(['status' => 'Kadaluarsa']);
+    }
+
+    /**
+     * Get the duration label for display.
+     */
+    public function getDurationDaysAttribute(): int
+    {
+        if ($this->tanggal_pinjam && $this->tanggal_jatuh_tempo) {
+            return $this->tanggal_pinjam->diffInDays($this->tanggal_jatuh_tempo);
+        }
+        return (int) \App\Models\Setting::get('ebook_loan_duration', 7);
     }
 }

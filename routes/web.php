@@ -135,6 +135,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/ebook/edit/{id}', [AdminEbookController::class, 'edit']);
         Route::post('/ebook/update/{id}', [AdminEbookController::class, 'update']);
         Route::post('/ebook/delete/{id}', [AdminEbookController::class, 'destroy']);
+
+        // E-Book Loan Management (Approval)
+        Route::get('/ebook/peminjaman', [AdminEbookController::class, 'peminjamanIndex'])->name('admin.ebook.peminjaman');
+        Route::post('/ebook/peminjaman/{id}/setujui', [AdminEbookController::class, 'setujuiPinjam'])->name('admin.ebook.setujui');
+        Route::post('/ebook/peminjaman/{id}/tolak', [AdminEbookController::class, 'tolakPinjam'])->name('admin.ebook.tolak');
     });
 });
 
