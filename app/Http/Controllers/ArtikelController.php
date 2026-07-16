@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use App\Models\Setting;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -64,9 +66,25 @@ class ArtikelController extends Controller
             return redirect('/artikel')->with('error', 'Anda tidak memiliki hak akses untuk mengunggah artikel.');
         }
 
-        $draft = Artikel::where('user_id', Auth::id())->where('status', 'draft')->orderBy('updated_at', 'desc')->first();
+        // Clean up rejected articles older than 5 days (120 hours)
+        $oldRejected = Artikel::where('status', 'rejected')
+            ->where('updated_at', '<', now()->subDays(5))
+            ->get();
 
-        return view('pages.uploadartikel', compact('draft'));
+        foreach ($oldRejected as $oldArt) {
+            if ($oldArt->foto_utama && File::exists(public_path($oldArt->foto_utama))) {
+                File::delete(public_path($oldArt->foto_utama));
+            }
+            if ($oldArt->foto_pendukung && File::exists(public_path($oldArt->foto_pendukung))) {
+                File::delete(public_path($oldArt->foto_pendukung));
+            }
+            $oldArt->delete();
+        }
+
+        $draft = Artikel::where('user_id', Auth::id())->where('status', 'draft')->orderBy('updated_at', 'desc')->first();
+        $rejectedArticles = Artikel::where('user_id', Auth::id())->where('status', 'rejected')->orderBy('updated_at', 'desc')->get();
+
+        return view('pages.uploadartikel', compact('draft', 'rejectedArticles'));
     }
 
     /**
@@ -244,7 +262,22 @@ class ArtikelController extends Controller
     public function approve($id)
     {
         $article = Artikel::findOrFail($id);
-        $article->update(['status' => 'approved']);
+        $article->update([
+            'status' => 'approved',
+            'alasan_ditolak' => null
+        ]);
+
+        // Send WhatsApp Notification to the uploader
+        $user = $article->user;
+        if ($user && $user->whatsapp) {
+            $template = Setting::get('wa_template_article_approved', 'Halo {name}, artikel Anda yang berjudul "{title}" telah disetujui oleh admin. Terima kasih!');
+            $message = str_replace(
+                ['{name}', '{title}'],
+                [$user->name, $article->judul],
+                $template
+            );
+            WhatsAppService::send($user->whatsapp, $message);
+        }
 
         return redirect('/admin/artikel')->with('success', 'Artikel "' . $article->judul . '" berhasil disetujui dan diterbitkan!');
     }
@@ -252,10 +285,29 @@ class ArtikelController extends Controller
     /**
      * Reject article.
      */
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
+        $request->validate([
+            'alasan_ditolak' => 'required|string'
+        ]);
+
         $article = Artikel::findOrFail($id);
-        $article->update(['status' => 'rejected']);
+        $article->update([
+            'status' => 'rejected',
+            'alasan_ditolak' => $request->input('alasan_ditolak')
+        ]);
+
+        // Send WhatsApp Notification to the uploader
+        $user = $article->user;
+        if ($user && $user->whatsapp) {
+            $template = Setting::get('wa_template_article_rejected', 'Halo {name}, artikel Anda yang berjudul "{title}" ditolak oleh admin dengan alasan: {reason}. Silakan perbaiki.');
+            $message = str_replace(
+                ['{name}', '{title}', '{reason}'],
+                [$user->name, $article->judul, $article->alasan_ditolak],
+                $template
+            );
+            WhatsAppService::send($user->whatsapp, $message);
+        }
 
         return redirect('/admin/artikel')->with('success', 'Artikel "' . $article->judul . '" telah ditolak.');
     }

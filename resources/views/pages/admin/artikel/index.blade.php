@@ -47,6 +47,28 @@
             color: #C01E2E;
             border: 1px solid #C01E2E;
         }
+        /* Modal Overlay and Box styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
@@ -123,16 +145,15 @@
                                         </div>
                                         <span class="art-mod-author-name">{{ $art->nama_uploader }}</span>
                                     </div>
-                                    <div class="art-mod-actions" style="display: flex; gap: 8px; align-items: center;">
-                                        <form action="{{ url('/admin/artikel/' . $art->id . '/reject') }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="art-btn-reject" title="Reject"><i class="fas fa-times"></i></button>
-                                        </form>
+                                     <div class="art-mod-actions" style="display: flex; gap: 8px; align-items: center;">
+                                        <button type="button" class="art-btn-reject" title="Reject" onclick="openRejectModal({{ $art->id }}, '{{ addslashes($art->judul) }}')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
                                         <form action="{{ url('/admin/artikel/' . $art->id . '/approve') }}" method="POST">
                                             @csrf
                                             <button type="submit" class="art-btn-approve">APPROVE</button>
                                         </form>
-                                    </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -214,10 +235,9 @@
                                     <td class="art-td art-td--right">
                                         <div class="art-row-actions" style="display: flex; justify-content: flex-end; gap: 12px; align-items: center;">
                                             @if(strtolower($art->status) === 'pending')
-                                                <form action="{{ url('/admin/artikel/' . $art->id . '/reject') }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="art-icon-btn" style="color: var(--primary-red); background: none; border: none; cursor: pointer;" title="Reject"><i class="fas fa-times"></i></button>
-                                                </form>
+                                                <button type="button" class="art-icon-btn" style="color: var(--primary-red); background: none; border: none; cursor: pointer;" title="Reject" onclick="openRejectModal({{ $art->id }}, '{{ addslashes($art->judul) }}')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
                                                 <form action="{{ url('/admin/artikel/' . $art->id . '/approve') }}" method="POST">
                                                     @csrf
                                                     <button type="submit" class="art-icon-btn" style="color: #137333; background: none; border: none; cursor: pointer;" title="Approve"><i class="fas fa-check"></i></button>
@@ -294,6 +314,47 @@
 
         </div>
     </main>
+
+    <!-- Reject Modal -->
+    <div class="modal-overlay" id="reject-article-modal">
+        <div class="modal-box">
+            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:0.5rem; color:#1e2e25; display:flex; align-items:center; gap:8px;">
+                <i class="fas fa-times-circle" style="color:var(--primary-red);"></i> Tolak Artikel
+            </h3>
+            <p style="font-size:0.85rem; color:#64748b; margin-bottom:1.5rem;">
+                Tolak artikel <strong id="reject-modal-title"></strong>? Anda harus memberikan alasan penolakan yang akan dikirimkan ke penulis melalui WhatsApp.
+            </p>
+            <form id="reject-modal-form" action="" method="POST">
+                @csrf
+                <label style="font-size:0.75rem; font-weight:800; color:#334155; display:block; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.5px;">ALASAN PENOLAKAN</label>
+                <textarea name="alasan_ditolak" rows="3" placeholder="Tulis alasan penolakan di sini..." style="width:100%; border:1.5px solid #cbd2c8; border-radius:8px; padding:0.75rem; font-size:0.9rem; font-family:inherit; resize:vertical; box-sizing:border-box; margin-bottom:1.5rem;" required></textarea>
+                <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+                    <button type="button" onclick="closeRejectModal()" class="art-btn" style="background:#cbd5e1; color:#334155; padding:0.6rem 1.2rem; border-radius:6px; border:none; font-weight:700; cursor:pointer;">Batal</button>
+                    <button type="submit" class="art-btn" style="background:var(--primary-red); color:white; padding:0.6rem 1.5rem; border-radius:6px; border:none; font-weight:700; cursor:pointer;">Konfirmasi Tolak</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openRejectModal(id, title) {
+            const modal = document.getElementById('reject-article-modal');
+            const form = document.getElementById('reject-modal-form');
+            const titleElem = document.getElementById('reject-modal-title');
+            
+            form.action = "{{ url('/admin/artikel') }}/" + id + "/reject";
+            titleElem.textContent = title;
+            modal.classList.add('show');
+        }
+        
+        function closeRejectModal() {
+            document.getElementById('reject-article-modal').classList.remove('show');
+        }
+        
+        document.getElementById('reject-article-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeRejectModal();
+        });
+    </script>
 
 </body>
 </html>

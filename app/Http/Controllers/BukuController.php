@@ -16,7 +16,17 @@ class BukuController extends Controller
      */
     public function landingPage()
     {
-        $weeklyBooks = Buku::where('status_publish', 'publish')->orderBy('created_at', 'desc')->take(4)->get();
+        $startOfWeek = \Carbon\Carbon::now()->startOfWeek();
+        $endOfWeek = \Carbon\Carbon::now()->endOfWeek();
+
+        $weeklyBooks = Buku::where('status_publish', 'publish')
+            ->withCount(['peminjamans' => function($query) use ($startOfWeek, $endOfWeek) {
+                $query->whereBetween('tanggal_pinjam', [$startOfWeek, $endOfWeek]);
+            }])
+            ->orderBy('peminjamans_count', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
         $articles = Artikel::where('status', 'approved')
             ->orderBy('created_at', 'desc')
             ->take(5)

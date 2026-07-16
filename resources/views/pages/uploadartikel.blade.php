@@ -330,6 +330,10 @@
             .file-upload-wrapper {
                 padding: 1.5rem;
             }
+
+            .rejected-card {
+                padding: 1.25rem !important;
+            }
         }
     </style>
 </head>
@@ -507,6 +511,48 @@
             </form>
 
         </div>
+
+        @if(isset($rejectedArticles) && $rejectedArticles->isNotEmpty())
+            <div class="rejected-section" style="margin-top: 3rem; animation: fadeIn 0.8s ease-out;">
+                <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--primary-red); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-exclamation-triangle"></i> Artikel yang Ditolak Kurator
+                </h2>
+                <div class="rejected-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    @foreach($rejectedArticles as $art)
+                        <div class="rejected-card" style="background: white; border: 1.5px solid rgba(192, 30, 46, 0.15); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 15px rgba(192, 30, 46, 0.03); transition: all 0.3s ease;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin: 0 0 0.5rem 0;">{{ $art->judul }}</h3>
+                                    <div style="display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap;">
+                                        <span><i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}</span>
+                                        <span><i class="far fa-user"></i> {{ $art->nama_uploader }}</span>
+                                        <span><i class="fas fa-tag"></i> {{ strtoupper($art->kategori) }}</span>
+                                    </div>
+                                </div>
+                                <span style="background-color: rgba(192, 30, 46, 0.1); color: var(--primary-red); font-size: 0.7rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.5px;">Ditolak</span>
+                            </div>
+
+                            <!-- Alasan Penolakan Block -->
+                            <div style="background-color: rgba(192, 30, 46, 0.04); border-left: 4px solid var(--primary-red); padding: 1rem 1.25rem; border-radius: 4px 8px 8px 4px; margin-bottom: 1.25rem;">
+                                <span style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--primary-red); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem;">
+                                    <i class="fas fa-comment-dots"></i> Alasan Penolakan Admin:
+                                </span>
+                                <p style="font-size: 0.9rem; color: #1e2e25; line-height: 1.5; margin: 0; font-weight: 600;">
+                                    {{ $art->alasan_ditolak }}
+                                </p>
+                            </div>
+
+                            <div style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                                <span style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">Kutipan Isi Artikel:</span>
+                                <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                                    {{ Str::limit(strip_tags($art->isi), 220) }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
 
     </main>
 

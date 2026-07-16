@@ -22,6 +22,7 @@ class Artikel extends Model
         'kategori',
         'status',
         'keywords',
+        'alasan_ditolak',
     ];
 
     public function user()

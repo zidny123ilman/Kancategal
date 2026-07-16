@@ -39,6 +39,8 @@ class AdminSettingController extends Controller
             'wa_template_borrow' => Setting::get('wa_template_borrow', 'Halo {name}, peminjaman buku {title} berhasil. Harap kembalikan sebelum {due_date}.'),
             'wa_template_overdue' => Setting::get('wa_template_overdue', 'Halo {name}, peminjaman buku {title} telah terlambat. Denda saat ini adalah {fine}. Harap segera kembalikan.'),
             'wa_template_otp' => Setting::get('wa_template_otp', 'Halo {name}, berikut adalah kode OTP untuk merubah kata sandi Anda: {otp}. Jangan sebarkan kode ini kepada siapapun!'),
+            'wa_template_article_approved' => Setting::get('wa_template_article_approved', 'Halo {name}, artikel Anda yang berjudul "{title}" telah disetujui oleh admin. Terima kasih!'),
+            'wa_template_article_rejected' => Setting::get('wa_template_article_rejected', 'Halo {name}, artikel Anda yang berjudul "{title}" ditolak oleh admin dengan alasan: {reason}. Silakan perbaiki.'),
             
             'popup_status' => Setting::get('popup_status', '0'),
             'popup_active_type' => Setting::get('popup_active_type', 'buka'),
@@ -78,6 +80,8 @@ class AdminSettingController extends Controller
             'wa_template_borrow' => 'required|string',
             'wa_template_overdue' => 'required|string',
             'wa_template_otp' => 'required|string',
+            'wa_template_article_approved' => 'required|string',
+            'wa_template_article_rejected' => 'required|string',
 
             'popup_status' => 'nullable|string|in:0,1',
             'popup_active_type' => 'nullable|string|in:buka,tutup',
@@ -155,7 +159,7 @@ class AdminSettingController extends Controller
         if ($loanChanged) $changedSections[] = 'Borrowing Rules';
 
         // 4. WhatsApp Gateway Settings
-        $waFields = ['wa_api_token', 'wa_template_register', 'wa_template_borrow', 'wa_template_overdue', 'wa_template_otp'];
+        $waFields = ['wa_api_token', 'wa_template_register', 'wa_template_borrow', 'wa_template_overdue', 'wa_template_otp', 'wa_template_article_approved', 'wa_template_article_rejected'];
         $waChanged = false;
         foreach ($waFields as $field) {
             $old = Setting::get($field);

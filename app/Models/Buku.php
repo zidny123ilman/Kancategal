@@ -30,4 +30,9 @@ class Buku extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function peminjamans()
+    {
+        return $this->hasMany(Peminjaman::class, 'buku_id');
+    }
 }

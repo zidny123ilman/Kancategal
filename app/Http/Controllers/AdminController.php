@@ -51,24 +51,55 @@ class AdminController extends Controller
             $chartData[] = $monthlyLoans[$monthKey] ?? 0;
         }
 
-        // Calculate Reading Interest Percentage
-        // 1. Loan frequency score (max 40 points)
-        $totalLoans = Peminjaman::count();
-        $loanFrequencyScore = min(40, $totalLoans * 0.2);
+        // Kategori Buku yang Sering Dipinjam
+        // Mengambil semua kategori yang ada di data buku
+        $semuaKategori = Buku::select('kategori')
+            ->distinct()
+            ->whereNotNull('kategori')
+            ->where('kategori', '!=', '')
+            ->pluck('kategori')
+            ->toArray();
 
-        // 2. Average loan duration score (max 30 points)
-        $avgDuration = Peminjaman::select(
-                DB::raw("AVG(DATEDIFF(COALESCE(tanggal_dikembalikan, tanggal_kembali), tanggal_pinjam)) as avg_days")
-            )->first()->avg_days ?? 7;
-        $durationScore = min(30, $avgDuration * 3);
+        // Jika kebetulan kosong, berikan default
+        if (empty($semuaKategori)) {
+            $semuaKategori = ['Novel', 'Sejarah', 'Psikologi', 'Sastra', 'Seni', 'Lainnya'];
+        }
 
-        // 3. User participation ratio (max 30 points)
-        $totalUsers = User::count();
-        $activeBorrowers = Peminjaman::distinct('user_id')->count('user_id');
-        $userRatio = $totalUsers > 0 ? ($activeBorrowers / $totalUsers) : 0;
-        $participationScore = $userRatio * 30;
+        // Menghitung jumlah peminjaman berdasarkan kategori
+        $kategoriPeminjaman = Peminjaman::join('bukus', 'peminjamans.buku_id', '=', 'bukus.id')
+            ->select('bukus.kategori', DB::raw('count(peminjamans.id) as total'))
+            ->groupBy('bukus.kategori')
+            ->pluck('total', 'kategori')
+            ->toArray();
+            
+        $totalPeminjamanAll = array_sum($kategoriPeminjaman);
+        
+        $kategoriDataArray = [];
+        foreach ($semuaKategori as $kat) {
+            $total = $kategoriPeminjaman[$kat] ?? 0;
+            $kategoriDataArray[] = [
+                'kategori' => $kat,
+                'total' => $total,
+            ];
+        }
 
-        $readingInterest = min(100, max(0, round($loanFrequencyScore + $durationScore + $participationScore)));
+        // Urutkan dari yang paling banyak dipinjam ke yang terendah
+        usort($kategoriDataArray, function($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+        
+        $kategoriLabels = [];
+        $kategoriData = [];
+        // Preset modern colors for categories
+        $kategoriColors = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4', '#F97316', '#64748B', '#84CC16', '#14B8A6'];
+        $chartColors = [];
+        
+        foreach ($kategoriDataArray as $index => $item) {
+            $kategoriLabels[] = $item['kategori'];
+            $percentage = $totalPeminjamanAll > 0 ? round(($item['total'] / $totalPeminjamanAll) * 100) : 0;
+            $kategoriData[] = $percentage;
+            $chartColors[] = $kategoriColors[$index % count($kategoriColors)];
+        }
 
         // Calculate total denda paid (status: selesai) and unpaid (status: aktif, pending_kembali)
         $allSelesaiLoans = Peminjaman::where('status', 'selesai')->get();
@@ -116,7 +147,9 @@ class AdminController extends Controller
             'totalDendaBelumTerbayar',
             'chartLabels',
             'chartData',
-            'readingInterest',
+            'kategoriLabels',
+            'kategoriData',
+            'chartColors',
             'totalEbooks',
             'ebookSedangDipinjam',
             'ebookKadaluarsa',

@@ -123,21 +123,22 @@
                     </div>
                 </div>
 
-                <!-- Doughnut/Gauge Chart: Reading Interest in Tegal -->
+                <!-- Doughnut/Gauge Chart: Kategori Buku yang Sering Dipinjam -->
                 <div class="admin-table-container" style="padding: 2rem; border-top: 4px solid #10B981; display: flex; flex-direction: column; justify-content: space-between;">
                     <h3 style="font-size: 1.1rem; color: var(--text-dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; font-weight: 700;">
-                        <i class="fas fa-chart-pie" style="color: #10B981;"></i> Minat Baca Kota Tegal
+                        <i class="fas fa-chart-pie" style="color: #10B981;"></i> Kategori Buku yang Sering Dipinjam
                     </h3>
                     <div style="position: relative; height: 180px; display: flex; justify-content: center; align-items: center;">
-                        <canvas id="readingInterestChart"></canvas>
-                        <!-- Centered text for the percentage -->
-                        <div style="position: absolute; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none;">
-                            <span style="font-size: 2.2rem; font-weight: 800; color: var(--text-dark); line-height: 1;">{{ $readingInterest }}%</span>
-                            <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px; letter-spacing: 0.5px;">Indeks Minat</span>
-                        </div>
+                        <canvas id="kategoriBukuChart"></canvas>
                     </div>
-                    <div style="margin-top: 1rem; border-top: 1px solid #E2EAE5; padding-top: 1.2rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; text-align: center;">
-                        Dihitung secara dinamis berdasarkan <strong>frekuensi peminjaman</strong>, <strong>durasi peminjaman</strong>, dan <strong>partisipasi anggota</strong>.
+                    
+                    <div style="margin-top: 1rem; border-top: 1px solid #E2EAE5; padding-top: 1.2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                        @foreach($kategoriLabels as $index => $label)
+                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">
+                            <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: {{ $chartColors[$index] }};"></span>
+                            {{ $label }} ({{ $kategoriData[$index] }}%)
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -246,32 +247,52 @@
                 }
             });
 
-            // Reading Interest Doughnut Chart
-            const ctxInterest = document.getElementById('readingInterestChart').getContext('2d');
-            const interestVal = @json($readingInterest);
-            const remainingVal = 100 - interestVal;
+            // Kategori Buku Doughnut Chart
+            const ctxKategori = document.getElementById('kategoriBukuChart').getContext('2d');
+            const kategoriLabels = @json($kategoriLabels);
+            const kategoriData = @json($kategoriData);
+            const kategoriColors = @json($chartColors);
 
-            new Chart(ctxInterest, {
+            new Chart(ctxKategori, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Minat Baca', 'Sisa'],
+                    labels: kategoriLabels,
                     datasets: [{
-                        data: [interestVal, remainingVal],
-                        backgroundColor: ['#10B981', '#E2EAE5'],
-                        borderWidth: 0,
-                        hoverOffset: 0
+                        data: kategoriData,
+                        backgroundColor: kategoriColors,
+                        borderWidth: 2,
+                        borderColor: '#ffffff',
+                        hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '80%',
+                    cutout: '65%',
                     plugins: {
                         legend: {
                             display: false
                         },
                         tooltip: {
-                            enabled: false
+                            backgroundColor: '#1E2E25',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            titleFont: {
+                                family: 'Plus Jakarta Sans',
+                                size: 12,
+                                weight: '700'
+                            },
+                            bodyFont: {
+                                family: 'Plus Jakarta Sans',
+                                size: 12
+                            },
+                            cornerRadius: 8,
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
                         }
                     }
                 }

@@ -193,6 +193,28 @@
             background-color: #a01826;
             transform: translateY(-1px);
         }
+        /* Modal Overlay and Box styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
@@ -273,10 +295,7 @@
                         <div class="moderation-desc">Sebagai admin, Anda dapat menyetujui artikel untuk dipublikasikan atau menolaknya.</div>
                     </div>
                     <div class="moderation-actions">
-                        <form action="{{ url('/admin/artikel/' . $artikel->id . '/reject') }}" method="POST" style="margin: 0;">
-                            @csrf
-                            <button type="submit" class="btn-reject-large">TOLAK</button>
-                        </form>
+                        <button type="button" class="btn-reject-large" onclick="openRejectModal({{ $artikel->id }}, '{{ addslashes($artikel->judul) }}')">TOLAK</button>
                         <form action="{{ url('/admin/artikel/' . $artikel->id . '/approve') }}" method="POST" style="margin: 0;">
                             @csrf
                             <button type="submit" class="btn-approve-large">SETUJUI</button>
@@ -289,6 +308,47 @@
 
     </div>
     </main>
+
+    <!-- Reject Modal -->
+    <div class="modal-overlay" id="reject-article-modal">
+        <div class="modal-box">
+            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:0.5rem; color:#1e2e25; display:flex; align-items:center; gap:8px;">
+                <i class="fas fa-times-circle" style="color:var(--primary-red);"></i> Tolak Artikel
+            </h3>
+            <p style="font-size:0.85rem; color:#64748b; margin-bottom:1.5rem;">
+                Tolak artikel <strong id="reject-modal-title"></strong>? Anda harus memberikan alasan penolakan yang akan dikirimkan ke penulis melalui WhatsApp.
+            </p>
+            <form id="reject-modal-form" action="" method="POST">
+                @csrf
+                <label style="font-size:0.75rem; font-weight:800; color:#334155; display:block; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.5px;">ALASAN PENOLAKAN</label>
+                <textarea name="alasan_ditolak" rows="3" placeholder="Tulis alasan penolakan di sini..." style="width:100%; border:1.5px solid #cbd2c8; border-radius:8px; padding:0.75rem; font-size:0.9rem; font-family:inherit; resize:vertical; box-sizing:border-box; margin-bottom:1.5rem;" required></textarea>
+                <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+                    <button type="button" onclick="closeRejectModal()" class="btn-admin-secondary" style="padding:0.6rem 1.2rem; border-radius:6px; border:none; font-weight:700; cursor:pointer;">Batal</button>
+                    <button type="submit" class="btn-reject-large" style="padding:0.6rem 1.5rem; border-radius:6px; border:none; font-weight:700; cursor:pointer;">Konfirmasi Tolak</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openRejectModal(id, title) {
+            const modal = document.getElementById('reject-article-modal');
+            const form = document.getElementById('reject-modal-form');
+            const titleElem = document.getElementById('reject-modal-title');
+            
+            form.action = "{{ url('/admin/artikel') }}/" + id + "/reject";
+            titleElem.textContent = title;
+            modal.classList.add('show');
+        }
+        
+        function closeRejectModal() {
+            document.getElementById('reject-article-modal').classList.remove('show');
+        }
+        
+        document.getElementById('reject-article-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeRejectModal();
+        });
+    </script>
 
 </body>
 </html>

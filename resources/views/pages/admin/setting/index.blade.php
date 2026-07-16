@@ -670,6 +670,26 @@
                                 <textarea class="stg-textarea" name="wa_template_otp" rows="3" required>{{ $settings['wa_template_otp'] }}</textarea>
                             </div>
                         </div>
+
+                        <div class="stg-form-row">
+                            <div class="stg-label">
+                                Template Artikel Disetujui
+                                <p class="stg-label-desc">Pesan WhatsApp yang dikirimkan saat artikel disetujui admin. Variabel: <code>{name}</code>, <code>{title}</code></p>
+                            </div>
+                            <div>
+                                <textarea class="stg-textarea" name="wa_template_article_approved" rows="3" required>{{ $settings['wa_template_article_approved'] }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="stg-form-row">
+                            <div class="stg-label">
+                                Template Artikel Ditolak
+                                <p class="stg-label-desc">Pesan WhatsApp yang dikirimkan saat artikel ditolak admin. Variabel: <code>{name}</code>, <code>{title}</code>, <code>{reason}</code></p>
+                            </div>
+                            <div>
+                                <textarea class="stg-textarea" name="wa_template_article_rejected" rows="3" required>{{ $settings['wa_template_article_rejected'] }}</textarea>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 5. Popup Settings Panel -->
