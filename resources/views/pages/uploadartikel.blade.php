@@ -572,7 +572,7 @@
             </div>
             <div class="footer-bottom">
                 <div class="copyright">
-                    &copy; 2026 THE MODERN ARCHIVIST. ALL RIGHTS RESERVED.
+                    &copy; 2026 KANCA TEGAL Support by @tegal.itsolutions X Universitas Harkat Negeri
                 </div>
             </div>
         </div>

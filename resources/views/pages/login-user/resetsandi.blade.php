@@ -121,7 +121,7 @@
                     KANCA<span>TEGAL</span>
                 </div>
                 <div class="reset-footer-copy">
-                    &copy; 2024. THE MODERN ARCHIVIST.
+                    &copy; 2026 KANCA TEGAL Support by @tegal.itsolutions X Universitas Harkat Negeri
                 </div>
             </div>
             <ul class="reset-footer-right">
