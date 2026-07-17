@@ -26,7 +26,3 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
-# Ignore uploads but keep directories
-/public/uploads/*
-!/public/uploads/.gitkeep
-!/public/uploads/*/.gitkeep

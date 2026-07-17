@@ -78,27 +78,19 @@ class AdminKontenController extends Controller
 
         // Handle Hero Image Upload
         if ($request->hasFile('hero_image')) {
-            $file = $request->file('hero_image');
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $uploadPath = public_path('uploads/landing');
-
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0755, true);
-            }
-
             // Remove old image file if it was a local file
             $oldImage = Setting::get('hero_image');
             if ($oldImage && !str_starts_with($oldImage, 'http') && File::exists(public_path($oldImage))) {
                 File::delete(public_path($oldImage));
             }
 
-            $file->move($uploadPath, $fileName);
-            $newPath = 'uploads/landing/' . $fileName;
+            $path = $request->file('hero_image')->store('landing', 'public');
+            $newPath = 'storage/' . $path;
             Setting::set('hero_image', $newPath);
 
             AdminLog::create([
                 'action' => 'CONTENT_HERO_IMAGE',
-                'details' => $adminName . ' uploaded a new Hero Background image (' . $fileName . ').',
+                'details' => $adminName . ' uploaded a new Hero Background image.',
             ]);
             $hasChanges = true;
         }

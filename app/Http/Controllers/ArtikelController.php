@@ -166,30 +166,20 @@ class ArtikelController extends Controller
             'status' => $isDraft ? 'draft' : 'pending',
         ];
 
-        // Ensure upload directory exists
-        $uploadPath = public_path('uploads/articles');
-        if (!File::exists($uploadPath)) {
-            File::makeDirectory($uploadPath, 0755, true);
-        }
-
         // Handle cover photo
         if ($request->hasFile('foto_utama')) {
-            $file = $request->file('foto_utama');
-            $fileName = time() . '_main_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadPath, $fileName);
-            $articleData['foto_utama'] = 'uploads/articles/' . $fileName;
+            $path = $request->file('foto_utama')->store('articles', 'public');
+            $articleData['foto_utama'] = 'storage/' . $path;
         } elseif ($draft && !empty($draft->foto_utama)) {
             $articleData['foto_utama'] = $draft->foto_utama;
         } else {
-            $articleData['foto_utama'] = 'uploads/articles/default.jpg';
+            $articleData['foto_utama'] = 'images/default_article.jpg';
         }
 
         // Handle supporting photo
         if ($request->hasFile('foto_pendukung')) {
-            $file = $request->file('foto_pendukung');
-            $fileName = time() . '_support_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move($uploadPath, $fileName);
-            $articleData['foto_pendukung'] = 'uploads/articles/' . $fileName;
+            $path = $request->file('foto_pendukung')->store('articles', 'public');
+            $articleData['foto_pendukung'] = 'storage/' . $path;
         } elseif ($draft && !empty($draft->foto_pendukung)) {
             $articleData['foto_pendukung'] = $draft->foto_pendukung;
         }

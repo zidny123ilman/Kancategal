@@ -186,34 +186,22 @@ class AdminSettingController extends Controller
         }
 
         if ($request->hasFile('popup_buka_image')) {
-            $file = $request->file('popup_buka_image');
-            $fileName = 'popup_buka_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $uploadPath = public_path('uploads/landing');
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0755, true);
-            }
             $oldFile = Setting::get('popup_buka_image');
             if ($oldFile && File::exists(public_path($oldFile))) {
                 File::delete(public_path($oldFile));
             }
-            $file->move($uploadPath, $fileName);
-            Setting::set('popup_buka_image', 'uploads/landing/' . $fileName);
+            $path = $request->file('popup_buka_image')->store('landing', 'public');
+            Setting::set('popup_buka_image', 'storage/' . $path);
             $popupChanged = true;
         }
 
         if ($request->hasFile('popup_tutup_image')) {
-            $file = $request->file('popup_tutup_image');
-            $fileName = 'popup_tutup_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $uploadPath = public_path('uploads/landing');
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0755, true);
-            }
             $oldFile = Setting::get('popup_tutup_image');
             if ($oldFile && File::exists(public_path($oldFile))) {
                 File::delete(public_path($oldFile));
             }
-            $file->move($uploadPath, $fileName);
-            Setting::set('popup_tutup_image', 'uploads/landing/' . $fileName);
+            $path = $request->file('popup_tutup_image')->store('landing', 'public');
+            Setting::set('popup_tutup_image', 'storage/' . $path);
             $popupChanged = true;
         }
 

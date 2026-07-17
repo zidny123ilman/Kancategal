@@ -248,22 +248,8 @@ class BukuController extends Controller
 
         // Handle File Upload
         if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            
-            // Define the uploads directory inside public folder
-            $uploadPath = public_path('uploads/books');
-            
-            // Ensure folder exists
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0755, true);
-            }
-            
-            // Move file
-            $file->move($uploadPath, $fileName);
-            
-            // Save relative URL path to DB
-            $bookData['foto'] = 'uploads/books/' . $fileName;
+            $path = $request->file('foto')->store('books', 'public');
+            $bookData['foto'] = 'storage/' . $path;
         }
 
         // Set default status
@@ -358,16 +344,8 @@ class BukuController extends Controller
                 File::delete(public_path($buku->foto));
             }
 
-            $file = $request->file('foto');
-            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $uploadPath = public_path('uploads/books');
-            
-            if (!File::exists($uploadPath)) {
-                File::makeDirectory($uploadPath, 0755, true);
-            }
-            
-            $file->move($uploadPath, $fileName);
-            $bookData['foto'] = 'uploads/books/' . $fileName;
+            $path = $request->file('foto')->store('books', 'public');
+            $bookData['foto'] = 'storage/' . $path;
         }
 
         $buku->update($bookData);
