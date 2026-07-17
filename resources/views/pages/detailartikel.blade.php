@@ -82,7 +82,7 @@
                     <div class="article-share-text">
                         SHARE ARTICLE
                         <div class="article-share-icons">
-                            <a href="https://wa.me/?text={{ urlencode($artikel->judul . ' - ' . url('/detailartikel/' . $artikel->id)) }}" target="_blank" title="Bagikan ke WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://wa.me/?text={{ urlencode($artikel->judul . ' - ' . url('/detailartikel/' . $artikel->slug)) }}" target="_blank" title="Bagikan ke WhatsApp"><i class="fab fa-whatsapp"></i></a>
                             <a href="https://instagram.com" target="_blank" title="Buka Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
             
             <div class="related-grid">
                 @forelse($otherArticles as $other)
-                <a href="{{ url('/detailartikel/' . $other->id) }}" class="related-card">
+                <a href="{{ url('/detailartikel/' . $other->slug) }}" class="related-card">
                     <img src="{{ filter_var($other->foto_utama, FILTER_VALIDATE_URL) ? $other->foto_utama : asset($other->foto_utama) }}" alt="{{ $other->judul }}">
                     <span class="cat-badge">{{ strtoupper($other->kategori) }}</span>
                     <h4>{{ $other->judul }}</h4>

@@ -42,13 +42,13 @@ class ArtikelController extends Controller
         return view('pages.artikel', compact('mostRead', 'latest', 'favorites'));
     }
 
-    public function publicDetail($id)
+    public function publicDetail($slug)
     {
-        $artikel = Artikel::where('status', 'approved')->findOrFail($id);
+        $artikel = Artikel::where('status', 'approved')->where('slug', $slug)->firstOrFail();
         $artikel->increment('views');
 
         $otherArticles = Artikel::where('status', 'approved')
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $artikel->id)
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();

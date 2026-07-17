@@ -91,6 +91,7 @@
                             </div>
                             <h4 class="article-title">
                                 <a href="#" class="dynamic-art-link" 
+                                   data-slug="{{ $art->slug }}"
                                    data-title="{{ $art->judul }}" 
                                    data-uploader="{{ $art->nama_uploader }}" 
                                    data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}" 
@@ -105,6 +106,7 @@
                                 {{ Str::limit($art->isi, 120) }}
                             </p>
                             <a href="#" class="btn-read-more-link dynamic-art-link"
+                               data-slug="{{ $art->slug }}"
                                data-title="{{ $art->judul }}" 
                                data-uploader="{{ $art->nama_uploader }}" 
                                data-date="{{ \Carbon\Carbon::parse($art->tanggal_upload)->format('d M Y') }}" 
@@ -176,14 +178,9 @@
                     }
                     
                     if (target) {
-                        const title = target.getAttribute('data-title');
-                        const author = target.getAttribute('data-uploader');
-                        const date = target.getAttribute('data-date');
-                        const content = target.getAttribute('data-content');
-                        const image = target.getAttribute('data-image');
-                        const category = target.getAttribute('data-category');
+                        const slug = target.getAttribute('data-slug');
                         
-                        window.location.href = `{{ url('/detailartikel') }}?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&date=${encodeURIComponent(date)}&content=${encodeURIComponent(content)}&image=${encodeURIComponent(image)}&category=${encodeURIComponent(category)}`;
+                        window.location.href = `{{ url('/detailartikel') }}/${slug}`;
                     }
                 });
             });

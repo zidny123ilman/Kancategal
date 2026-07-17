@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Artikel extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $table = 'artikels';
 
@@ -23,7 +25,15 @@ class Artikel extends Model
         'status',
         'keywords',
         'alasan_ditolak',
+        'slug',
     ];
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('judul')
+            ->saveSlugsTo('slug');
+    }
 
     public function user()
     {

@@ -288,12 +288,12 @@
                                         class="article-badge {{ strtolower($art->kategori) === 'essay' ? 'badge-essay' : (strtolower($art->kategori) === 'news' ? 'badge-news' : 'badge-review') }}">READ</span>
                                 </div>
                                 <h3 class="article-title">
-                                    <a href="{{ url('/detailartikel/' . $art->id) }}">
+                                    <a href="{{ url('/detailartikel/' . $art->slug) }}">
                                         {{ $art->judul }}
                                     </a>
                                 </h3>
                                 <p class="article-description">{{ Str::limit($art->isi, 120) }}</p>
-                                <a href="{{ url('/detailartikel/' . $art->id) }}" class="article-link">
+                                <a href="{{ url('/detailartikel/' . $art->slug) }}" class="article-link">
                                     {{ __('Read More') }} <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>

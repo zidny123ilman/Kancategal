@@ -38,7 +38,7 @@ Route::post('/peminjaman/kembalikan/{bukuId}', [PeminjamanController::class, 'ke
 Route::post('/buku/{id}/favorite', [BukuController::class, 'toggleFavorite'])->middleware('auth');
 Route::post('/artikel/{id}/favorite', [ArtikelController::class, 'toggleFavorite'])->middleware('auth');
 
-Route::get('/detailartikel/{id}', [ArtikelController::class, 'publicDetail']);
+Route::get('/detailartikel/{slug}', [ArtikelController::class, 'publicDetail']);
 
 Route::get('/kontak', function () {
     return view('pages.kontak');
