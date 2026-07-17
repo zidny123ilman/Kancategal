@@ -145,13 +145,15 @@ Route::prefix('admin')->group(function () {
 
 // E-Book Public Routes
 Route::get('/ebook', [EbookController::class, 'index'])->name('ebook.index');
-Route::get('/ebook/{slug}', [EbookController::class, 'show'])->name('ebook.show');
+// PENTING: Route statis (riwayat) harus didefinisikan SEBELUM route dinamis ({slug})
+// agar tidak tertangkap sebagai slug parameter
 Route::middleware('auth')->group(function () {
+    Route::get('/ebook/riwayat', [EbookController::class, 'riwayat'])->name('ebook.riwayat');
     Route::post('/ebook/{id}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
     Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');
     Route::get('/ebook/{id}/pdf', [EbookController::class, 'streamPdf'])->name('ebook.pdf');
     Route::post('/ebook/{id}/update-progress', [EbookController::class, 'updateProgress'])->name('ebook.update-progress');
-    Route::get('/ebook/riwayat', [EbookController::class, 'riwayat'])->name('ebook.riwayat');
     Route::post('/ebook/peminjaman/{id}/review', [EbookController::class, 'review'])->name('ebook.review');
 });
+Route::get('/ebook/{slug}', [EbookController::class, 'show'])->name('ebook.show');
 
