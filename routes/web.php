@@ -14,11 +14,11 @@ use App\Http\Controllers\AdminEbookController;
 
 Route::get('/', [BukuController::class, 'landingPage']);
 Route::get('/buku', [BukuController::class, 'userIndex']);
-Route::get('/detailbuku/{id}', [BukuController::class, 'userDetail']);
+Route::get('/buku/{slug}', [BukuController::class, 'userDetail']);
 Route::get('/detailbuku', function () {
     $firstBook = \App\Models\Buku::first();
     if ($firstBook) {
-        return redirect('/detailbuku/' . $firstBook->id);
+        return redirect('/buku/' . $firstBook->slug);
     }
     return redirect('/buku');
 });
@@ -38,7 +38,7 @@ Route::post('/peminjaman/kembalikan/{bukuId}', [PeminjamanController::class, 'ke
 Route::post('/buku/{id}/favorite', [BukuController::class, 'toggleFavorite'])->middleware('auth');
 Route::post('/artikel/{id}/favorite', [ArtikelController::class, 'toggleFavorite'])->middleware('auth');
 
-Route::get('/detailartikel/{slug}', [ArtikelController::class, 'publicDetail']);
+Route::get('/post/{slug}', [ArtikelController::class, 'publicDetail']);
 
 Route::get('/kontak', function () {
     return view('pages.kontak');
@@ -145,7 +145,7 @@ Route::prefix('admin')->group(function () {
 
 // E-Book Public Routes
 Route::get('/ebook', [EbookController::class, 'index'])->name('ebook.index');
-Route::get('/ebook/detail/{id}', [EbookController::class, 'show'])->name('ebook.show');
+Route::get('/ebook/{slug}', [EbookController::class, 'show'])->name('ebook.show');
 Route::middleware('auth')->group(function () {
     Route::post('/ebook/{id}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
     Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');

@@ -185,7 +185,7 @@
                     <div class="slider-inner-container" id="books-slider">
                         @forelse ($weeklyBooks as $buku)
                         <!-- Book -->
-                        <article class="book-card" onclick="window.location.href = '{{ url('/detailbuku/' . $buku->id) }}';"
+                        <article class="book-card" onclick="window.location.href = '{{ url('/buku/' . $buku->slug) }}';"
                             style="cursor: pointer;">
                             <div class="book-image-wrapper">
                                 @if(str_starts_with($buku->foto, 'http'))
@@ -288,12 +288,12 @@
                                         class="article-badge {{ strtolower($art->kategori) === 'essay' ? 'badge-essay' : (strtolower($art->kategori) === 'news' ? 'badge-news' : 'badge-review') }}">READ</span>
                                 </div>
                                 <h3 class="article-title">
-                                    <a href="{{ url('/detailartikel/' . $art->slug) }}">
+                                    <a href="{{ url('/post/' . $art->slug) }}">
                                         {{ $art->judul }}
                                     </a>
                                 </h3>
                                 <p class="article-description">{{ Str::limit($art->isi, 120) }}</p>
-                                <a href="{{ url('/detailartikel/' . $art->slug) }}" class="article-link">
+                                <a href="{{ url('/post/' . $art->slug) }}" class="article-link">
                                     {{ __('Read More') }} <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>

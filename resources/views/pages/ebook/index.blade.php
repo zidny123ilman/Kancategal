@@ -143,13 +143,13 @@
             <article class="ebook-card">
                 <div class="ebook-image-wrapper">
                     <span class="badge-digital"><i class="fas fa-file-pdf"></i> E-BOOK</span>
-                    <a href="{{ url('/ebook/detail/' . $eb->id) }}">
+                    <a href="{{ url('/ebook/' . $eb->slug) }}">
                         <img src="{{ Storage::url($eb->cover) }}" alt="{{ $eb->judul }}" loading="lazy">
                     </a>
                 </div>
                 <div class="ebook-details">
                     <span class="ebook-category">{{ $eb->kategori }}</span>
-                    <a href="{{ url('/ebook/detail/' . $eb->id) }}" class="ebook-title">{{ $eb->judul }}</a>
+                    <a href="{{ url('/ebook/' . $eb->slug) }}" class="ebook-title">{{ $eb->judul }}</a>
                     <span class="ebook-author">Oleh {{ $eb->penulis }}</span>
                     
                     @php

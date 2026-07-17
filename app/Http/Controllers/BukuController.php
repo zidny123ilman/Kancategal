@@ -88,9 +88,10 @@ class BukuController extends Controller
     /**
      * Display details of a specific book.
      */
-    public function userDetail($id)
+    public function userDetail($slug)
     {
-        $book = Buku::where('status_publish', 'publish')->findOrFail($id);
+        $book = Buku::where('status_publish', 'publish')->where('slug', $slug)->firstOrFail();
+        $id = $book->id;
         
         $activePeminjaman = null;
         if (\Illuminate\Support\Facades\Auth::check()) {

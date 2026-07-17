@@ -149,7 +149,7 @@
                                     style="height: 250px; object-fit: cover; width: 100%;">
                             </div>
                             <h4 class="article-title">
-                                <a href="{{ url('/detailartikel/' . $art->slug) }}">
+                                <a href="{{ url('/post/' . $art->slug) }}">
                                     {{ $art->judul }}
                                 </a>
                             </h4>
@@ -157,7 +157,7 @@
                             <p class="article-desc-preview">
                                 {{ Str::limit($art->isi, 120) }}
                             </p>
-                            <a href="{{ url('/detailartikel/' . $art->slug) }}" class="btn-read-more-link">
+                            <a href="{{ url('/post/' . $art->slug) }}" class="btn-read-more-link">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </article>
@@ -202,7 +202,7 @@
                                     style="height: 250px; object-fit: cover; width: 100%;">
                             </div>
                             <h4 class="article-title">
-                                <a href="{{ url('/detailartikel/' . $art->slug) }}">
+                                <a href="{{ url('/post/' . $art->slug) }}">
                                     {{ $art->judul }}
                                 </a>
                             </h4>
@@ -210,7 +210,7 @@
                             <p class="article-desc-preview">
                                 {{ Str::limit($art->isi, 120) }}
                             </p>
-                            <a href="{{ url('/detailartikel/' . $art->slug) }}" class="btn-read-more-link">
+                            <a href="{{ url('/post/' . $art->slug) }}" class="btn-read-more-link">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </article>
@@ -256,7 +256,7 @@
                                 <span class="pill-badge time-badge">5 MIN READ</span>
                             </div>
                             <h4 class="latest-card-title">
-                                <a href="{{ url('/detailartikel/' . $art->slug) }}">
+                                <a href="{{ url('/post/' . $art->slug) }}">
                                     {{ $art->judul }}
                                 </a>
                             </h4>
@@ -265,7 +265,7 @@
                             </p>
                             <div class="latest-card-footer">
                                 <span class="latest-author-name">{{ strtoupper($art->nama_uploader) }}</span>
-                                <a href="{{ url('/detailartikel/' . $art->slug) }}" class="btn-action-arrow" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                                <a href="{{ url('/post/' . $art->slug) }}" class="btn-action-arrow" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
                                     <i class="fas fa-arrow-up-right-from-square"></i>
                                 </a>
                             </div>

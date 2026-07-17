@@ -60,12 +60,13 @@ class EbookController extends Controller
     /**
      * Display the specified Ebook detail page for users.
      */
-    public function show($id)
+    public function show($slug)
     {
         // Run expiry checks
         EbookPeminjaman::checkAndUpdateExpired();
 
-        $ebook = Ebook::where('status', 'aktif')->findOrFail($id);
+        $ebook = Ebook::where('status', 'aktif')->where('slug', $slug)->firstOrFail();
+        $id = $ebook->id;
 
         // Fetch Stats
         $totalBorrowed = EbookPeminjaman::where('ebook_id', $id)->count();

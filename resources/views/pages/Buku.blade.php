@@ -54,7 +54,7 @@
         <div class="books-grid">
             @forelse ($books as $buku)
             <!-- Book card -->
-            <article class="book-card" data-id="{{ $buku->id }}">
+            <article class="book-card" data-slug="{{ $buku->slug }}">
                 <div class="book-image-wrapper">
                     @if (strtolower($buku->status) === 'ready')
                         <span class="status-badge status-ready"><span class="badge-txt">READY</span></span>
@@ -154,9 +154,9 @@
             bookCards.forEach(card => {
                 card.style.cursor = 'pointer';
                 card.addEventListener('click', () => {
-                    const id = card.getAttribute('data-id');
-                    if (id) {
-                        window.location.href = "{{ url('/detailbuku') }}/" + id;
+                    const slug = card.getAttribute('data-slug');
+                    if (slug) {
+                        window.location.href = "{{ url('/buku') }}/" + slug;
                     }
                 });
             });
