@@ -38,7 +38,7 @@
                 <!-- Member 1: Irfan Maulana -->
                 <div class="inisiator-row">
                     <div class="inisiator-img-wrapper">
-                        <img src="{{ asset('storage/irpan.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
+                        <img src="{{ asset('images/irpan.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
                     </div>
                     <div class="inisiator-info">
                         <span class="inisiator-role">INISIATOR</span>
@@ -68,7 +68,7 @@
                 <!-- Member 2: Moh. Zidny Ilman-->
                 <div class="inisiator-row reverse">
                     <div class="inisiator-img-wrapper">
-                        <img src="{{ asset('storage/zidny.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
+                        <img src="{{ asset('images/zidny.jpg')}}" alt="Irfan Maulana" class="inisiator-img">
                     </div>
                     <div class="inisiator-info">
                         <span class="inisiator-role">INISIATOR</span>

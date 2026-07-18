@@ -42,7 +42,7 @@
 
         <!-- Large Hero Banner -->
         <div class="about-banner-container">
-            <img src="{{asset('storage/hero1.jpg')}}" alt="Lapak Buku Fisik Kanca Tegal" class="about-banner-img">
+            <img src="{{asset('images/hero1.jpg')}}" alt="Lapak Buku Fisik Kanca Tegal" class="about-banner-img">
 
             <div class="about-banner-overlay">
                 <i class="fas fa-book-open"></i>
@@ -115,8 +115,8 @@
                     <a href="{{ url('/inisiator') }}" class="bts-team-wrapper"
                         style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between;">
                         <div class="team-avatars">
-                            <img src="{{ asset('storage/irpan.jpg') }}" alt="Inisiator 1" class="team-avatar">
-                            <img src="{{ asset('storage/zidny.jpg') }}" alt="Inisiator 2" class="team-avatar">
+                            <img src="{{ asset('images/irpan.jpg') }}" alt="Inisiator 1" class="team-avatar">
+                            <img src="{{ asset('images/zidny.jpg') }}" alt="Inisiator 2" class="team-avatar">
                         </div>
                         <span class="team-label">{{ __('Tim Inisiator Awal') }} <i class="fas fa-arrow-right"
                                 style="margin-left: 0.35rem; font-size: 0.75rem; color: var(--primary-red);"></i></span>

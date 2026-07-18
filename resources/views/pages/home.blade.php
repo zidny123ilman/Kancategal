@@ -216,10 +216,10 @@
             <div class="section-container about-grid">
                 <div class="about-images">
                     <div class="about-img-container">
-                        <img src="{{ asset('storage/background2.jpg') }}" alt="Diskusi Komunitas" class="about-img">
+                        <img src="{{ asset('images/background2.jpg') }}" alt="Diskusi Komunitas" class="about-img">
                     </div>
                     <div class="about-img-container">
-                        <img src="{{ asset('storage/bg1.jpg') }}"
+                        <img src="{{ asset('images/bg1.jpg') }}"
                             alt="Rak Buku Perpustakaan" class="about-img">
                     </div>
                 </div>
