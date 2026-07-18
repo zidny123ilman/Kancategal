@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 09, 2026 at 07:11 AM
+-- Generation Time: Jul 18, 2026 at 10:35 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -161,7 +161,79 @@ INSERT INTO `admin_logs` (`id`, `action`, `details`, `created_at`, `updated_at`)
 (119, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings', '2026-07-09 06:04:12', '2026-07-09 06:04:12'),
 (120, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings', '2026-07-09 06:08:31', '2026-07-09 06:08:31'),
 (121, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-09 07:06:50', '2026-07-09 07:06:50'),
-(122, 'DATABASE_BACKUP', 'Zidny Ilman downloaded database backup SQL file.', '2026-07-09 07:06:57', '2026-07-09 07:06:57');
+(122, 'DATABASE_BACKUP', 'Zidny Ilman downloaded database backup SQL file.', '2026-07-09 07:06:57', '2026-07-09 07:06:57'),
+(123, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-09 10:47:34', '2026-07-09 10:47:34'),
+(124, 'LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman buku \"Panta Rhei\" oleh member \"zidny\"', '2026-07-09 11:10:21', '2026-07-09 11:10:21'),
+(125, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-09 11:36:26', '2026-07-09 11:36:26'),
+(126, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-09 11:36:47', '2026-07-09 11:36:47'),
+(127, 'MEMBER DELETED', 'Admin (Zidny Ilman) deleted member Test User', '2026-07-09 11:37:05', '2026-07-09 11:37:05'),
+(128, 'MEMBER DELETED', 'Admin (Zidny Ilman) deleted member Siti Aminah', '2026-07-09 11:37:14', '2026-07-09 11:37:14'),
+(129, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-09 12:27:07', '2026-07-09 12:27:07'),
+(130, 'ADMIN_LOGIN_FAILED', 'Failed admin login attempt using username: ad min1', '2026-07-10 07:39:39', '2026-07-10 07:39:39'),
+(131, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-10 07:39:55', '2026-07-10 07:39:55'),
+(132, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-10 09:41:41', '2026-07-10 09:41:41'),
+(133, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-10 10:35:47', '2026-07-10 10:35:47'),
+(134, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-10 14:47:00', '2026-07-10 14:47:00'),
+(135, 'ACCESS REVOKED', 'Admin (Zidny Ilman) disabled article upload access for zidny', '2026-07-10 15:06:16', '2026-07-10 15:06:16'),
+(136, 'ACCESS GRANTED', 'Admin (Zidny Ilman) enabled article upload access for zidny', '2026-07-10 15:06:18', '2026-07-10 15:06:18'),
+(137, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings', '2026-07-10 15:07:31', '2026-07-10 15:07:31'),
+(138, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings', '2026-07-10 15:08:01', '2026-07-10 15:08:01'),
+(139, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-10 15:09:32', '2026-07-10 15:09:32'),
+(140, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Popup Settings', '2026-07-10 15:09:55', '2026-07-10 15:09:55'),
+(141, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Popup Settings', '2026-07-10 15:10:20', '2026-07-10 15:10:20'),
+(142, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Popup Settings', '2026-07-10 15:10:43', '2026-07-10 15:10:43'),
+(143, 'ADMIN_LOGIN_FAILED', 'Failed admin login attempt using username: admin1', '2026-07-10 15:37:37', '2026-07-10 15:37:37'),
+(144, 'ADMIN_LOGIN_FAILED', 'Failed admin login attempt using username: admin1', '2026-07-10 15:37:43', '2026-07-10 15:37:43'),
+(145, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-10 15:37:49', '2026-07-10 15:37:49'),
+(146, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-11 09:18:54', '2026-07-11 09:18:54'),
+(147, 'OVERDUE REMINDER SENT', 'Admin (Zidny Ilman) mengirim peringatan terlambat WhatsApp ke member \"zidny\" untuk buku \"Panta Rhei\"', '2026-07-11 09:20:08', '2026-07-11 09:20:08'),
+(148, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Borrowing Rules', '2026-07-11 10:52:48', '2026-07-11 10:52:48'),
+(149, 'OVERDUE REMINDER SENT', 'Admin (Zidny Ilman) mengirim peringatan terlambat WhatsApp ke member \"zidny\" untuk buku \"Panta Rhei\"', '2026-07-11 10:53:38', '2026-07-11 10:53:38'),
+(150, 'RETURN APPROVED', 'Admin (Zidny Ilman) menyetujui pengembalian buku \"Panta Rhei\" oleh member \"zidny\"', '2026-07-11 10:56:28', '2026-07-11 10:56:28'),
+(151, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-12 09:43:50', '2026-07-12 09:43:50'),
+(152, 'LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman buku \"Cantik Itu Luka\" oleh member \"zidny\"', '2026-07-12 09:53:49', '2026-07-12 09:53:49'),
+(153, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-12 10:06:34', '2026-07-12 10:06:34'),
+(154, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-13 17:33:57', '2026-07-13 17:33:57'),
+(155, 'DATA EXPORT', 'Admin (Zidny Ilman) exported member list to CSV file members_export_20260714_005152.csv', '2026-07-13 17:51:52', '2026-07-13 17:51:52'),
+(156, 'ADMIN_LOGIN_FAILED', 'Failed admin login attempt using username: admin2', '2026-07-13 18:24:46', '2026-07-13 18:24:46'),
+(157, 'ADMIN_LOGIN_SUCCESS', 'Irfan Maulana (admin2) successfully logged in from IP 127.0.0.1', '2026-07-13 18:24:51', '2026-07-13 18:24:51'),
+(158, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-13 18:34:01', '2026-07-13 18:34:01'),
+(159, 'LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman buku \"Panta Rhei\" oleh member \"zidny\"', '2026-07-13 18:36:56', '2026-07-13 18:36:56'),
+(160, 'RETURN APPROVED', 'Admin (Zidny Ilman) menyetujui pengembalian buku \"Panta Rhei\" oleh member \"zidny\"', '2026-07-13 18:38:02', '2026-07-13 18:38:02'),
+(161, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Borrowing Rules', '2026-07-13 18:42:43', '2026-07-13 18:42:43'),
+(162, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: Borrowing Rules', '2026-07-13 18:43:04', '2026-07-13 18:43:04'),
+(163, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-14 14:52:48', '2026-07-14 14:52:48'),
+(164, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings', '2026-07-14 15:32:03', '2026-07-14 15:32:03'),
+(165, 'CONTENT_HERO_TITLE', 'Zidny Ilman updated Hero Title to: NYILIH - NETWORKED YIELDING INFORMATION FOR LITERACY HUB', '2026-07-14 15:34:46', '2026-07-14 15:34:46'),
+(166, 'CONTENT_HERO_SUBTITLE', 'Zidny Ilman updated Hero Subtitle to: Menghubungkan manusia, buku, dan gagasan dalam satu ekosiste...', '2026-07-14 15:34:46', '2026-07-14 15:34:46'),
+(167, 'CONTENT_HERO_TITLE', 'Zidny Ilman updated Hero Title to: NYILIH | KANCA TEGAL', '2026-07-14 15:36:31', '2026-07-14 15:36:31'),
+(168, 'CONTENT_HERO_SUBTITLE', 'Zidny Ilman updated Hero Subtitle to: NETWORKED YIELDING INFORMATION FOR LITERACY HUB - Menghubung...', '2026-07-14 15:36:31', '2026-07-14 15:36:31'),
+(169, 'EBOOK CREATED', 'Admin (Zidny Ilman) uploaded E-Book \"Internet Free Loans\"', '2026-07-14 16:32:48', '2026-07-14 16:32:48'),
+(170, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-15 03:25:14', '2026-07-15 03:25:14'),
+(171, 'EBOOK LOAN REJECTED', 'Admin (Zidny Ilman) menolak peminjaman E-Book \"Internet Free Loans\" oleh zidny', '2026-07-15 04:15:17', '2026-07-15 04:15:17'),
+(172, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-15 04:30:02', '2026-07-15 04:30:02'),
+(173, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-15 05:19:20', '2026-07-15 05:19:20'),
+(174, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-15 08:53:01', '2026-07-15 08:53:01'),
+(175, 'SETTINGS_UPDATE', 'Zidny Ilman updated system settings. Sections changed: General Settings, Borrowing Rules', '2026-07-15 08:56:38', '2026-07-15 08:56:38'),
+(176, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-16 08:02:58', '2026-07-16 08:02:58'),
+(177, 'SYSTEM_MAINTENANCE', 'Zidny Ilman cleared the application cache (views, config, cache).', '2026-07-16 08:21:34', '2026-07-16 08:21:34'),
+(178, 'RETURN APPROVED', 'Admin (Zidny Ilman) menyetujui pengembalian buku \"Cantik Itu Luka\" oleh member \"zidny\"', '2026-07-16 08:23:14', '2026-07-16 08:23:14'),
+(179, 'EBOOK LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman E-Book \"Internet Free Loans\" oleh zidny', '2026-07-16 08:25:14', '2026-07-16 08:25:14'),
+(180, 'EBOOK CREATED', 'Admin (Zidny Ilman) uploaded E-Book \"Total Resistance\"', '2026-07-16 08:57:53', '2026-07-16 08:57:53'),
+(181, 'EBOOK LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman E-Book \"Total Resistance\" oleh zidny', '2026-07-16 08:59:03', '2026-07-16 08:59:03'),
+(182, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-16 14:40:24', '2026-07-16 14:40:24'),
+(183, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-17 11:20:25', '2026-07-17 11:20:25'),
+(184, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-17 14:44:58', '2026-07-17 14:44:58'),
+(185, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-17 17:43:00', '2026-07-17 17:43:00'),
+(186, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-17 21:13:12', '2026-07-17 21:13:12'),
+(187, 'EBOOK DELETED', 'Admin (Zidny Ilman) deleted E-Book \"Total Resistance\"', '2026-07-17 21:13:33', '2026-07-17 21:13:33'),
+(188, 'EBOOK CREATED', 'Admin (Zidny Ilman) uploaded E-Book \"Total Resistance\"', '2026-07-17 21:14:58', '2026-07-17 21:14:58'),
+(189, 'EBOOK LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman E-Book \"Total Resistance\" oleh zidny', '2026-07-17 21:16:29', '2026-07-17 21:16:29'),
+(190, 'EBOOK LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman E-Book \"Total Resistance\" oleh zidny', '2026-07-17 21:22:14', '2026-07-17 21:22:14'),
+(191, 'ADMIN_LOGIN_SUCCESS', 'Zidny Ilman (admin1) successfully logged in from IP 127.0.0.1', '2026-07-18 08:11:37', '2026-07-18 08:11:37'),
+(192, 'EBOOK DELETED', 'Admin (Zidny Ilman) deleted E-Book \"Total Resistance\"', '2026-07-18 08:12:31', '2026-07-18 08:12:31'),
+(193, 'EBOOK CREATED', 'Admin (Zidny Ilman) uploaded E-Book \"Total Resistance\"', '2026-07-18 08:15:16', '2026-07-18 08:15:16'),
+(194, 'EBOOK LOAN APPROVED', 'Admin (Zidny Ilman) menyetujui peminjaman E-Book \"Total Resistance\" oleh zidny', '2026-07-18 08:17:31', '2026-07-18 08:17:31');
 
 -- --------------------------------------------------------
 
@@ -172,6 +244,7 @@ INSERT INTO `admin_logs` (`id`, `action`, `details`, `created_at`, `updated_at`)
 CREATE TABLE `artikels` (
   `id` bigint UNSIGNED NOT NULL,
   `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_uploader` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `tanggal_upload` date NOT NULL,
@@ -180,6 +253,7 @@ CREATE TABLE `artikels` (
   `foto_pendukung` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `alasan_ditolak` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `views` bigint UNSIGNED NOT NULL DEFAULT '0',
@@ -190,12 +264,16 @@ CREATE TABLE `artikels` (
 -- Dumping data for table `artikels`
 --
 
-INSERT INTO `artikels` (`id`, `judul`, `nama_uploader`, `user_id`, `tanggal_upload`, `foto_utama`, `isi`, `foto_pendukung`, `kategori`, `status`, `created_at`, `updated_at`, `views`, `keywords`) VALUES
-(1, 'The Evolution of Sauto Tegal: A Culinary Odyssey', 'Budi Sudarsono', 2, '2023-10-24', 'https://images.unsplash.com/photo-1606131731446-5568d87113aa?auto=format&fit=crop&q=80&w=500', 'Sauto Tegal adalah variasi soto khas Tegal yang unik karena menggunakan tauco sebagai bumbu utamanya. Rasa gurih manis berpadu sedikit asam asam tauco menciptakan harmoni rasa pesisiran yang melegenda. Biasanya disajikan dengan mangkuk kecil, dipenuhi tauge, suwiran daging ayam atau sapi, dan jeroan garing.', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=500', 'GASTRONOMY', 'approved', '2026-06-26 00:53:55', '2026-07-09 07:05:52', 2, NULL),
-(2, 'Journalism in the age of Citizen Voices', 'Dewi Sartika', 1, '2023-10-22', 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=500', 'Di era digital saat ini, batasan jurnalisme arus utama kian memudar. Setiap warga dengan gawai pintar dapat meliput kejadian secara real-time. Hal ini menghidupkan ekosistem berita alternatif namun juga membawa tantangan berat berupa disinformasi. Kurasi dan integritas tetap menjadi pilar utama.', NULL, 'MEDIA', 'approved', '2026-06-26 00:53:55', '2026-07-09 06:58:06', 4, NULL),
-(3, 'The Vanishing Architecture of Poci Houses', 'Adi Kusuma', 2, '2026-06-26', 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&q=80&w=500', 'Teh poci bukan sekadar minuman di Tegal, melainkan sebuah ritual sosial. Dulu, hampir setiap rumah memiliki ruang khusus untuk \"Moci\" dengan arsitektur jendela rendah dan beranda luas untuk bersantai. Kini, rumah-rumah poci tradisional tersebut lambat laun tergantikan oleh ruko-ruko minimalis modern.', NULL, 'HERITAGE & CULTURE', 'approved', '2026-06-26 00:53:55', '2026-06-26 02:02:33', 0, NULL),
-(4, 'Poetry of the North Coast: A Resurgence', 'Maya Lestari', 1, '2026-06-26', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500', 'Sastra pesisir utara Jawa Tengah, khususnya Tegal, memiliki karakter blak-blakan (lugas) dan jenaka. Belakangan, anak-anak muda di Tegal mulai menghidupkan kembali sastra lokal melalui stand-up poetry dan stanzas digital di media sosial, membawa isu lingkungan pesisir dan abrasi.', NULL, 'LOCAL LITERATURES', 'approved', '2026-06-26 00:53:55', '2026-06-26 02:03:02', 0, NULL),
-(6, 'Bunga Hitam', 'zidny', 7, '2026-07-09', 'uploads/articles/1783578124_main_6a4f3e0cd8450.jpg', 'Bunga Hitam adalah band punk asal Indonesia yang terbentuk di Jakarta pada tahun 2001 oleh para musisi dari generasi awal skena punk kota tersebut, termasuk anggota dari band The Idiots. Band ini lahir sebagai respons terhadap memudarnya semangat solidaritas dan meningkatnya komersialisasi dalam komunitas punk. Sejak awal, Bunga Hitam konsisten mengusung etika Do It Yourself (DIY) dengan merilis karya secara mandiri, terutama dalam format kaset, serta menghindari ketergantungan pada industri musik arus utama maupun media sosial resmi.\r\n\r\nSecara musikal, Bunga Hitam mengusung punk rock klasik dengan lirik berbahasa Indonesia yang lugas dan sarat kritik sosial. Tema-tema yang mereka angkat meliputi kebebasan, kesetaraan, anti-penindasan, kemiskinan, solidaritas, hingga kemanusiaan lintas agama. Lagu-lagu seperti Setara, Negaraku Penjaraku, Lawan Kemiskinan, dan Jual Idealismu menjadikan Bunga Hitam dikenal sebagai salah satu representasi penting gerakan anarko-punk di Indonesia, yang memandang musik bukan sekadar hiburan, melainkan media pendidikan, perlawanan, dan perubahan sosial.', NULL, 'MUSIK', 'approved', '2026-07-09 06:22:04', '2026-07-09 06:59:06', 3, NULL);
+INSERT INTO `artikels` (`id`, `judul`, `slug`, `nama_uploader`, `user_id`, `tanggal_upload`, `foto_utama`, `isi`, `foto_pendukung`, `kategori`, `status`, `alasan_ditolak`, `created_at`, `updated_at`, `views`, `keywords`) VALUES
+(1, 'The Evolution of Sauto Tegal: A Culinary Odyssey', 'the-evolution-of-sauto-tegal-a-culinary-odyssey', 'Budi Sudarsono', 2, '2023-10-24', 'https://images.unsplash.com/photo-1606131731446-5568d87113aa?auto=format&fit=crop&q=80&w=500', 'Sauto Tegal adalah variasi soto khas Tegal yang unik karena menggunakan tauco sebagai bumbu utamanya. Rasa gurih manis berpadu sedikit asam asam tauco menciptakan harmoni rasa pesisiran yang melegenda. Biasanya disajikan dengan mangkuk kecil, dipenuhi tauge, suwiran daging ayam atau sapi, dan jeroan garing.', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=500', 'GASTRONOMY', 'approved', NULL, '2026-06-26 00:53:55', '2026-07-17 11:26:18', 2, NULL),
+(2, 'Journalism in the age of Citizen Voices', 'journalism-in-the-age-of-citizen-voices', 'Dewi Sartika', 1, '2023-10-22', 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=500', 'Di era digital saat ini, batasan jurnalisme arus utama kian memudar. Setiap warga dengan gawai pintar dapat meliput kejadian secara real-time. Hal ini menghidupkan ekosistem berita alternatif namun juga membawa tantangan berat berupa disinformasi. Kurasi dan integritas tetap menjadi pilar utama.', NULL, 'MEDIA', 'approved', NULL, '2026-06-26 00:53:55', '2026-07-17 11:26:18', 6, NULL),
+(3, 'The Vanishing Architecture of Poci Houses', 'the-vanishing-architecture-of-poci-houses', 'Adi Kusuma', 2, '2026-06-26', 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&q=80&w=500', 'Teh poci bukan sekadar minuman di Tegal, melainkan sebuah ritual sosial. Dulu, hampir setiap rumah memiliki ruang khusus untuk \"Moci\" dengan arsitektur jendela rendah dan beranda luas untuk bersantai. Kini, rumah-rumah poci tradisional tersebut lambat laun tergantikan oleh ruko-ruko minimalis modern.', NULL, 'HERITAGE & CULTURE', 'approved', NULL, '2026-06-26 00:53:55', '2026-07-17 11:26:18', 0, NULL),
+(4, 'Poetry of the North Coast: A Resurgence', 'poetry-of-the-north-coast-a-resurgence', 'Maya Lestari', 1, '2026-06-26', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=500', 'Sastra pesisir utara Jawa Tengah, khususnya Tegal, memiliki karakter blak-blakan (lugas) dan jenaka. Belakangan, anak-anak muda di Tegal mulai menghidupkan kembali sastra lokal melalui stand-up poetry dan stanzas digital di media sosial, membawa isu lingkungan pesisir dan abrasi.', NULL, 'LOCAL LITERATURES', 'approved', NULL, '2026-06-26 00:53:55', '2026-07-17 11:26:18', 0, NULL),
+(6, 'Bunga Hitam', 'bunga-hitam', 'zidny', 7, '2026-07-09', 'uploads/articles/1783578124_main_6a4f3e0cd8450.jpg', 'Bunga Hitam adalah band punk asal Indonesia yang terbentuk di Jakarta pada tahun 2001 oleh para musisi dari generasi awal skena punk kota tersebut, termasuk anggota dari band The Idiots. Band ini lahir sebagai respons terhadap memudarnya semangat solidaritas dan meningkatnya komersialisasi dalam komunitas punk. Sejak awal, Bunga Hitam konsisten mengusung etika Do It Yourself (DIY) dengan merilis karya secara mandiri, terutama dalam format kaset, serta menghindari ketergantungan pada industri musik arus utama maupun media sosial resmi.\r\n\r\nSecara musikal, Bunga Hitam mengusung punk rock klasik dengan lirik berbahasa Indonesia yang lugas dan sarat kritik sosial. Tema-tema yang mereka angkat meliputi kebebasan, kesetaraan, anti-penindasan, kemiskinan, solidaritas, hingga kemanusiaan lintas agama. Lagu-lagu seperti Setara, Negaraku Penjaraku, Lawan Kemiskinan, dan Jual Idealismu menjadikan Bunga Hitam dikenal sebagai salah satu representasi penting gerakan anarko-punk di Indonesia, yang memandang musik bukan sekadar hiburan, melainkan media pendidikan, perlawanan, dan perubahan sosial.', NULL, 'MUSIK', 'approved', NULL, '2026-07-09 06:22:04', '2026-07-17 12:05:25', 10, NULL),
+(8, 'Peristiwa Tiga Daerah', 'peristiwa-tiga-daerah', 'zidny', 7, '2026-07-09', 'uploads/articles/1783599509_main_6a4f919518491.webp', '<b>Menggugat Feodalisme di Pantura: Menengok Peristiwa Tiga Daerah Karya Anton Lucas </b>\r\n<p>Ketika berbicara tentang Revolusi Kemerdekaan Indonesia pasca-Proklamasi 1945, narasi sejarah arus utama sering kali berfokus pada pertempuran heroik melawan tentara sekutu atau diplomasi di meja perundingan. Namun, sejarawan sekaligus Indonesianis asal Australia, Anton E. Lucas, menawarkan lensa yang berbeda melalui buku monumentalnya, </p>\r\n<blockquote>Peristiwa Tiga Daerah: Revolusi dalam Revolusi (terbit pertama kali tahun 1989). </blockquote>\r\n<p>Karya ini membongkar pergolakan akar rumput yang dramatis dan berdarah di wilayah Keresidenan Pekalongan, spesifiknya meliputi Brebes, Tegal, dan Pemalang. Melalui metode sejarah lisan (oral history) yang mendalam, Anton Lucas berhasil memotret bagaimana rakyat kecil memaknai kemerdekaan bukan sekadar pergantian bendera, melainkan sebuah revolusi sosial untuk menumbangkan ketidakadilan struktural. </p>\r\n\r\n<b>Latar Belakang: Luka Lama dan Vacuum of Power </b>\r\nBuku ini membedah dengan jeli akar kebencian masyarakat akar rumput terhadap para birokrat lokal yang dikenal sebagai pangreh praja (seperti residen, bupati, wedana, hingga camat). Selama masa kolonial Belanda dan puncaknya pada masa pendudukan Jepang, para elite lokal ini dianggap menjadi \"antek\" penindas yang mengeksploitasi rakyat lewat penarikan pajak yang mencekik, sistem kerja paksa (romusha), serta penyitaan padi. Ketika Jepang menyerah kalah dan terjadi kekosongan kekuasaan (vacuum of power) sebelum kedatangan sekutu, bara dalam sekam itu pun meletus. Antara bulan Oktober hingga Desember 1945, amarah rakyat Pantura memuncak. Jalinan Aktor: Dari Kaum Kiri, Golongan Islam, hingga Lenggaong Salah satu kekuatan utama dari analisis Anton Lucas adalah kemampuannya memetakan aliansi kelompok yang menggerakkan revolusi ini. Gerakan ini tidak bersifat tunggal, melainkan gabungan dari berbagai elemen yang dipersatukan oleh satu musuh bersama: sistem feodal. Beberapa aktor penting di dalamnya meliputi:\r\n<li><b>Golongan Kiri (Sosialis dan Komunis): </b>Mereka menyebarkan narasi kedaulatan rakyat dan pentingnya mengganti pejabat korup peninggalan penjajah.</li>\r\n<li><b>Kelompok Islam: </b>Melibatkan tokoh-tokoh lokal dan santri yang bergerak atas dasar keadilan sosial dan sentimen anti-fasisme.</li>\r\n<li><b>Para Lenggaong:</b> Istilah lokal untuk jawara atau jagoan lokal. Tokoh ikonik seperti Sakhyani (yang lebih dikenal dengan nama Kutil) dari Talang, Tegal, memimpin aksi massa untuk menggulingkan para lurah dan membagikan logistik kepada rakyat miskin bak sosok Robin Hood.</li>\r\n\r\n<p>Aksi Dombreng dan Kejatuhan Elite Lokal Anton Lucas menggambarkan secara detail fenomena \r\n<blockquote>\"aksi dombreng\"—sebuah aksi protes massa yang mendatangi rumah-rumah pejabat pangreh praja sembari membunyikan kaleng atau banyolan bernada ejekan.</blockquote> \r\nAksi ini tidak jarang berujung tragis; para pejabat feodal dipaksa turun takhta, ditawan, dipermalukan di depan umum dengan pakaian karung goni, bahkan beberapa di antaranya dibunuh. Hampir seluruh struktur birokrasi lama di Brebes, Tegal, dan Pemalang runtuh total dalam hitungan minggu. </p>\r\n<p>Mereka digantikan oleh pemerintahan baru bentukan rakyat yang dipimpin oleh tokoh-tokoh dari pergerakan bawah tanah, seperti diangkatnya Sarjio menjadi Residen Pekalongan yang baru.</p>\r\n\r\n<p><b>Akhir Pergolakan dan Esensi \"Revolusi dalam Revolusi\" Gerakan radikal Tiga Daerah</b> akhirnya menemui titik akhir ketika Pemerintah Pusat RI di Yogyakarta menilai aksi revolusi sosial ini mengancam stabilitas nasional dan legitimasi negara yang baru lahir di mata internasional. Pada pertengahan Desember 1945, Tentara Keamanan Rakyat (TKR) bersama dengan aliansi barisan Islam melakukan operasi kontra-revolusi. Para pemimpin gerakan Tiga Daerah, termasuk Kutil dan Sarjio, ditangkap dan dipenjarakan, menandai kembalinya kendali otoritas pusat ke wilayah Pantura. </p>\r\n<p>Melalui subjudul Revolusi dalam Revolusi, Anton Lucas ingin menegaskan bahwa di dalam momentum besar revolusi nasional menentang imperialisme Barat, terdapat revolusi-revolusi domestik berskala lokal yang menuntut perombakan kelas sosial. </p>\r\n<b>Kesimpulan</b> \r\n<p>Buku Peristiwa Tiga Daerah bukan sekadar catatan sejarah lokal yang terpinggirkan, melainkan sebuah refleksi kritis yang kaya akan data arsip dan kesaksian hidup. Karya Anton Lucas ini membuktikan bahwa kemerdekaan Indonesia tahun 1945 adalah sebuah kanvas yang kompleks, di mana suara-suara dari bawah—para petani, buruh, santri, dan jawara—pernah bergemuruh hebat demi menuntut hak atas keadilan yang setara.</p>', 'uploads/articles/1783599509_support_6a4f91951e870.jpg', 'JURNALISTIK', 'approved', NULL, '2026-07-09 12:18:29', '2026-07-17 11:26:18', 9, 'Sejarah, Tragedi, Politik'),
+(12, 'Peristiwa Tiga Daerah', 'peristiwa-tiga-daerah-1', 'zidny', 7, '2026-07-15', 'uploads/articles/1784108706_main_6a5756a2785e5.webp', '<b>Menggugat Feodalisme di Pantura: Menengok Peristiwa Tiga Daerah Karya Anton Lucas </b>\r\n\r\n<p>Ketika berbicara tentang Revolusi Kemerdekaan Indonesia pasca-Proklamasi 1945, narasi sejarah arus utama sering kali berfokus pada pertempuran heroik melawan tentara sekutu atau diplomasi di meja perundingan. Namun, sejarawan sekaligus Indonesianis asal Australia, Anton E. Lucas, menawarkan lensa yang berbeda melalui buku monumentalnya, </p>\r\n\r\n<blockquote>Peristiwa Tiga Daerah: Revolusi dalam Revolusi (terbit pertama kali tahun 1989). </blockquote>\r\n\r\n<p>Karya ini membongkar pergolakan akar rumput yang dramatis dan berdarah di wilayah Keresidenan Pekalongan, spesifiknya meliputi Brebes, Tegal, dan Pemalang. Melalui metode sejarah lisan (oral history) yang mendalam, Anton Lucas berhasil memotret bagaimana rakyat kecil memaknai kemerdekaan bukan sekadar pergantian bendera, melainkan sebuah revolusi sosial untuk menumbangkan ketidakadilan struktural. </p>\r\n\r\n<b>Latar Belakang: Luka Lama dan Vacuum of Power </b>\r\n\r\nBuku ini membedah dengan jeli akar kebencian masyarakat akar rumput terhadap para birokrat lokal yang dikenal sebagai pangreh praja (seperti residen, bupati, wedana, hingga camat). Selama masa kolonial Belanda dan puncaknya pada masa pendudukan Jepang, para elite lokal ini dianggap menjadi \"antek\" penindas yang mengeksploitasi rakyat lewat penarikan pajak yang mencekik, sistem kerja paksa (romusha), serta penyitaan padi. Ketika Jepang menyerah kalah dan terjadi kekosongan kekuasaan (vacuum of power) sebelum kedatangan sekutu, bara dalam sekam itu pun meletus. Antara bulan Oktober hingga Desember 1945, amarah rakyat Pantura memuncak. Jalinan Aktor: Dari Kaum Kiri, Golongan Islam, hingga Lenggaong Salah satu kekuatan utama dari analisis Anton Lucas adalah kemampuannya memetakan aliansi kelompok yang menggerakkan revolusi ini. Gerakan ini tidak bersifat tunggal, melainkan gabungan dari berbagai elemen yang dipersatukan oleh satu musuh bersama: sistem feodal. Beberapa aktor penting di dalamnya meliputi:\r\n\r\n<li><b>Golongan Kiri (Sosialis dan Komunis): </b>Mereka menyebarkan narasi kedaulatan rakyat dan pentingnya mengganti pejabat korup peninggalan penjajah.</li>\r\n\r\n<li><b>Kelompok Islam: </b>Melibatkan tokoh-tokoh lokal dan santri yang bergerak atas dasar keadilan sosial dan sentimen anti-fasisme.</li>\r\n\r\n<li><b>Para Lenggaong:</b> Istilah lokal untuk jawara atau jagoan lokal. Tokoh ikonik seperti Sakhyani (yang lebih dikenal dengan nama Kutil) dari Talang, Tegal, memimpin aksi massa untuk menggulingkan para lurah dan membagikan logistik kepada rakyat miskin bak sosok Robin Hood.</li>\r\n\r\n<p>Aksi Dombreng dan Kejatuhan Elite Lokal Anton Lucas menggambarkan secara detail fenomena\r\n\r\n<blockquote>\"aksi dombreng\"—sebuah aksi protes massa yang mendatangi rumah-rumah pejabat pangreh praja sembari membunyikan kaleng atau banyolan bernada ejekan.</blockquote>\r\n\r\nAksi ini tidak jarang berujung tragis; para pejabat feodal dipaksa turun takhta, ditawan, dipermalukan di depan umum dengan pakaian karung goni, bahkan beberapa di antaranya dibunuh. Hampir seluruh struktur birokrasi lama di Brebes, Tegal, dan Pemalang runtuh total dalam hitungan minggu. </p>\r\n\r\n<p>Mereka digantikan oleh pemerintahan baru bentukan rakyat yang dipimpin oleh tokoh-tokoh dari pergerakan bawah tanah, seperti diangkatnya Sarjio menjadi Residen Pekalongan yang baru.</p>\r\n\r\n<p><b>Akhir Pergolakan dan Esensi \"Revolusi dalam Revolusi\" Gerakan radikal Tiga Daerah</b> akhirnya menemui titik akhir ketika Pemerintah Pusat RI di Yogyakarta menilai aksi revolusi sosial ini mengancam stabilitas nasional dan legitimasi negara yang baru lahir di mata internasional. Pada pertengahan Desember 1945, Tentara Keamanan Rakyat (TKR) bersama dengan aliansi barisan Islam melakukan operasi kontra-revolusi. Para pemimpin gerakan Tiga Daerah, termasuk Kutil dan Sarjio, ditangkap dan dipenjarakan, menandai kembalinya kendali otoritas pusat ke wilayah Pantura. </p>\r\n\r\n<p>Melalui subjudul Revolusi dalam Revolusi, Anton Lucas ingin menegaskan bahwa di dalam momentum besar revolusi nasional menentang imperialisme Barat, terdapat revolusi-revolusi domestik berskala lokal yang menuntut perombakan kelas sosial. </p>\r\n\r\n<b>Kesimpulan</b>\r\n\r\n<p>Buku Peristiwa Tiga Daerah bukan sekadar catatan sejarah lokal yang terpinggirkan, melainkan sebuah refleksi kritis yang kaya akan data arsip dan kesaksian hidup. Karya Anton Lucas ini membuktikan bahwa kemerdekaan Indonesia tahun 1945 adalah sebuah kanvas yang kompleks, di mana suara-suara dari bawah—para petani, buruh, santri, dan jawara—pernah bergemuruh hebat demi menuntut hak atas keadilan yang setara.</p>', 'uploads/articles/1784108706_support_6a5756a27d21b.jpg', 'SEJARAH', 'rejected', 'Artikel sudah pernah diupload, silahkan upload artikel lainnya,', '2026-07-15 09:45:06', '2026-07-17 11:26:18', 0, 'Sejarah, Tragedi, Politik'),
+(13, 'Perpustakaan Jalanan Kota Tegal', 'perpustakaan-jalanan-kota-tegal', 'zidny', 7, '2026-07-16', 'uploads/articles/1784189706_main_6a58930a7c415.jpeg', '<p>Perpustakaan jalanan di Kota Tegal menjadi gerakan literasi yang menyenangkan di ruang terbuka seperti Alun-Alun dan Jalan Pancasila. Komunitas lokal seperti Tegal Book Party dan Kanca Tegal secara rutin menggelar lapak baca gratis, mengajak warga membaca bersama.Berikut adalah informasi lengkap tentang gerakan dan fasilitas membaca di Tegal yang bisa Anda kunjungi:</p>\r\n<b><p>1. Komunitas dan Perpustakaan Jalanan Tegal</b>\r\nMasyarakat dan anak muda di Tegal menghidupkan budaya membaca dengan cara yang seru dan tidak kaku.</p>\r\n\r\n<li><b>Tegal Book Party</b>: Komunitas yang berdiri sejak 2024 ini rutin mengadakan acara book party di ruang terbuka seperti Alun-Alun Kota Tegal. Konsepnya adalah berkumpul, membaca buku sendiri-sendiri, lalu berbagi cerita dan rekomendasi buku secara santai.</li>\r\n<li><b>Kanca Tegal (Kawan Baca Tegal)</b>: Lapak baca ini hadir sebagai \"ruang tanpa tembok\". Mereka sering membuka lapak buku gratis di tempat-tempat keramaian. Di sini, pembaca dari berbagai latar belakang bisa saling berdiskusi dan bertukar pikiran.\r\n</li>\r\n\r\n<b>2. Fasilitas Perpustakaan Daerah (Perpusda) Kota Tegal</b>\r\n<p>Jika Anda ingin membaca di tempat yang sejuk dan memiliki koleksi lengkap, Anda bisa mengunjungi Perpustakaan Umum Daerah Mr. Besar Martokoesoemo.</p>\r\n<li><b>Lokas</b>i: Jalan KH. Ahmad Dahlan Nomor 12, Mangkukusuman, Tegal Timur (hanya sekitar 5,5 km dari tempat tinggal Anda di Dukuhturi).</li>\r\n<li><b>Fasilitas</b>: Memiliki ribuan koleksi buku, ruang baca anak yang nyaman, ruang audio visual, dan akses internet.</li>\r\n<li><b>Jam Buka</b>: Buka hari Senin sampai Kamis pukul 07.30 - 16.30 WIB, Jumat pukul 07.30 - 15.30 WIB, dan Sabtu pukul 07.30 - 10.30 WIB.</li>\r\n\r\n<b>3.  Perpustakaan Keliling dan Pojok Baca</b>\r\n<p>Pemerintah Kota Tegal juga mendekatkan akses buku ke masyarakat melalui beberapa layanan jemput bola.</p>\r\n<li><b>Perpustakaan Keliling</b>: Mobil perpustakaan keliling rutin menyambangi sekolah-sekolah dan ruang publik di penjuru Kota Tegal untuk menumbuhkan minat baca sejak dini.</li>\r\n<li><b>Zona Pojok Baca</b>: Terdapat belasan titik pojok baca yang tersebar di ruang publik Kota Tegal, seperti di area RSUD Kardinah, Lapas, hingga pusat perbelanjaan.</li>', 'uploads/articles/1784189706_support_6a58930a7dd17.jpg', 'JURNALISTIK', 'approved', NULL, '2026-07-16 08:15:06', '2026-07-17 11:45:30', 5, 'Literasi, Buku, perpustakaan, Gerakan'),
+(14, 'Perpustakaan Jalanan Kota Tegal', 'perpustakaan-jalanan-kota-tegal-1', 'zidny', 7, '2026-07-16', 'uploads/articles/1784189910_main_6a5893d61dc1a.jpg', '<p>Perpustakaan jalanan di Kota Tegal menjadi gerakan literasi yang menyenangkan di ruang terbuka seperti Alun-Alun dan Jalan Pancasila. Komunitas lokal seperti Tegal Book Party dan Kanca Tegal secara rutin menggelar lapak baca gratis, mengajak warga membaca bersama.Berikut adalah informasi lengkap tentang gerakan dan fasilitas membaca di Tegal yang bisa Anda kunjungi:</p>\r\n\r\n<b><p>1. Komunitas dan Perpustakaan Jalanan Tegal</b>\r\n\r\nMasyarakat dan anak muda di Tegal menghidupkan budaya membaca dengan cara yang seru dan tidak kaku.</p>\r\n\r\n<li><b>Tegal Book Party</b>: Komunitas yang berdiri sejak 2024 ini rutin mengadakan acara book party di ruang terbuka seperti Alun-Alun Kota Tegal. Konsepnya adalah berkumpul, membaca buku sendiri-sendiri, lalu berbagi cerita dan rekomendasi buku secara santai.</li>\r\n\r\n<li><b>Kanca Tegal (Kawan Baca Tegal)</b>: Lapak baca ini hadir sebagai \"ruang tanpa tembok\". Mereka sering membuka lapak buku gratis di tempat-tempat keramaian. Di sini, pembaca dari berbagai latar belakang bisa saling berdiskusi dan bertukar pikiran.\r\n\r\n</li>\r\n\r\n<b>2. Fasilitas Perpustakaan Daerah (Perpusda) Kota Tegal</b>\r\n\r\n<p>Jika Anda ingin membaca di tempat yang sejuk dan memiliki koleksi lengkap, Anda bisa mengunjungi Perpustakaan Umum Daerah Mr. Besar Martokoesoemo.</p>\r\n\r\n<li><b>Lokas</b>i: Jalan KH. Ahmad Dahlan Nomor 12, Mangkukusuman, Tegal Timur (hanya sekitar 5,5 km dari tempat tinggal Anda di Dukuhturi).</li>\r\n\r\n<li><b>Fasilitas</b>: Memiliki ribuan koleksi buku, ruang baca anak yang nyaman, ruang audio visual, dan akses internet.</li>\r\n\r\n<li><b>Jam Buka</b>: Buka hari Senin sampai Kamis pukul 07.30 - 16.30 WIB, Jumat pukul 07.30 - 15.30 WIB, dan Sabtu pukul 07.30 - 10.30 WIB.</li>\r\n\r\n<b>3. Perpustakaan Keliling dan Pojok Baca</b>\r\n\r\n<p>Pemerintah Kota Tegal juga mendekatkan akses buku ke masyarakat melalui beberapa layanan jemput bola.</p>\r\n\r\n<li><b>Perpustakaan Keliling</b>: Mobil perpustakaan keliling rutin menyambangi sekolah-sekolah dan ruang publik di penjuru Kota Tegal untuk menumbuhkan minat baca sejak dini.</li>\r\n\r\n<li><b>Zona Pojok Baca</b>: Terdapat belasan titik pojok baca yang tersebar di ruang publik Kota Tegal, seperti di area RSUD Kardinah, Lapas, hingga pusat perbelanjaan.</li>', 'uploads/articles/1784189910_support_6a5893d6242e8.jpg', 'JURNALISTIK', 'rejected', 'Artikel sudah pernah diupload, silahkan upload artikel lainnya.', '2026-07-16 08:18:30', '2026-07-17 11:26:18', 0, 'Literasi, Buku, perpustakaan, Gerakan');
 
 -- --------------------------------------------------------
 
@@ -216,8 +294,9 @@ CREATE TABLE `artikel_favorites` (
 --
 
 INSERT INTO `artikel_favorites` (`id`, `user_id`, `artikel_id`, `created_at`, `updated_at`) VALUES
-(1, 7, 2, '2026-07-09 06:58:06', '2026-07-09 06:58:06'),
-(2, 7, 6, '2026-07-09 06:59:05', '2026-07-09 06:59:05');
+(2, 7, 6, '2026-07-09 06:59:05', '2026-07-09 06:59:05'),
+(3, 7, 8, '2026-07-13 17:36:35', '2026-07-13 17:36:35'),
+(4, 7, 13, '2026-07-16 08:16:05', '2026-07-16 08:16:05');
 
 -- --------------------------------------------------------
 
@@ -229,6 +308,7 @@ CREATE TABLE `bukus` (
   `id` bigint UNSIGNED NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `penulis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `penerbit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_halaman` int NOT NULL,
@@ -242,6 +322,15 @@ CREATE TABLE `bukus` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bukus`
+--
+
+INSERT INTO `bukus` (`id`, `foto`, `judul`, `slug`, `penulis`, `penerbit`, `jumlah_halaman`, `sinopsis`, `bahasa`, `kategori`, `isbn`, `tentang_penulis`, `status`, `status_publish`, `created_at`, `updated_at`) VALUES
+(1, 'uploads/books/1783594215_6a4f7ce7c148d.webp', 'Boy Chandra', 'boy-chandra-1', 'Boy Chandra', 'Gramedia', 292, 'Novel ini bergenre romantis dan berfokus pada proses menyembuhkan diri dari patah hati. Kisahnya menarasikan perjalanan seseorang yang mencoba melepaskan masa lalu setelah cintanya dikhianati atau tidak berjalan semestinya. Di tengah rintik hujan dan suasana senja, tokoh utama belajar mengikhlaskan, menata kembali hatinya yang hancur, hingga akhirnya siap membuka lembaran baru untuk cinta yang lebih sehat.', 'Indonesia', 'SASTRA', '362-1280-2144-3535', 'Boy Candra adalah seorang penulis produktif asal Sumatra Barat yang dikenal luas melalui karya-karya fiksi romantis dan kumpulan prosa tentang patah hati serta hubungan anak muda. Sejak memulai karier menulisnya pada tahun 2011, ia telah menerbitkan puluhan buku laris yang sangat populer di kalangan pembaca generasi muda Indonesia.', 'ready', 'publish', '2026-07-09 10:50:15', '2026-07-17 12:00:19'),
+(2, 'uploads/books/1783594319_6a4f7d4f079c8.jpeg', 'Cantik Itu Luka', 'cantik-itu-luka-2', 'Eka Kurniawan', 'Mojok Baca', 299, 'Sebuah karya realisme magis yang berlatar zaman kolonial hingga pasca-kemerdekaan Indonesia di sebuah kota fiktif bernama Halimunda. Ceritanya berpusat pada Dewi Ayu, seorang perempuan indo-Belanda yang dipaksa menjadi pelacur pada masa pendudukan Jepang. Ia melahirkan tiga anak perempuan yang sangat cantik, namun kecantikan itu justru membawa kutukan dan penderitaan bagi mereka. Tragisnya, anak keempat yang ia harapkan lahir buruk rupa agar terhindar dari penderitaan tersebut, justru ia namai \"Cantik\". Novel ini sarat akan kritik sejarah, trauma masa lalu, dan balutan mitos yang kental.', 'Indonesia', 'NOVEL', '1232-244-245-4633', 'Eka Kurniawan adalah sastrawan kontemporer terkemuka Indonesia asal Jawa Barat yang karya-karyanya telah diterjemahkan ke dalam puluhan bahasa asing. Melalui gaya penulisan realisme magis yang kuat dan berani, ia menjadi penulis Indonesia pertama yang berhasil masuk dalam nominasi The Man Booker International Prize pada tahun 2016.', 'ready', 'publish', '2026-07-09 10:51:59', '2026-07-17 12:00:19'),
+(3, 'uploads/books/1783594411_6a4f7dab12cf5.jpg', 'Panta Rhei', 'panta-rhei-3', 'Sandi Firly', 'Narasi', 229, 'Mengangkat filosofi Yunani lama kuno dari Herakleitos yang berarti \"semua mengalir\" atau \"segala sesuatu berubah\", novel ini berlatar belakang kehidupan masyarakat di tepian sungai Kalimantan. Ceritanya mengeksplorasi benturan antara modernitas dan tradisi lokal, serta bagaimana arus waktu mengubah alam, budaya, dan hubungan antarmanusia. Lewat lika-liku kehidupan para tokohnya, pembaca diajak melihat bahwa perubahan adalah satu-satunya hal yang mutlak di dunia ini, mirip seperti air sungai yang terus mengalir dan tidak pernah sama.', 'Indonesia', 'NOVEL', '5342-4643-75434-2434', 'Sandi Firly adalah seorang penulis dan jurnalis asal Kalimantan Selatan yang aktif mengangkat realitas sosial, budaya lokal, dan isu lingkungan hulu sungai Kalimantan ke dalam karya sastra. Selain menulis novel dan cerpen, ia juga mendedikasikan dirinya dalam menghidupkan ekosistem literasi dan komunitas kreatif di daerahnya.', 'ready', 'publish', '2026-07-09 10:53:31', '2026-07-17 12:00:19');
 
 -- --------------------------------------------------------
 
@@ -266,6 +355,72 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ebooks`
+--
+
+CREATE TABLE `ebooks` (
+  `id` bigint UNSIGNED NOT NULL,
+  `judul` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `penulis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `penerbit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tahun_terbit` int NOT NULL,
+  `kategori` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isbn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sinopsis` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah_halaman` int NOT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_pdf` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ebooks`
+--
+
+INSERT INTO `ebooks` (`id`, `judul`, `slug`, `penulis`, `penerbit`, `tahun_terbit`, `kategori`, `isbn`, `sinopsis`, `jumlah_halaman`, `cover`, `file_pdf`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Internet Free Loans', 'internet-free-loans', 'jaka', 'Narasi', 2019, 'TEKNOLOGI', NULL, 'Loans. You\'ll want good ... This can be an advantage in assisting you to budget for your purchases if you do not want credit or an interest-free loan.', 12, 'ebook-cover/O6VlCkl7v1tllInWeO6QNuSudDBDXsT6we3WanlS.png', 'ebooks/RyHxc3xovckvtKp45yoLWjc6FDoFHNV4nCjWhKJn.pdf', 'aktif', '2026-07-14 16:32:48', '2026-07-14 16:32:48'),
+(4, 'Total Resistance', 'total-resistance', 'Major H. von Dach Bern', 'PALADIN Press', 1957, 'SEJARAH', '362-1280-2144-3535', 'Ditulis di era Perang Dingin, buku ini awalnya dirancang untuk mempersiapkan populasi Swiss menghadapi potensi invasi dan pendudukan oleh pasukan Blok Timur (Pakta Warsawa). Prinsip utamanya adalah: jika tentara reguler suatu negara telah kalah atau wilayahnya telah diduduki musuh, perjuangan tidak boleh berhenti. Perlawanan total harus dilanjutkan secara mandiri oleh rakyat.', 93, 'ebook-cover/3ONkejfmKrWLN1oms9HlvSl1jK49Qex7HNYKxbCz.jpg', 'ebooks/6a5b360c121d65.47287624_Total Resistance.pdf', 'aktif', '2026-07-18 08:15:16', '2026-07-18 08:15:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ebook_peminjaman`
+--
+
+CREATE TABLE `ebook_peminjaman` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `ebook_id` bigint UNSIGNED NOT NULL,
+  `tanggal_pinjam` date NOT NULL,
+  `tanggal_jatuh_tempo` date NOT NULL,
+  `tanggal_selesai` date DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_page` int NOT NULL DEFAULT '1',
+  `progress_persen` int NOT NULL DEFAULT '0',
+  `rating` int DEFAULT NULL,
+  `review` text COLLATE utf8mb4_unicode_ci,
+  `review_at` timestamp NULL DEFAULT NULL,
+  `catatan_admin` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ebook_peminjaman`
+--
+
+INSERT INTO `ebook_peminjaman` (`id`, `user_id`, `ebook_id`, `tanggal_pinjam`, `tanggal_jatuh_tempo`, `tanggal_selesai`, `status`, `last_page`, `progress_persen`, `rating`, `review`, `review_at`, `catatan_admin`, `created_at`, `updated_at`) VALUES
+(1, 7, 1, '2026-07-14', '2026-07-21', '2026-07-15', 'Selesai', 4, 100, 4, 'not bad, lumayan buat nambah nambah info', '2026-07-15 04:11:13', NULL, '2026-07-14 16:34:22', '2026-07-15 04:11:13'),
+(2, 7, 1, '2026-07-15', '2026-07-22', NULL, 'Ditolak', 1, 0, NULL, NULL, NULL, 'dalam antrian', '2026-07-15 04:13:57', '2026-07-15 04:15:17'),
+(3, 7, 1, '2026-07-16', '2026-07-23', '2026-07-16', 'Selesai', 4, 100, 5, 'ga bosen bosen baca ebook nya', '2026-07-16 08:26:15', 'selamat baca yah', '2026-07-16 08:24:38', '2026-07-16 08:26:15'),
+(7, 7, 4, '2026-07-18', '2026-07-25', NULL, 'Dipinjam', 10, 11, NULL, NULL, NULL, NULL, '2026-07-18 08:17:16', '2026-07-18 08:18:12');
 
 -- --------------------------------------------------------
 
@@ -296,6 +451,13 @@ CREATE TABLE `favorites` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `user_id`, `buku_id`, `created_at`, `updated_at`) VALUES
+(1, 7, 2, '2026-07-10 15:05:02', '2026-07-10 15:05:02');
 
 -- --------------------------------------------------------
 
@@ -365,7 +527,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2026_07_09_133145_add_views_to_artikels_table', 8),
 (21, '2026_07_09_135434_add_artikel_id_to_favorites_table', 9),
 (22, '2026_07_09_135442_add_keywords_to_artikels_table', 9),
-(23, '2026_07_09_135510_create_artikel_favorites_table', 9);
+(23, '2026_07_09_135510_create_artikel_favorites_table', 9),
+(24, '2026_07_14_000000_create_ebooks_table', 10),
+(25, '2026_07_14_000001_create_ebook_peminjaman_table', 10),
+(26, '2026_07_15_105438_add_status_menunggu_to_ebook_peminjaman_table', 11),
+(27, '2026_07_15_170000_add_alasan_ditolak_to_artikels_table', 12),
+(28, '2026_07_17_181823_add_slug_to_artikels_table', 13),
+(29, '2026_07_17_185913_add_slug_to_bukus_and_generate', 14),
+(30, '2026_07_17_185941_populate_missing_artikel_slugs', 14);
 
 -- --------------------------------------------------------
 
@@ -399,6 +568,15 @@ CREATE TABLE `peminjamans` (
   `resensi_isi` text COLLATE utf8mb4_unicode_ci,
   `denda_dibayar` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `peminjamans`
+--
+
+INSERT INTO `peminjamans` (`id`, `user_id`, `buku_id`, `tanggal_pinjam`, `tanggal_kembali`, `tanggal_dikembalikan`, `status`, `created_at`, `updated_at`, `resensi_rating`, `resensi_isi`, `denda_dibayar`) VALUES
+(1, 7, 3, '2026-07-09', '2026-07-10', '2026-07-11', 'selesai', '2026-07-09 11:10:08', '2026-07-11 10:56:28', 4, 'menarik, baru pertama kali baca novel type gini.', 1000),
+(2, 7, 2, '2026-07-12', '2026-07-13', '2026-07-16', 'selesai', '2026-07-12 09:52:58', '2026-07-16 08:23:14', 5, 'rekomended sih, sampe telat balikinnya saking serunya. thanks min', 3000),
+(3, 7, 3, '2026-07-14', '2026-07-15', '2026-07-14', 'selesai', '2026-07-13 18:36:41', '2026-07-13 18:38:02', 4, 'seruu ceritanya', 0);
 
 -- --------------------------------------------------------
 
@@ -448,7 +626,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('GmluHs2LaLQnHPszpF1cKRmQJeqSh2Hk9SQyrtBZ', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 'eyJfdG9rZW4iOiJ5TFZzaFpvRm9UYXBDWWJKRVVoNGx4NXdPZk56NVNFODlhU3RuOFphIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9hZG1pblwvc2V0dGluZ1wvYmFja3VwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImFkbWluX2xvZ2dlZF9pbiI6dHJ1ZSwiYWRtaW5fdXNlcm5hbWUiOiJhZG1pbjEiLCJhZG1pbl9mdWxsbmFtZSI6IlppZG55IElsbWFuIiwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjd9', 1783580817);
+('5w2IfpebzFL57O7ZvxrYBGizBgJqwr7tIZUn8vIo', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJSdTBHZ0JMSk0zS3NMVUk1eXZTeFBOOTJxa1JoUk9LMHpBSzE0eDF4IiwiX2ZsYXNoIjp7Im5ldyI6W10sIm9sZCI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvMTI3LjAuMC4xOjgwMDAiLCJyb3V0ZSI6bnVsbH0sImFkbWluX2xvZ2dlZF9pbiI6dHJ1ZSwiYWRtaW5fdXNlcm5hbWUiOiJhZG1pbjEiLCJhZG1pbl9mdWxsbmFtZSI6IlppZG55IElsbWFuIiwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjd9', 1784365522);
 
 -- --------------------------------------------------------
 
@@ -469,20 +647,20 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
-(1, 'hero_title', 'NYILIH | KANCA TEGAL', '2026-06-26 10:11:56', '2026-06-26 10:28:43'),
-(2, 'hero_subtitle', 'NETWORKED YIELDING INFORMATION FOR LITERACY HUB -  Menghubungkan manusia, buku, dan gagasan dalam satu ekosistem literasi tempat pengetahuan dipinjamkan, dibagikan, diperdebatkan, dan diubah menjadi gerakan bersama.', '2026-06-26 10:11:56', '2026-06-26 10:28:43'),
+(1, 'hero_title', 'NYILIH | KANCA TEGAL', '2026-06-26 10:11:56', '2026-07-14 15:36:31'),
+(2, 'hero_subtitle', 'NETWORKED YIELDING INFORMATION FOR LITERACY HUB - Menghubungkan manusia, buku, dan gagasan dalam satu ekosistem literasi tempat pengetahuan dipinjamkan, dibagikan, diperdebatkan, dan diubah menjadi gerakan bersama.', '2026-06-26 10:11:56', '2026-07-14 15:36:31'),
 (3, 'schedule_info', 'Kanca Tegal open 20.00 - Ngantuk!!', '2026-06-26 10:11:56', '2026-06-26 10:28:43'),
 (4, 'map_label', 'LAPAK KAMI: Alun-alun Kota Tegal Sebelah Utara', '2026-06-26 10:11:56', '2026-06-26 10:28:43'),
 (5, 'map_embed_url', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7922.386473390957!2d109.13534337403283!3d-6.867433293131199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb77fd6964c41%3A0xde71bfa145f23be!2sAlun-Alun%20Tegal%2C%20Mangkukusuman%2C%20Kec.%20Tegal%20Tim.%2C%20Kota%20Tegal%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1782495189661!5m2!1sid!2sid', '2026-06-26 10:11:56', '2026-06-26 10:33:36'),
 (6, 'site_title', 'Nyilih | Kanca Tegal', '2026-06-26 11:34:56', '2026-06-26 11:38:38'),
-(7, 'default_language', 'id', '2026-06-26 11:34:56', '2026-07-08 00:36:34'),
-(8, 'maintenance_mode', '0', '2026-06-26 11:34:56', '2026-07-09 06:08:31'),
+(7, 'default_language', 'id', '2026-06-26 11:34:56', '2026-07-15 08:56:38'),
+(8, 'maintenance_mode', '0', '2026-06-26 11:34:56', '2026-07-10 15:08:01'),
 (9, 'admin_fullname', 'Zidny Ilman', '2026-06-26 11:34:56', '2026-06-29 12:09:02'),
 (10, 'admin_username', 'admin1', '2026-06-26 11:34:56', '2026-06-29 12:09:02'),
 (11, 'loan_limit', '2', '2026-06-26 11:34:56', '2026-06-30 10:49:01'),
-(12, 'loan_duration', '1', '2026-06-26 11:34:56', '2026-07-08 11:09:21'),
+(12, 'loan_duration', '1', '2026-06-26 11:34:56', '2026-07-13 18:43:04'),
 (13, 'late_fine_rate', '1000', '2026-06-26 11:34:56', '2026-06-26 11:34:56'),
-(14, 'grace_period', '1', '2026-06-26 11:34:56', '2026-07-08 11:09:21'),
+(14, 'grace_period', '0', '2026-06-26 11:34:56', '2026-07-11 10:52:48'),
 (15, 'wa_template_register', 'Halo {name}, pendaftaran Anda di Kanca Tegal berhasil!', '2026-06-26 11:34:56', '2026-06-26 11:34:56'),
 (16, 'wa_template_borrow', 'Halo {name}, peminjaman buku {title} berhasil. Harap kembalikan sebelum {due_date}.', '2026-06-26 11:34:57', '2026-06-26 11:34:57'),
 (17, 'wa_template_overdue', 'Halo {name}, peminjaman buku {title} telah terlambat. Denda saat ini adalah {fine}. Harap segera kembalikan.', '2026-06-26 11:34:57', '2026-06-26 11:34:57'),
@@ -491,11 +669,12 @@ INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
 (20, 'admin2_fullname', 'Irfan Maulana', '2026-06-29 12:09:02', '2026-06-29 12:09:02'),
 (21, 'admin2_username', 'admin2', '2026-06-29 12:09:02', '2026-06-29 12:09:02'),
 (22, 'hero_image', 'uploads/landing/1782812149_6a438df5b3d6d.jpg', '2026-06-30 02:35:49', '2026-06-30 02:35:49'),
-(23, 'popup_status', '0', '2026-07-08 03:03:50', '2026-07-08 03:05:20'),
+(23, 'popup_status', '0', '2026-07-08 03:03:50', '2026-07-10 15:10:43'),
 (24, 'popup_buka_image', 'uploads/landing/popup_buka_1783505030_6a4e20864923f.jpg', '2026-07-08 03:03:50', '2026-07-08 03:03:50'),
 (25, 'popup_tutup_image', 'uploads/landing/popup_tutup_1783505030_6a4e20864e3ed.jpg', '2026-07-08 03:03:50', '2026-07-08 03:03:50'),
-(26, 'popup_active_type', 'tutup', '2026-07-08 03:04:31', '2026-07-08 03:04:31'),
-(27, 'wa_api_token', 'VuYtSiZ1GNDuXdGAMHy9', '2026-07-08 03:18:44', '2026-07-08 03:18:44');
+(26, 'popup_active_type', 'tutup', '2026-07-08 03:04:31', '2026-07-10 15:10:19'),
+(27, 'wa_api_token', 'VuYtSiZ1GNDuXdGAMHy9', '2026-07-08 03:18:44', '2026-07-08 03:18:44'),
+(28, 'ebook_loan_duration', '7', '2026-07-15 08:56:38', '2026-07-15 08:56:38');
 
 -- --------------------------------------------------------
 
@@ -524,12 +703,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `whatsapp`, `email`, `alamat`, `email_verified_at`, `password`, `can_borrow`, `can_upload_artikel`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Riana Kusuma', '0898765456780', 'riana@example.com', 'Jl. Pancasila No. 12, Tegal', NULL, '$2y$12$4jEv/hb2YmBQFZ4IHdacb.bQ2.Z6AhMtfr7V7rQ1gJ8UKUWYjp/e.', 1, 0, 'active', NULL, '2026-06-26 00:53:55', '2026-06-29 09:35:14'),
-(2, 'Ahmad Fauzi', '0878675456790', 'ahmad@example.com', 'Jl. Ahmad Yani No. 45, Tegal', NULL, '$2y$12$ifbU6DzCuCTZ1j6eN698gOTVDHGjlg0MfJyUSzWVLV3X3aKN5mFJe', 1, 1, 'active', NULL, '2026-06-26 00:53:55', '2026-06-26 00:53:55'),
-(3, 'Siti Aminah', '0898765432123', 'siti@example.com', 'Jl. Diponegoro No. 8, Tegal', NULL, '$2y$12$M6b6bSyNp1OQqe8V2titEOd4IRIS984i3pTnWYcCmHKdaDLAIqCKe', 0, 0, 'suspended', NULL, '2026-06-26 00:53:55', '2026-06-26 00:53:55'),
-(5, 'Test User', '081234567890', 'test@example.com', 'Jl. Martoloyo No. 3, Tegal', NULL, '$2y$12$88LMs1jvAMVZb.jDx2tgkOBzduVKj12FCjrb92glXow6GOfG3rEAi', 1, 1, 'active', NULL, '2026-06-26 00:53:55', '2026-06-26 00:53:55'),
-(7, 'zidny', '0895324606014', NULL, 'jl raya karanganyar', NULL, '$2y$12$JIKeB19tbtiH/OeHCJ0rM.C6u4YD0B9u2LBbhdmjiL/lZ7a5Q5Klm', 1, 1, 'active', NULL, '2026-06-26 13:12:18', '2026-07-09 06:12:03'),
-(8, 'Annisa', '+6281325344193', NULL, 'Jl. Halmahera 2 rt 11 rw 11', NULL, '$2y$12$uWAsAzRPM89IbyoDO5fnOONfDO.b.wdQw0efCXkFT/nCiR9Ktoiki', 1, 0, 'active', NULL, '2026-07-08 03:56:15', '2026-07-08 03:56:15');
+(1, 'Riana Kusuma', '0898765456780', 'riana@example.com', 'Jl. Pancasila No. 12, Tegal', NULL, '$2y$12$4jEv/hb2YmBQFZ4IHdacb.bQ2.Z6AhMtfr7V7rQ1gJ8UKUWYjp/e.', 1, 0, 'active', NULL, '2026-06-26 00:53:55', '2026-07-15 04:28:01'),
+(2, 'Ahmad Fauzi', '0878675456790', 'ahmad@example.com', 'Jl. Ahmad Yani No. 45, Tegal', NULL, '$2y$12$ifbU6DzCuCTZ1j6eN698gOTVDHGjlg0MfJyUSzWVLV3X3aKN5mFJe', 1, 1, 'active', NULL, '2026-06-26 00:53:55', '2026-07-15 04:28:01'),
+(7, 'zidny', '0895324606014', NULL, 'jl raya karanganyar', NULL, '$2y$12$JIKeB19tbtiH/OeHCJ0rM.C6u4YD0B9u2LBbhdmjiL/lZ7a5Q5Klm', 1, 1, 'active', NULL, '2026-06-26 13:12:18', '2026-07-15 04:28:01'),
+(8, 'Annisa', '081325344193', NULL, 'Jl. Halmahera 2 rt 11 rw 11', NULL, '$2y$12$uWAsAzRPM89IbyoDO5fnOONfDO.b.wdQw0efCXkFT/nCiR9Ktoiki', 1, 0, 'active', NULL, '2026-07-08 03:56:15', '2026-07-15 04:28:01');
 
 --
 -- Indexes for dumped tables
@@ -546,6 +723,7 @@ ALTER TABLE `admin_logs`
 --
 ALTER TABLE `artikels`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `artikels_slug_unique` (`slug`),
   ADD KEY `artikels_user_id_foreign` (`user_id`);
 
 --
@@ -560,7 +738,8 @@ ALTER TABLE `artikel_favorites`
 -- Indexes for table `bukus`
 --
 ALTER TABLE `bukus`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bukus_slug_unique` (`slug`);
 
 --
 -- Indexes for table `cache`
@@ -575,6 +754,20 @@ ALTER TABLE `cache`
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`),
   ADD KEY `cache_locks_expiration_index` (`expiration`);
+
+--
+-- Indexes for table `ebooks`
+--
+ALTER TABLE `ebooks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ebook_peminjaman`
+--
+ALTER TABLE `ebook_peminjaman`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ebook_peminjaman_user_id_foreign` (`user_id`),
+  ADD KEY `ebook_peminjaman_ebook_id_foreign` (`ebook_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -662,25 +855,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_logs`
 --
 ALTER TABLE `admin_logs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 
 --
 -- AUTO_INCREMENT for table `artikels`
 --
 ALTER TABLE `artikels`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `artikel_favorites`
 --
 ALTER TABLE `artikel_favorites`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bukus`
 --
 ALTER TABLE `bukus`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `ebooks`
+--
+ALTER TABLE `ebooks`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ebook_peminjaman`
+--
+ALTER TABLE `ebook_peminjaman`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -692,7 +897,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -704,13 +909,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `peminjamans`
 --
 ALTER TABLE `peminjamans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -722,13 +927,13 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -746,6 +951,13 @@ ALTER TABLE `artikels`
 ALTER TABLE `artikel_favorites`
   ADD CONSTRAINT `artikel_favorites_artikel_id_foreign` FOREIGN KEY (`artikel_id`) REFERENCES `artikels` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `artikel_favorites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ebook_peminjaman`
+--
+ALTER TABLE `ebook_peminjaman`
+  ADD CONSTRAINT `ebook_peminjaman_ebook_id_foreign` FOREIGN KEY (`ebook_id`) REFERENCES `ebooks` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ebook_peminjaman_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `favorites`
