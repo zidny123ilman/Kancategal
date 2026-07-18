@@ -272,7 +272,7 @@
                                 <div class="progress-bar-fill" style="width: {{ $activeLoan->progress_persen }}%;"></div>
                             </div>
                         </div>
-                        <a href="{{ url('/ebook/' . $ebook->id . '/read') }}" class="btn-main-action" style="background-color: #1a56db; border-color: #1a56db; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">
+                        <a href="{{ route('ebook.read', $ebook->slug) }}" class="btn-main-action" style="background-color: #1a56db; border-color: #1a56db; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">
                             <i class="fas fa-book-open"></i> BACA SEKARANG
                         </a>
                     </div>

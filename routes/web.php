@@ -149,7 +149,7 @@ Route::get('/ebook', [EbookController::class, 'index'])->name('ebook.index');
 // agar tidak tertangkap sebagai slug parameter
 Route::middleware('auth')->group(function () {
     Route::get('/ebook/riwayat', [EbookController::class, 'riwayat'])->name('ebook.riwayat');
-    Route::post('/ebook/{id}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
+    Route::post('/ebook/{slug}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
     Route::post('/ebook/{id}/update-progress', [EbookController::class, 'updateProgress'])->name('ebook.update-progress');
     Route::post('/ebook/peminjaman/{id}/review', [EbookController::class, 'review'])->name('ebook.review');
 });
@@ -157,8 +157,8 @@ Route::middleware('auth')->group(function () {
 // Route membaca ebook — dilindungi EbookAccess middleware
 // (cek login + peminjaman aktif status Dipinjam + belum kadaluarsa)
 Route::middleware('ebook.access')->group(function () {
-    Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');
-    Route::get('/ebook/{id}/pdf',  [EbookController::class, 'streamPdf'])->name('ebook.pdf');
+    Route::get('/ebook/{slug}/read', [EbookController::class, 'read'])->name('ebook.read');
+    Route::get('/ebook/{slug}/pdf',  [EbookController::class, 'streamPdf'])->name('ebook.pdf');
 });
 Route::get('/ebook/{slug}', [EbookController::class, 'show'])->name('ebook.show');
 

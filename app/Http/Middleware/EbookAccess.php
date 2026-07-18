@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Ebook;
 use App\Models\EbookPeminjaman;
 use Carbon\Carbon;
 use Closure;
@@ -24,8 +25,18 @@ class EbookAccess
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu untuk membaca E-Book.');
         }
 
-        // 2. Ambil ebook id dari route parameter (bisa bernama 'id')
-        $ebookId = $request->route('id');
+        // 2. Resolve ebook dari slug
+        $slug = $request->route('slug');
+        $ebook = Ebook::where('slug', $slug)->first();
+
+        if (!$ebook) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'E-Book tidak ditemukan.'], 404);
+            }
+            abort(404);
+        }
+
+        $ebookId = $ebook->id;
 
         // 3. Cari peminjaman aktif milik user untuk ebook ini
         $peminjaman = EbookPeminjaman::where('user_id', Auth::id())

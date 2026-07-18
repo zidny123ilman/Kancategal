@@ -298,7 +298,7 @@
     <!-- Header Toolbar -->
     <header class="viewer-header">
         <div class="header-left">
-            <a href="{{ route('ebook.show', $ebook->id) }}" class="btn-back">
+            <a href="{{ route('ebook.show', $ebook->slug) }}" class="btn-back">
                 <i class="fas fa-chevron-left"></i> <span>Kembali</span>
             </a>
             <span class="book-title">{{ $ebook->judul }}</span>
@@ -363,7 +363,7 @@
 
         // Viewer state variables
         const ebookId = {{ $ebook->id }};
-        const pdfUrl = "{{ route('ebook.pdf', $ebook->id) }}";
+        const pdfUrl = "{{ route('ebook.pdf', $ebook->slug) }}";
         let pdfDoc = null;
         let pageNum = {{ $peminjaman->last_page }};
         let pageRendering = false;
@@ -422,7 +422,7 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
                         <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">Gagal Memuat Dokumen</h3>
                         <p style="color: #aaa; max-width: 400px; line-height: 1.5;">${err.message}</p>
-                        <a href="{{ route('ebook.show', $ebook->id) }}" style="display: inline-block; margin-top: 1.5rem; background-color: #1a56db; color: white; padding: 0.6rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 700;">Kembali ke Detail</a>
+                        <a href="{{ route('ebook.show', $ebook->slug) }}" style="display: inline-block; margin-top: 1.5rem; background-color: #1a56db; color: white; padding: 0.6rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 700;">Kembali ke Detail</a>
                     </div>
                 `;
                 loaderOverlay.style.display = 'flex';

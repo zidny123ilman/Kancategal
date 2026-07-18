@@ -113,7 +113,7 @@ class EbookController extends Controller
     /**
      * Handle user request to borrow an ebook.
      */
-    public function pinjam($id)
+    public function pinjam($slug)
     {
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'Silakan login terlebih dahulu untuk meminjam E-Book.');
@@ -126,7 +126,7 @@ class EbookController extends Controller
             return redirect()->back()->with('error', 'Akun Anda sedang ditangguhkan. Hubungi admin.');
         }
 
-        $ebook = Ebook::where('status', 'aktif')->findOrFail($id);
+        $ebook = Ebook::where('status', 'aktif')->where('slug', $slug)->firstOrFail();
 
         // Check if there is already an active or pending loan for the same ebook
         $existingActive = EbookPeminjaman::where('user_id', $user->id)
@@ -169,13 +169,13 @@ class EbookController extends Controller
     /**
      * Serve the secure PDF viewer.
      */
-    public function read(Request $request, $id)
+    public function read(Request $request, $slug)
     {
         // Pengecekan akses sudah ditangani oleh middleware EbookAccess.
         // Middleware menginjeksi objek peminjaman yang valid ke dalam request.
         EbookPeminjaman::checkAndUpdateExpired();
 
-        $ebook      = Ebook::findOrFail($id);
+        $ebook      = Ebook::where('slug', $slug)->firstOrFail();
         $peminjaman = $request->_peminjaman;
 
         return view('pages.ebook.viewer', compact('ebook', 'peminjaman'));
@@ -184,10 +184,10 @@ class EbookController extends Controller
     /**
      * Stream the secure PDF file to the browser.
      */
-    public function streamPdf(Request $request, $id)
+    public function streamPdf(Request $request, $slug)
     {
         // Pengecekan akses sudah ditangani oleh middleware EbookAccess.
-        $ebook  = Ebook::findOrFail($id);
+        $ebook  = Ebook::where('slug', $slug)->firstOrFail();
         $pdfKey = $ebook->file_pdf;
 
         if (!$pdfKey || !Storage::disk('b2')->exists($pdfKey)) {
