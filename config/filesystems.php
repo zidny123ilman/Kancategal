@@ -60,6 +60,32 @@ return [
             'report' => false,
         ],
 
+        /*
+         * Backblaze B2 — S3 Compatible Storage
+         *
+         * Gunakan Application Key ID sebagai 'key' dan
+         * Application Key sebagai 'secret'.
+         * Endpoint tersedia di halaman Bucket Backblaze B2 Anda.
+         * use_path_style_endpoint HARUS true untuk Backblaze B2.
+         */
+        'b2' => [
+            'driver'                  => 's3',
+            'key'                     => env('B2_KEY_ID'),
+            'secret'                  => env('B2_APPLICATION_KEY'),
+            'region'                  => env('B2_REGION', 'us-east-005'),
+            'bucket'                  => env('B2_BUCKET_NAME'),
+            'endpoint'                => env('B2_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            'visibility'              => 'private',
+            'throw'                   => true,
+            'report'                  => false,
+            // B2_VERIFY_SSL=false hanya untuk lokal jika cacert.pem bermasalah.
+            // Jangan set false di production/VPS.
+            'http'                    => [
+                'verify' => env('B2_VERIFY_SSL', true),
+            ],
+        ],
+
     ],
 
     /*

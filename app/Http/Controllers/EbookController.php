@@ -169,34 +169,14 @@ class EbookController extends Controller
     /**
      * Serve the secure PDF viewer.
      */
-    public function read($id)
+    public function read(Request $request, $id)
     {
-        // Run expiry checks
+        // Pengecekan akses sudah ditangani oleh middleware EbookAccess.
+        // Middleware menginjeksi objek peminjaman yang valid ke dalam request.
         EbookPeminjaman::checkAndUpdateExpired();
 
-        if (!Auth::check()) {
-            return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
-        }
-
-        $user = Auth::user();
-        $ebook = Ebook::findOrFail($id);
-
-        // Check active loan
-        $peminjaman = EbookPeminjaman::where('user_id', $user->id)
-            ->where('ebook_id', $id)
-            ->where('status', 'Dipinjam')
-            ->first();
-
-        if (!$peminjaman) {
-            return redirect()->route('ebook.show', $id)->with('error', 'Anda tidak memiliki akses aktif untuk membaca E-Book ini. Silakan pinjam terlebih dahulu.');
-        }
-
-        // Double check expiration dates just in case
-        if (Carbon::today()->greaterThan(Carbon::parse($peminjaman->tanggal_jatuh_tempo))) {
-            $peminjaman->status = 'Kadaluarsa';
-            $peminjaman->save();
-            return redirect()->route('ebook.show', $id)->with('error', 'Akses E-Book Anda telah kadaluarsa.');
-        }
+        $ebook      = Ebook::findOrFail($id);
+        $peminjaman = $request->_peminjaman;
 
         return view('pages.ebook.viewer', compact('ebook', 'peminjaman'));
     }
@@ -204,51 +184,23 @@ class EbookController extends Controller
     /**
      * Stream the secure PDF file to the browser.
      */
-    public function streamPdf($id)
+    public function streamPdf(Request $request, $id)
     {
-        if (!Auth::check()) {
-            return response()->json(['error' => 'Unauthenticated'], 401);
-        }
+        // Pengecekan akses sudah ditangani oleh middleware EbookAccess.
+        $ebook  = Ebook::findOrFail($id);
+        $pdfKey = $ebook->file_pdf;
 
-        $user = Auth::user();
-        $ebook = Ebook::findOrFail($id);
-
-        // Check if there is an active loan
-        $peminjaman = EbookPeminjaman::where('user_id', $user->id)
-            ->where('ebook_id', $id)
-            ->where('status', 'Dipinjam')
-            ->first();
-
-        if (!$peminjaman) {
-            return response()->json(['error' => 'Anda tidak memiliki hak akses untuk membaca E-Book ini.'], 403);
-        }
-
-        if (Carbon::today()->greaterThan(Carbon::parse($peminjaman->tanggal_jatuh_tempo))) {
-            $peminjaman->status = 'Kadaluarsa';
-            $peminjaman->save();
-            return response()->json(['error' => 'Masa akses E-Book Anda telah berakhir.'], 403);
-        }
-
-        // Resolve file path using the 'public' disk
-        $storedPath = $ebook->file_pdf;
-        $disk = Storage::disk('public');
-
-        // Try stored path as-is, then fallback to just the basename inside ebooks/
-        if ($disk->exists($storedPath)) {
-            $resolvedPath = $storedPath;
-        } elseif ($disk->exists('ebooks/' . basename($storedPath))) {
-            $resolvedPath = 'ebooks/' . basename($storedPath);
-        } else {
+        if (!$pdfKey || !Storage::disk('b2')->exists($pdfKey)) {
             return response()->json([
-                'error' => 'File E-Book tidak ditemukan di server. Silakan hubungi admin.'
+                'error' => 'File E-Book tidak ditemukan di server. Silakan hubungi admin.',
             ], 404);
         }
 
-        $fileContent = $disk->get($resolvedPath);
+        $fileContent = Storage::disk('b2')->get($pdfKey);
         return response($fileContent, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . basename($storedPath) . '"',
-            'Cache-Control' => 'no-store, no-cache, must-revalidate',
+            'Content-Type'           => 'application/pdf',
+            'Content-Disposition'    => 'inline; filename="' . basename($pdfKey) . '"',
+            'Cache-Control'          => 'no-store, no-cache, must-revalidate',
             'X-Content-Type-Options' => 'nosniff',
         ]);
     }

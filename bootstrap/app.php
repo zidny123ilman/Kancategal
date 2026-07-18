@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+            'admin.auth'    => \App\Http\Middleware\AdminAuth::class,
+            'ebook.access'  => \App\Http\Middleware\EbookAccess::class,
         ]);
         $middleware->append(\App\Http\Middleware\MaintenanceCheck::class);
     })

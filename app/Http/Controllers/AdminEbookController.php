@@ -166,14 +166,17 @@ class AdminEbookController extends Controller
             $data['kategori'] = strtoupper($data['kategori']);
         }
 
-        // Handle cover file upload
+        // Handle cover file upload — tetap di storage public lokal
         if ($request->hasFile('cover')) {
             $data['cover'] = $request->file('cover')->store('ebook-cover', 'public');
         }
 
-        // Handle pdf file upload
+        // Handle pdf file upload — disimpan ke Backblaze B2
         if ($request->hasFile('file_pdf')) {
-            $data['file_pdf'] = $request->file('file_pdf')->store('ebooks', 'public');
+            $pdfFile = $request->file('file_pdf');
+            $pdfKey  = 'ebooks/' . uniqid('', true) . '_' . $pdfFile->getClientOriginalName();
+            Storage::disk('b2')->putFileAs('', $pdfFile, $pdfKey);
+            $data['file_pdf'] = $pdfKey;
         }
 
         // Generate slug
@@ -245,7 +248,7 @@ class AdminEbookController extends Controller
             $data['kategori'] = strtoupper($data['kategori']);
         }
 
-        // Handle cover update
+        // Handle cover update — tetap di storage public lokal
         if ($request->hasFile('cover')) {
             if ($ebook->cover) {
                 Storage::disk('public')->delete($ebook->cover);
@@ -253,12 +256,15 @@ class AdminEbookController extends Controller
             $data['cover'] = $request->file('cover')->store('ebook-cover', 'public');
         }
 
-        // Handle pdf update
+        // Handle pdf update — upload baru ke B2, hapus lama dari B2
         if ($request->hasFile('file_pdf')) {
             if ($ebook->file_pdf) {
-                Storage::disk('public')->delete($ebook->file_pdf);
+                Storage::disk('b2')->delete($ebook->file_pdf);
             }
-            $data['file_pdf'] = $request->file('file_pdf')->store('ebooks', 'public');
+            $pdfFile = $request->file('file_pdf');
+            $pdfKey  = 'ebooks/' . uniqid('', true) . '_' . $pdfFile->getClientOriginalName();
+            Storage::disk('b2')->putFileAs('', $pdfFile, $pdfKey);
+            $data['file_pdf'] = $pdfKey;
         }
 
         $ebook->update($data);
@@ -281,12 +287,13 @@ class AdminEbookController extends Controller
         $ebook = Ebook::findOrFail($id);
         $title = $ebook->judul;
 
-        // Delete files
+        // Hapus cover dari storage public lokal
         if ($ebook->cover) {
             Storage::disk('public')->delete($ebook->cover);
         }
+        // Hapus PDF dari Backblaze B2
         if ($ebook->file_pdf) {
-            Storage::disk('public')->delete($ebook->file_pdf);
+            Storage::disk('b2')->delete($ebook->file_pdf);
         }
 
         $ebook->delete();

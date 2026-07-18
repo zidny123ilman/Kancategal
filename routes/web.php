@@ -150,10 +150,58 @@ Route::get('/ebook', [EbookController::class, 'index'])->name('ebook.index');
 Route::middleware('auth')->group(function () {
     Route::get('/ebook/riwayat', [EbookController::class, 'riwayat'])->name('ebook.riwayat');
     Route::post('/ebook/{id}/pinjam', [EbookController::class, 'pinjam'])->name('ebook.pinjam');
-    Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');
-    Route::get('/ebook/{id}/pdf', [EbookController::class, 'streamPdf'])->name('ebook.pdf');
     Route::post('/ebook/{id}/update-progress', [EbookController::class, 'updateProgress'])->name('ebook.update-progress');
     Route::post('/ebook/peminjaman/{id}/review', [EbookController::class, 'review'])->name('ebook.review');
 });
+
+// Route membaca ebook — dilindungi EbookAccess middleware
+// (cek login + peminjaman aktif status Dipinjam + belum kadaluarsa)
+Route::middleware('ebook.access')->group(function () {
+    Route::get('/ebook/{id}/read', [EbookController::class, 'read'])->name('ebook.read');
+    Route::get('/ebook/{id}/pdf',  [EbookController::class, 'streamPdf'])->name('ebook.pdf');
+});
 Route::get('/ebook/{slug}', [EbookController::class, 'show'])->name('ebook.show');
 
+/*
+|--------------------------------------------------------------------------
+| Route Testing — Backblaze B2
+| HAPUS route ini setelah konfigurasi dikonfirmasi berjalan dengan benar.
+|--------------------------------------------------------------------------
+*/
+Route::get('/test-b2', function () {
+    try {
+        $filename = 'test.txt';
+        $content  = 'Backblaze B2 upload test — ' . now()->toDateTimeString();
+
+        \Illuminate\Support\Facades\Storage::disk('b2')->put($filename, $content);
+
+        $exists = \Illuminate\Support\Facades\Storage::disk('b2')->exists($filename);
+
+        if ($exists) {
+            return response('<p style="font-family:sans-serif;color:green;font-size:18px;">
+                ✅ <strong>Upload Berhasil!</strong><br>
+                File <code>' . $filename . '</code> berhasil diunggah ke bucket Backblaze B2.
+            </p>', 200);
+        }
+
+        return response('<p style="font-family:sans-serif;color:orange;font-size:18px;">
+            ⚠️ File diunggah tetapi tidak dapat diverifikasi keberadaannya.
+        </p>', 500);
+
+    } catch (\Throwable $e) {
+        // Kumpulkan seluruh chain error untuk debugging
+        $messages = [];
+        $current = $e;
+        while ($current !== null) {
+            $messages[] = '[' . get_class($current) . '] ' . $current->getMessage();
+            $current = $current->getPrevious();
+        }
+
+        $output = implode('<br><br>↳ ', array_map('htmlspecialchars', $messages));
+
+        return response('<div style="font-family:monospace;background:#1e1e1e;color:#f8f8f2;padding:20px;font-size:14px;">
+            <p style="color:#ff5555;font-size:16px;">❌ <strong>Upload Gagal — Detail Error:</strong></p>
+            <p>' . $output . '</p>
+        </div>', 500);
+    }
+});
