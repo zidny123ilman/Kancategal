@@ -70,7 +70,17 @@
                         <div class="register-form-group">
                             <label for="no_whatsapp">NOMOR WHATSAPP</label>
                             <input type="tel" id="no_whatsapp" name="no_whatsapp" class="register-input"
-                                placeholder="+62 812..." value="{{ old('no_whatsapp') }}" required autocomplete="tel">
+                                placeholder="Contoh: 08123456789 atau +6281234567"
+                                value="{{ old('no_whatsapp') }}"
+                                inputmode="tel"
+                                maxlength="16"
+                                required autocomplete="tel">
+                            <small id="wa-hint" style="display:block; margin-top:4px; font-size:0.78rem; color:#888;">
+                                Format: 08xx / +628xx / 628xx — hanya angka, 10–13 digit
+                            </small>
+                            <small id="wa-error" style="display:none; margin-top:4px; font-size:0.78rem; color:#c0392b;">
+                                <i class="fas fa-exclamation-circle"></i> Nomor tidak valid. Pastikan hanya angka dan minimal 10 digit.
+                            </small>
                         </div>
 
                         <!-- Alamat Rumah -->
@@ -136,6 +146,65 @@
         </div>
     </footer>
 
+    <script>
+        (function () {
+            const input   = document.getElementById('no_whatsapp');
+            const hint    = document.getElementById('wa-hint');
+            const errMsg  = document.getElementById('wa-error');
+            const form    = input.closest('form');
+
+            /**
+             * Normalize to 08xxxxxxxxx then validate with regex.
+             * Accepts: 08xx, +628xx, 628xx — digits only, 10-13 digits total.
+             */
+            function normalize(val) {
+                let n = val.replace(/[\s\-\.\(\)]/g, '');
+                if (n.startsWith('+')) n = n.slice(1);
+                if (n.startsWith('628')) n = '0' + n.slice(2);
+                else if (n.startsWith('62')) n = '0' + n.slice(2);
+                else if (n.startsWith('8')) n = '0' + n;
+                return n;
+            }
+
+            function isValid(val) {
+                if (!val.trim()) return false;
+                const normalized = normalize(val);
+                return /^08[0-9]{8,11}$/.test(normalized);
+            }
+
+            function validate() {
+                const val = input.value.trim();
+                if (!val) {
+                    input.style.borderColor = '';
+                    hint.style.display  = 'block';
+                    errMsg.style.display = 'none';
+                    return;
+                }
+                if (isValid(val)) {
+                    input.style.borderColor = '#27ae60';
+                    hint.style.display  = 'block';
+                    errMsg.style.display = 'none';
+                } else {
+                    input.style.borderColor = '#c0392b';
+                    hint.style.display  = 'none';
+                    errMsg.style.display = 'block';
+                }
+            }
+
+            input.addEventListener('input', validate);
+            input.addEventListener('blur',  validate);
+
+            form.addEventListener('submit', function (e) {
+                if (!isValid(input.value)) {
+                    e.preventDefault();
+                    input.focus();
+                    input.style.borderColor = '#c0392b';
+                    hint.style.display  = 'none';
+                    errMsg.style.display = 'block';
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>

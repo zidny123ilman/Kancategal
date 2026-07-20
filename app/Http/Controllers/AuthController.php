@@ -52,15 +52,18 @@ class AuthController extends Controller
         ]);
 
         $validator = Validator::make($request->all(), [
-            'nama_lengkap' => 'required|string|max:255',
-            'no_whatsapp' => 'required|string|max:20|unique:users,whatsapp',
-            'alamat_rumah' => 'required|string',
-            'kata_sandi' => 'required|string|min:6',
+            'nama_lengkap'     => 'required|string|max:255',
+            // After normalization, valid Indonesian numbers start with 08 and are 10–13 digits total
+            'no_whatsapp'      => ['required', 'string', 'regex:/^08[0-9]{8,11}$/', 'max:15', 'unique:users,whatsapp'],
+            'alamat_rumah'     => 'required|string',
+            'kata_sandi'       => 'required|string|min:6',
             'konfirmasi_sandi' => 'required|same:kata_sandi',
         ], [
-            'no_whatsapp.unique' => 'Nomor WhatsApp ini sudah terdaftar. Gunakan nomor lain atau masuk ke akun Anda.',
+            'no_whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
+            'no_whatsapp.regex'    => 'Format nomor WhatsApp tidak valid. Gunakan format: 08xx, +628xx, atau 628xx (hanya angka, 10–13 digit).',
+            'no_whatsapp.unique'   => 'Nomor WhatsApp ini sudah terdaftar. Gunakan nomor lain atau masuk ke akun Anda.',
             'konfirmasi_sandi.same' => 'Konfirmasi kata sandi tidak cocok.',
-            'kata_sandi.min' => 'Kata sandi minimal 6 karakter.',
+            'kata_sandi.min'       => 'Kata sandi minimal 6 karakter.',
         ]);
 
         if ($validator->fails()) {
